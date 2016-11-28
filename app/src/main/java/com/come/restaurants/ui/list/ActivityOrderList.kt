@@ -6,25 +6,26 @@ import com.come.restaurants.R
 import com.come.restaurants.order.Order
 import com.come.restaurants.order.OrderLine
 import com.come.restaurants.order.Plate
-import com.come.restaurants.ui.list.adapter.ListViewAdapter
+import com.come.restaurants.ui.list.adapter.OrderListAdapter
 import java.util.*
 
-class ListViewActivity : AppCompatActivity(), ListViewPresenter {
-    override fun showError() {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
+class ActivityOrderList : AppCompatActivity(), OrderListView {
     override fun showLoader() {
         throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun showMessage() {
+    override fun hideLoader() {
         throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun showList() {
+    override fun showEmptyCase() {
         throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override fun showList(orders: List<Order>) {
+        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +38,6 @@ class ListViewActivity : AppCompatActivity(), ListViewPresenter {
         orderLines.add(OrderLine("Linea", 2, examplePlate))
         orderList.add(Order("Bla", "Bla bla", Date().time, orderLines))
 
-        val adapter = ListViewAdapter(orderList)
+        val adapter = OrderListAdapter(orderList)
     }
 }
