@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:id="@+id/orderNumberText"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        tools:text="Numero pedido: "
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:layout_marginRight="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/orderPlatesText"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        tools:text="3x Bocata Chivito"
+        android:layout_below="@+id/orderNumberText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/orderHourText"
+        android:layout_toStartOf="@+id/orderHourText"
+        android:layout_marginTop="20dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/orderHourText"
+        android:layout_above="@+id/orderPlatesText"
+        android:layout_toEndOf="@+id/orderNumberText"
+        tools:text="Hora: 14:27"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAlignment="viewEnd"
+        android:layout_alignParentTop="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/orderHourText"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/orderNumberText"
+        android:layout_toEndOf="@+id/orderNumberText"
+        tools:text="Precio total: 15€"
+        android:layout_marginTop="20dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAlignment="viewEnd" />
+
+</RelativeLayout>
