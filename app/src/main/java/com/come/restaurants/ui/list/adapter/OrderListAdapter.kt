@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.come.restaurants.R
 import com.come.restaurants.order.Order
-import kotlinx.android.synthetic.main.order_detail_layout.view.*
+import kotlinx.android.synthetic.main.order_detail.view.*
 import java.util.*
 
-class ListViewAdapter(val orderList: List<Order>) : RecyclerView.Adapter<ListViewAdapter.ListViewHolder>() {
+class OrderListAdapter(val orderList: List<Order>) : RecyclerView.Adapter<OrderListAdapter.ListViewHolder>() {
     override fun getItemCount(): Int = orderList.size
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
@@ -17,7 +17,7 @@ class ListViewAdapter(val orderList: List<Order>) : RecyclerView.Adapter<ListVie
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.order_detail_layout, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.order_detail, parent, false)
         return ListViewHolder(view)
     }
 
