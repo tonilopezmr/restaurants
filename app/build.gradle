@@ -84,5 +84,5 @@ dependencies {
     compile "com.android.support:design:$build_version"
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.android.support:recyclerview-v7:25.0.1'
+    compile "com.android.support:recyclerview-v7:$build_version "
 }

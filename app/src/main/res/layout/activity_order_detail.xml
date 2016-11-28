@@ -24,7 +24,7 @@
             android:layout_gravity="center">
 
             <TextView
-                android:text="Numero:"
+                android:text="@string/number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView2"
@@ -84,7 +84,7 @@
             android:padding="10dp">
 
             <TextView
-                android:text="Total:"
+                android:text="@string/total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView4"
