@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         var orderLines = ArrayList<OrderLine>()
         val examplePlate = Plate("Plato", "Chivito", 5.0, emptyList())
 
-        orderLines.add(OrderLine("Linea", 2, examplePlate))
+        orderLines.add(OrderLine("Linea", examplePlate, 1))
         orderList.add(Order("Bla", "Bla bla", Date().time, orderLines))
 
         val orderRecyclerView = findViewById(R.id.ordersRecyclerView) as RecyclerView
