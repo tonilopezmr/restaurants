@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.widget.RelativeLayout
 import com.come.restaurants.order.Order
 import com.come.restaurants.order.OrderLine
 import com.come.restaurants.order.Plate
@@ -27,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         orderLines.add(OrderLine("Linea", 2, examplePlate))
         orderList.add(Order("Bla", "Bla bla", Date().time, orderLines))
 
-        val orderRecyclerView = findViewById(R.id.recyclerView) as RecyclerView
+        val orderRecyclerView = findViewById(R.id.ordersRecyclerView) as RecyclerView
         val adapter = ListViewAdapter(orderList)
         orderRecyclerView.layoutManager = LinearLayoutManager(this)
         orderRecyclerView.adapter = adapter
