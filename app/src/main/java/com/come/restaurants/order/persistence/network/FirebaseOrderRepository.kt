@@ -9,7 +9,7 @@ class FirebaseOrderRepository : OrderRepository {
         throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getOrder(id: String): Order {
+    override fun getOrder(id: String): Order? {
         throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
