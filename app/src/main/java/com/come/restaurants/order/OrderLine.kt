@@ -1,3 +1,9 @@
 package com.come.restaurants.order
 
-class OrderLine(id: String, quantity: Int, plate: Plate)
+class OrderLine(val id: String, val quantity: Int, val plate: Plate) {
+
+    fun getPrice(): Double {
+        return plate.price * quantity
+    }
+
+}

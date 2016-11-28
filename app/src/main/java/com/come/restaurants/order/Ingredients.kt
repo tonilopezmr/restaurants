@@ -1,3 +1,3 @@
 package com.come.restaurants.order
 
-class Ingredients(id: String, name: String)
+class Ingredients(val id: String, val name: String)
