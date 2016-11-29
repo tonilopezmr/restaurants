@@ -10,9 +10,7 @@ import kotlinx.android.synthetic.main.order_detail.view.*
 import java.util.*
 
 class OrderListAdapter() : RecyclerView.Adapter<OrderListAdapter.ListViewHolder>() {
-    private val _orderList = mutableListOf<Order>()
-    val orderList : List<Order>
-        get() = _orderList.toList()
+    val orderList = ArrayList<Order>()
 
     override fun getItemCount(): Int = orderList.size
 
@@ -28,7 +26,7 @@ class OrderListAdapter() : RecyclerView.Adapter<OrderListAdapter.ListViewHolder>
     }
 
     fun addAll(orderList: List<Order>) {
-        this._orderList.addAll(orderList)
+        this.orderList.addAll(orderList)
         notifyDataSetChanged()
     }
 
