@@ -4,13 +4,9 @@ import com.come.restaurants.order.Order
 import com.come.restaurants.order.OrderLine
 import com.come.restaurants.order.Plate
 import com.come.restaurants.order.repository.OrderRepository
-import com.come.restaurants.order.usecases.GetOrder
-import com.come.restaurants.order.usecases.GetOrders
-import com.come.restaurants.order.usecases.OrderReceived
-import com.come.restaurants.order.usecases.PrintOrder
+import com.come.restaurants.order.usecases.*
 
 class StubOrderRepository : OrderRepository {
-
     var order = emptyList<Order>()
 
     init {
@@ -39,7 +35,7 @@ class StubOrderRepository : OrderRepository {
         throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun orderPrinted(order: Order, callback: PrintOrder.Callback) {
+    override fun orderPrinted(order: Order, callback: OrderPrinted.Callback) {
         throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

@@ -8,8 +8,9 @@ class OrderReceived(val repository : OrderRepository) {
         fun orderRegistered(order : Order)
         fun error(e : Exception)
     }
+    lateinit private var callback : Callback
     fun send(order: Order) {
-
+        repository.orderReceived(order,callback)
     }
 
 }

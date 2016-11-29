@@ -8,8 +8,9 @@ class OrderPrinted(val repository: OrderRepository) {
         fun orderPrinted(order : Order)
         fun error(e : Exception)
     }
+    lateinit private var callback : Callback
     fun send(order: Order) {
-
+        repository.orderPrinted(order,callback)
     }
 
 }

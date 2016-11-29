@@ -8,8 +8,9 @@ class GetOrders(val repository : OrderRepository) {
         fun ordersReceived(orders: List<Order>)
         fun error(exception: Exception)
     }
+    lateinit private var callback : Callback
     fun get() {
-
+        repository.getOrders(callback)
     }
 
 }
