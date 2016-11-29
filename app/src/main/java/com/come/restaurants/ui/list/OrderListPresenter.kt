@@ -18,7 +18,6 @@ class OrderListPresenter(val getOrders: GetOrders) : MVP.Presenter<OrderListPres
 
     override fun init() {
         view.initUi()
-        view.showLoader()
         requestOrders()
     }
 
