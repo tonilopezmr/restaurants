@@ -1,34 +1,17 @@
 package com.come.restaurants
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import com.come.restaurants.order.Order
-import com.come.restaurants.order.OrderLine
-import com.come.restaurants.order.Plate
-import com.come.restaurants.ui.list.adapter.OrderListAdapter
-import java.util.*
+import com.come.restaurants.ui.list.OrderListActivity
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // super.onCreate(savedInstanceState)
-        // setContentView(R.layout.activity_main)
-
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list_view)
+        setContentView(R.layout.activity_main)
 
-        val orderList = ArrayList<Order>()
-        var orderLines = ArrayList<OrderLine>()
-        val examplePlate = Plate("Plato", "Chivito", 5.0, emptyList())
-
-        orderLines.add(OrderLine("Linea", examplePlate, 2))
-        orderList.add(Order("Bla", "Bla bla", Date().time, orderLines))
-
-        val orderRecyclerView = findViewById(R.id.ordersRecyclerView) as RecyclerView
-        val adapter = OrderListAdapter(orderList)
-        orderRecyclerView.layoutManager = LinearLayoutManager(this)
-        orderRecyclerView.adapter = adapter
+        val intent = Intent(this, OrderListActivity::class.java)
+        startActivity(intent)
     }
 }

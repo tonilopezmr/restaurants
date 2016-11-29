@@ -9,7 +9,11 @@ import com.come.restaurants.order.Order
 import kotlinx.android.synthetic.main.order_detail.view.*
 import java.util.*
 
-class OrderListAdapter(val orderList: List<Order>) : RecyclerView.Adapter<OrderListAdapter.ListViewHolder>() {
+class OrderListAdapter() : RecyclerView.Adapter<OrderListAdapter.ListViewHolder>() {
+    private val _orderList = mutableListOf<Order>()
+    val orderList : List<Order>
+        get() = _orderList.toList()
+
     override fun getItemCount(): Int = orderList.size
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
@@ -17,8 +21,15 @@ class OrderListAdapter(val orderList: List<Order>) : RecyclerView.Adapter<OrderL
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.order_detail, parent, false)
+        val view = LayoutInflater
+                .from(parent.context)
+                .inflate(R.layout.order_detail, parent, false)
         return ListViewHolder(view)
+    }
+
+    fun addAll(orderList: List<Order>) {
+        this._orderList.addAll(orderList)
+        notifyDataSetChanged()
     }
 
     class ListViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
