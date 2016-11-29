@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.Toast
 import com.come.restaurants.R
 import com.come.restaurants.order.Order
@@ -18,11 +19,11 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
     private lateinit var presenter : OrderListPresenter
 
     override fun showLoader() {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+        orderLoader.visibility = View.VISIBLE
     }
 
     override fun hideLoader() {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+        orderLoader.visibility = View.GONE
     }
 
     override fun showEmptyCase() {

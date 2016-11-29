@@ -18,6 +18,7 @@ class OrderListPresenter(val getOrders: GetOrders) : MVP.Presenter<OrderListPres
 
     override fun init() {
         view.initUi()
+        view.showLoader()
         requestOrders()
     }
 
@@ -31,6 +32,7 @@ class OrderListPresenter(val getOrders: GetOrders) : MVP.Presenter<OrderListPres
     }
 
     fun receivedOrders(orderList: List<Order>) {
+        view.hideLoader()
         if(orderList.isEmpty()) {
             view.showEmptyCase()
         } else {
