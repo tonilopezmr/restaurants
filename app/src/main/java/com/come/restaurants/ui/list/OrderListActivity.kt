@@ -7,12 +7,15 @@ import android.support.v7.widget.RecyclerView
 import android.widget.Toast
 import com.come.restaurants.R
 import com.come.restaurants.order.Order
+import com.come.restaurants.order.persistence.stubs.StubOrderRepository
+import com.come.restaurants.order.usecases.GetOrders
 import com.come.restaurants.ui.list.adapter.OrderListAdapter
+import kotlinx.android.synthetic.main.activity_list_view.*
 
 class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
 
-    val recyclerView : RecyclerView = findViewById(R.id.ordersRecyclerView) as RecyclerView
-    val adapter : OrderListAdapter = OrderListAdapter()
+    private lateinit var adapter : OrderListAdapter
+    private lateinit var presenter : OrderListPresenter
 
     override fun showLoader() {
         throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -28,16 +31,23 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
     }
 
     override fun showList(orders: List<Order>) {
-        adapter.addAll(orders)
+        adapter!!.addAll(orders)
     }
 
     override fun initUi() {
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        this.adapter = OrderListAdapter()
+        ordersRecyclerView.adapter = this.adapter
+        ordersRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_view)
+
+        val repository = StubOrderRepository()
+        val getOrders = GetOrders(repository)
+        this.presenter = OrderListPresenter(getOrders)
+        this.presenter.setView(this)
+        this.presenter.init()
     }
 }
