@@ -25,10 +25,6 @@ class OrderListPresenter(val getOrders: GetOrders) : MVP.Presenter<OrderListPres
         this.view = view as View
     }
 
-    override fun onDestroy() {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     fun requestOrders() {
         val list = this.getOrders.get()
         receivedOrders(list)

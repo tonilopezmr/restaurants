@@ -9,7 +9,6 @@ public interface MVP {
     interface Presenter<T : View> {
         fun init()
         fun setView(view : View)
-        fun onDestroy()
     }
 
 }
