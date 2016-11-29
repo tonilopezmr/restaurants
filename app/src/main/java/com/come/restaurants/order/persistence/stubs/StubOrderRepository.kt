@@ -4,6 +4,7 @@ import com.come.restaurants.order.Order
 import com.come.restaurants.order.OrderLine
 import com.come.restaurants.order.Plate
 import com.come.restaurants.order.repository.OrderRepository
+import java.util.*
 
 class StubOrderRepository : OrderRepository {
 
@@ -15,11 +16,11 @@ class StubOrderRepository : OrderRepository {
 
         val orderLine1 = OrderLine("1", tortilla, 2)
         val orderLine2 = OrderLine("2", zumo)
-        val order1 = Order("1", "234d", 234, listOf(orderLine1, orderLine2))
+        val order1 = Order("1", "234d", Date().time , listOf(orderLine1, orderLine2))
         val orderLine3 = OrderLine("3", tortilla)
         val orderLine4 = OrderLine("4", zumo, 5)
 
-        val order2 = Order("2", "23Z", 234, listOf(orderLine3, orderLine4))
+        val order2 = Order("2", "23Z", Date().time-10000, listOf(orderLine3, orderLine4))
         this.order = listOf(order1, order2)
     }
 
