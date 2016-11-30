@@ -46,8 +46,8 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
         val getOrder = GetOrder(repository)
         val orderId = intent.getStringExtra(ID)
 
-        this.presenter = OrderDetailPresenter(getOrder, orderId)
+        this.presenter = OrderDetailPresenter(getOrder)
         this.presenter.setView(this)
-        this.presenter.init()
+        this.presenter.init(orderId)
     }
 }

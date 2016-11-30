@@ -5,8 +5,9 @@ import com.come.restaurants.order.usecases.GetOrder
 import com.come.restaurants.ui.base.MVP
 
 
-class OrderDetailPresenter(val getOrder: GetOrder,
-                           val orderId : String) : MVP.Presenter<OrderDetailPresenter.View> {
+class OrderDetailPresenter(val getOrder: GetOrder) : Presenter<OrderDetailPresenter.View> {
+
+    lateinit var orderId: String
 
     interface View : MVP.View {
         fun showDetails(details : Order)
@@ -15,7 +16,8 @@ class OrderDetailPresenter(val getOrder: GetOrder,
 
     lateinit private var view : View
 
-    override fun init() {
+    override fun init(orderId: String) {
+        this.orderId = orderId
         view.initUi()
         this.requestDetais()
     }
