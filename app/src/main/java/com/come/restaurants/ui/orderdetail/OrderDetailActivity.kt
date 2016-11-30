@@ -33,7 +33,7 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
     }
 
     override fun initUi() {
-        orderNumberTextView.text = "Fetching order..."
+        orderNumberTextView.text = getString(R.string.fetching_order)
         orderTextView.text = ""
         totalPriceTextView.text = ""
     }

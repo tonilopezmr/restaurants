@@ -5,4 +5,5 @@
     <string name="total">Total:</string>
     <string name="hour">Hora:</string>
     <string name="total_price">Precio Total:</string>
+    <string name="fetching_order">Cargando pedido...</string>
 </resources>
