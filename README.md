@@ -12,4 +12,4 @@ COME for restaurants
 
 #####Order UML :
 
-![](art/order-model.png)
+![](art/orderList-model.png)

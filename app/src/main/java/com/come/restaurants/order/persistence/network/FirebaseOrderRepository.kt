@@ -2,22 +2,31 @@ package com.come.restaurants.order.persistence.network
 
 import com.come.restaurants.order.Order
 import com.come.restaurants.order.repository.OrderRepository
+import com.come.restaurants.order.usecases.*
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class FirebaseOrderRepository : OrderRepository {
+    private var database : FirebaseDatabase
+    private var reference : DatabaseReference
+    init {
+        database = FirebaseDatabase.getInstance()
+        reference = database.getReference("")
+    }
 
-    override fun getOrders(): List<Order> {
+    override fun getOrder(id: String, callback: GetOrder.Callback) {
         throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getOrder(id: String): Order? {
+    override fun orderReceived(order: Order, callback: OrderReceived.Callback) {
         throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun orderReceived(order: Order) {
+    override fun orderPrinted(order: Order, callback: OrderPrinted.Callback) {
         throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun orderPrinted(order: Order) {
+    override fun getOrders(callback: GetOrders.Callback) {
         throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

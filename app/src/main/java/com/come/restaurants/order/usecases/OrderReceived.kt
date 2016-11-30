@@ -4,9 +4,12 @@ import com.come.restaurants.order.Order
 import com.come.restaurants.order.repository.OrderRepository
 
 class OrderReceived(val repository : OrderRepository) {
-
+    interface Callback : BaseCallback{
+        fun orderRegistered()
+    }
+    lateinit private var callback : Callback
     fun send(order: Order) {
-        repository.orderReceived(order)
+        repository.orderReceived(order,callback)
     }
 
 }
