@@ -4,9 +4,8 @@ import com.come.restaurants.order.Order
 import com.come.restaurants.order.repository.OrderRepository
 
 class GetOrders(val repository : OrderRepository) {
-    interface Callback{
+    interface Callback : BaseCallback {
         fun ordersReceived(orders: List<Order>)
-        fun error(exception: Exception)
     }
     lateinit private var callback : Callback
     fun get() {

@@ -5,9 +5,8 @@ import com.come.restaurants.order.repository.OrderRepository
 import com.come.restaurants.order.usecases.GetOrder.Callback
 
 class GetOrder(val repository: OrderRepository) {
-    interface Callback{
+    interface Callback : BaseCallback{
         fun orderReceived(order : Order)
-        fun error(e : Exception)
     }
     lateinit private var callback : Callback
     fun get(id: String){

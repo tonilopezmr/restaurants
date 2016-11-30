@@ -7,7 +7,7 @@ import com.come.restaurants.order.repository.OrderRepository
 import com.come.restaurants.order.usecases.*
 
 class StubOrderRepository : OrderRepository {
-    var order = emptyList<Order>()
+    var orderList = emptyList<Order>()
 
     init {
         val tortilla = Plate("1", "Tortilla", 1.30, emptyList())
@@ -20,23 +20,23 @@ class StubOrderRepository : OrderRepository {
         val orderLine4 = OrderLine("4", zumo, 5)
 
         val order2 = Order("2", "23Z", 234, listOf(orderLine3, orderLine4))
-        this.order = listOf(order1, order2)
+        this.orderList = listOf(order1, order2)
     }
 
     override fun getOrders(callback: GetOrders.Callback) {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+        callback.ordersReceived(orderList)
     }
 
     override fun getOrder(id: String, callback: GetOrder.Callback) {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+        callback.orderReceived(orderList[0])
     }
 
     override fun orderReceived(order: Order, callback: OrderReceived.Callback) {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+        callback.orderRegistered()
     }
 
     override fun orderPrinted(order: Order, callback: OrderPrinted.Callback) {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+       callback.orderPrinted()
     }
 
 }
