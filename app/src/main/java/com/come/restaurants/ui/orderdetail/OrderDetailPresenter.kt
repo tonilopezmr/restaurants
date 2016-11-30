@@ -19,14 +19,14 @@ class OrderDetailPresenter(val getOrder: GetOrder) : Presenter<OrderDetailPresen
     override fun init(orderId: String) {
         this.orderId = orderId
         view.initUi()
-        this.requestDetais()
+        this.requestDetails()
     }
 
     override fun setView(view: MVP.View) {
         this.view = view as View
     }
 
-    private fun requestDetais() {
+    private fun requestDetails() {
         var result = this.getOrder.get(this.orderId)
         receivedDetails(result)
     }
