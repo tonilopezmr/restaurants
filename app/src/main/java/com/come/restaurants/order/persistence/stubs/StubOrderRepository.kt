@@ -4,7 +4,11 @@ import com.come.restaurants.order.Order
 import com.come.restaurants.order.OrderLine
 import com.come.restaurants.order.Plate
 import com.come.restaurants.order.repository.OrderRepository
-import com.come.restaurants.order.usecases.*
+import com.come.restaurants.order.usecases.GetOrder
+import com.come.restaurants.order.usecases.GetOrders
+import com.come.restaurants.order.usecases.OrderPrinted
+import com.come.restaurants.order.usecases.OrderReceived
+import java.util.*
 
 class StubOrderRepository : OrderRepository {
     var orderList = emptyList<Order>()
@@ -15,7 +19,7 @@ class StubOrderRepository : OrderRepository {
 
         val orderLine1 = OrderLine("1", tortilla, 2)
         val orderLine2 = OrderLine("2", zumo)
-        val order1 = Order("1", "234d", 234, listOf(orderLine1, orderLine2))
+        val order1 = Order("1", "234d", Date().time , listOf(orderLine1, orderLine2))
         val orderLine3 = OrderLine("3", tortilla)
         val orderLine4 = OrderLine("4", zumo, 5)
 

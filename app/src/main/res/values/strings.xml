@@ -2,4 +2,6 @@
     <string name="app_name">restaurants</string>
     <string name="number">Number:</string>
     <string name="total">Total:</string>
+    <string name="hour">Hour:</string>
+    <string name="total_price">Total Price:</string>
 </resources>
