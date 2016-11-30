@@ -40,8 +40,8 @@ class OrderListAdapter() : RecyclerView.Adapter<OrderListAdapter.ListViewHolder>
         holder.bindOrder(orderList[position], position)
         holder.itemView.setOnClickListener { it ->
             val intent: Intent = Intent(it.context, OrderDetailActivity::class.java)
-            intent.putExtra("ORDER_NUMBER", position.toString())
-            intent.putExtra("ORDER_DETAIL", orderList[position].id)
+            intent.putExtra(OrderDetailActivity.NUMBER, position.toString())
+            intent.putExtra(OrderDetailActivity.ID, orderList[position].id)
             it.context.startActivity(intent) }
     }
 

@@ -10,11 +10,15 @@ import com.come.restaurants.order.usecases.GetOrder
 import kotlinx.android.synthetic.main.activity_order_detail.*
 
 class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
+    companion object {
+        val NUMBER: String = "ORDER_NUMBER"
+        val ID: String = "ORDER_ID"
+    }
 
     private lateinit var presenter : OrderDetailPresenter
 
     override fun showDetails(details: Order) {
-        orderNumberTextView.text = intent.getStringExtra("ORDER_NUMBER")
+        orderNumberTextView.text = intent.getStringExtra(NUMBER)
         orderTextView.text = details.orderLines.fold("",
                 {total, current -> total.plus(
                         "${current.quantity}x ${current.plate.name} \t${current.getPrice()}€\n"
@@ -40,7 +44,7 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
 
         var repository = StubOrderRepository()
         val getOrder = GetOrder(repository)
-        val orderId = intent.getStringExtra("ORDER_DETAIL")
+        val orderId = intent.getStringExtra(ID)
 
         this.presenter = OrderDetailPresenter(getOrder, orderId)
         this.presenter.setView(this)
