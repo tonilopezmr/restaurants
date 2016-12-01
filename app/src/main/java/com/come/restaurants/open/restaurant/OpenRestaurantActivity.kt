@@ -27,17 +27,17 @@ class OpenRestaurantActivity : AppCompatActivity(), View {
     }
 
     override fun showConnectionError() {
-        val toast = Toast.makeText(applicationContext, "Connection error", 3)
+        val toast = Toast.makeText(applicationContext, getString(R.string.connection_error), 3)
         toast.show()
     }
 
     override fun showNameError() {
-        val toast = Toast.makeText(applicationContext, "Invalid name", 3)
+        val toast = Toast.makeText(applicationContext, getString(R.string.invalid_name), 3)
         toast.show()
     }
 
     override fun showCodeError() {
-        val toast = Toast.makeText(applicationContext, "Invalid Code", 3)
+        val toast = Toast.makeText(applicationContext, getString(R.string.invalid_code), 3)
         toast.show()
     }
 
