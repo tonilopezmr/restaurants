@@ -7,12 +7,50 @@
     android:layout_height="match_parent"
     tools:context="com.come.restaurants.ui.startscreen.StartScreenActivity"
     android:orientation="vertical"
-    android:padding="15dp"
-    android:gravity="center">
+    android:padding="0dp"
+    android:gravity="center"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:layout_marginLeft="35dp"
+    android:layout_marginRight="35dp">
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        >
+
+        <TextView
+            android:text="@string/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView3"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/nameEditText"/>
+
+        <TextView
+            android:text="@string/code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView7"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/codeEditText"/>
+    </GridLayout>
 
     <Button
         android:text="@string/start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/startButton"/>
+
 </LinearLayout>

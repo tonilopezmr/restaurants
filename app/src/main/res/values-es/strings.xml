@@ -6,4 +6,6 @@
     <string name="hour">Hora:</string>
     <string name="total_price">Precio Total:</string>
     <string name="start">Start</string>
+    <string name="name">Nombre</string>
+    <string name="code">Código</string>
 </resources>
