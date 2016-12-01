@@ -9,4 +9,7 @@
     <string name="start">Start</string>
     <string name="name">Nombre</string>
     <string name="code">Código</string>
+    <string name="connection_error">Error de conexión</string>
+    <string name="invalid_name">Nombre inválido</string>
+    <string name="invalid_code">Código inválido</string>
 </resources>

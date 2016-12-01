@@ -1,17 +1,18 @@
-package com.come.restaurants.startscreen
+package com.come.restaurants.open.restaurant
 
 import com.come.restaurants.base.MVP
 
-class StartScreenPresenter : MVP.Presenter<StartScreenPresenter.View> {
+class OpenRestaurantPresenter : MVP.Presenter<OpenRestaurantPresenter.View> {
 
     interface View : MVP.View {
         fun showConnectionError()
         fun showNameError()
         fun showCodeError()
         fun showNameAndCodeError()
+        fun navigateToOrderList();
     }
 
-    lateinit private var view : View
+    lateinit private var view: View
 
     override fun init() {
         view.initUi()
@@ -21,8 +22,9 @@ class StartScreenPresenter : MVP.Presenter<StartScreenPresenter.View> {
         this.view = view as View
     }
 
-    fun login(){
+    fun open() {
         // This method will be implemented later
+        view.navigateToOrderList()
     }
 }
 

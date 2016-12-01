@@ -8,4 +8,7 @@
     <string name="start">Start</string>
     <string name="name">Name</string>
     <string name="code">Code</string>
+    <string name="connection_error">Connection error</string>
+    <string name="invalid_name">Invalid name</string>
+    <string name="invalid_code">Invalid Code</string>
 </resources>

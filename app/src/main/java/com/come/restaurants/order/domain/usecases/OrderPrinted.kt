@@ -1,8 +1,8 @@
 package com.come.restaurants.order.domain.usecases
 
 import com.come.restaurants.base.BaseCallback
-import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.domain.OrderRepository
+import com.come.restaurants.order.domain.model.Order
 
 class OrderPrinted(val repository: OrderRepository) {
     interface Callback : BaseCallback {
@@ -10,7 +10,7 @@ class OrderPrinted(val repository: OrderRepository) {
     }
 
     fun send(order: Order, callback: Callback) {
-        repository.orderPrinted(order,callback)
+        repository.orderPrinted(order, callback)
     }
 
 }
