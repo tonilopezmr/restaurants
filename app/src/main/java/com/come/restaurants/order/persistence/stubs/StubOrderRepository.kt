@@ -1,13 +1,13 @@
 package com.come.restaurants.order.persistence.stubs
 
-import com.come.restaurants.order.Order
-import com.come.restaurants.order.OrderLine
-import com.come.restaurants.order.Plate
-import com.come.restaurants.order.repository.OrderRepository
-import com.come.restaurants.order.usecases.GetOrder
-import com.come.restaurants.order.usecases.GetOrders
-import com.come.restaurants.order.usecases.OrderPrinted
-import com.come.restaurants.order.usecases.OrderReceived
+import com.come.restaurants.order.domain.model.Order
+import com.come.restaurants.order.domain.model.OrderLine
+import com.come.restaurants.order.domain.model.Plate
+import com.come.restaurants.order.domain.OrderRepository
+import com.come.restaurants.order.domain.usecases.GetOrder
+import com.come.restaurants.order.domain.usecases.GetOrders
+import com.come.restaurants.order.domain.usecases.OrderPrinted
+import com.come.restaurants.order.domain.usecases.OrderReceived
 import java.util.*
 
 class StubOrderRepository : OrderRepository {

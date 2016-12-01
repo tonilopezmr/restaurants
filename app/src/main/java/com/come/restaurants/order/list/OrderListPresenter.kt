@@ -1,8 +1,8 @@
-package com.come.restaurants.ui.list
+package com.come.restaurants.order.list
 
-    import com.come.restaurants.order.Order
-import com.come.restaurants.order.usecases.GetOrders
-import com.come.restaurants.ui.base.MVP
+    import com.come.restaurants.order.domain.model.Order
+import com.come.restaurants.order.domain.usecases.GetOrders
+import com.come.restaurants.base.MVP
 
 
 class OrderListPresenter(val getOrders: GetOrders) : MVP.Presenter<OrderListPresenter.View> {
@@ -27,7 +27,7 @@ class OrderListPresenter(val getOrders: GetOrders) : MVP.Presenter<OrderListPres
     }
 
     fun requestOrders() {
-        getOrders.repository.getOrders(object : GetOrders.Callback{
+        getOrders.repository.getOrders(object : GetOrders.Callback {
             override fun ordersReceived(orders: List<Order>) {
                 show(orders)
             }

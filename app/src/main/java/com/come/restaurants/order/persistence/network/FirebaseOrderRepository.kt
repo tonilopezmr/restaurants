@@ -1,8 +1,8 @@
 package com.come.restaurants.order.persistence.network
 
-import com.come.restaurants.order.Order
-import com.come.restaurants.order.repository.OrderRepository
-import com.come.restaurants.order.usecases.*
+import com.come.restaurants.order.domain.model.Order
+import com.come.restaurants.order.domain.OrderRepository
+import com.come.restaurants.order.domain.usecases.*
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 

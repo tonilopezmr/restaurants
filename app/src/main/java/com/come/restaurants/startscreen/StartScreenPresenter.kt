@@ -1,6 +1,6 @@
-package com.come.restaurants.ui.startscreen
+package com.come.restaurants.startscreen
 
-import com.come.restaurants.ui.base.MVP
+import com.come.restaurants.base.MVP
 
 class StartScreenPresenter : MVP.Presenter<StartScreenPresenter.View> {
 

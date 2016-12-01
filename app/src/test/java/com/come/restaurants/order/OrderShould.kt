@@ -1,5 +1,8 @@
 package com.come.restaurants.order
 
+import com.come.restaurants.order.domain.model.Order
+import com.come.restaurants.order.domain.model.OrderLine
+import com.come.restaurants.order.domain.model.Plate
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
