@@ -1,4 +1,4 @@
-package com.come.restaurants.ui.base
+package com.come.restaurants.base
 
 interface MVP {
 

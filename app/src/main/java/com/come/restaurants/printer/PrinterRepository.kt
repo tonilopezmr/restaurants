@@ -1,7 +1,7 @@
-package com.come.restaurants.order.repository
+package com.come.restaurants.printer
 
-import com.come.restaurants.order.Order
-import com.come.restaurants.order.usecases.PrintOrder
+import com.come.restaurants.order.domain.model.Order
+import com.come.restaurants.order.domain.usecases.PrintOrder
 
 class PrinterRepository {
     fun print(order: Order, callback: PrintOrder.Callback) {

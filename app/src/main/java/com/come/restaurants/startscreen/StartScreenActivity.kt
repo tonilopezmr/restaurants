@@ -1,10 +1,10 @@
-package com.come.restaurants.ui.startscreen
+package com.come.restaurants.startscreen
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.come.restaurants.R
-import com.come.restaurants.ui.startscreen.StartScreenPresenter.View
+import com.come.restaurants.startscreen.StartScreenPresenter.View
 
 class StartScreenActivity : AppCompatActivity(), View
 {

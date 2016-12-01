@@ -1,7 +1,8 @@
-package com.come.restaurants.order.usecases
+package com.come.restaurants.order.domain.usecases
 
-import com.come.restaurants.order.Order
-import com.come.restaurants.order.repository.OrderRepository
+import com.come.restaurants.base.BaseCallback
+import com.come.restaurants.order.domain.model.Order
+import com.come.restaurants.order.domain.OrderRepository
 
 class GetOrders(val repository : OrderRepository) {
     interface Callback : BaseCallback {

@@ -1,8 +1,8 @@
-package com.come.restaurants.ui.orderdetail
+package com.come.restaurants.order.detail
 
-import com.come.restaurants.order.Order
-import com.come.restaurants.order.usecases.GetOrder
-import com.come.restaurants.ui.base.MVP
+import com.come.restaurants.order.domain.model.Order
+import com.come.restaurants.order.domain.usecases.GetOrder
+import com.come.restaurants.base.MVP
 
 
 class OrderDetailPresenter(val getOrder: GetOrder) : MVP.Presenter<OrderDetailPresenter.View> {

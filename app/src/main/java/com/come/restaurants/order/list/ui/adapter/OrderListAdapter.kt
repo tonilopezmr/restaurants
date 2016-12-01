@@ -1,4 +1,4 @@
-package com.come.restaurants.ui.list.adapter
+package com.come.restaurants.order.list.ui.adapter
 
 import android.app.PendingIntent.getActivity
 import android.content.Intent
@@ -10,8 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import com.come.restaurants.R
-import com.come.restaurants.order.Order
-import com.come.restaurants.ui.orderdetail.OrderDetailActivity
+import com.come.restaurants.order.domain.model.Order
+import com.come.restaurants.order.detail.OrderDetailActivity
 import kotlinx.android.synthetic.main.order_detail.view.*
 import java.util.*
 

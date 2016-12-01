@@ -8,16 +8,16 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".startscreen.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.list.OrderListActivity"/>
-        <activity android:name=".ui.orderdetail.OrderDetailActivity"/>
-        <activity android:name=".ui.startscreen.StartScreenActivity">
+        <activity android:name=".order.list.ui.OrderListActivity"/>
+        <activity android:name=".order.detail.OrderDetailActivity"/>
+        <activity android:name="com.come.restaurants.startscreen.StartScreenActivity">
         </activity>
     </application>
 

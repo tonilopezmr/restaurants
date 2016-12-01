@@ -1,4 +1,4 @@
-package com.come.restaurants.order
+package com.come.restaurants.order.domain.model
 
 class Order(val id: String, val code: String, val timestamp: Long, val orderLines: List<OrderLine>) {
 

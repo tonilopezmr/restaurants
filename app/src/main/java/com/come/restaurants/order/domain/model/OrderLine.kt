@@ -1,4 +1,4 @@
-package com.come.restaurants.order
+package com.come.restaurants.order.domain.model
 
 class OrderLine(val id: String, val plate: Plate, val quantity: Int = 1) {
 

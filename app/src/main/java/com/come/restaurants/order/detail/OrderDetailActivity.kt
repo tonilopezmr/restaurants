@@ -1,12 +1,12 @@
-package com.come.restaurants.ui.orderdetail
+package com.come.restaurants.order.detail
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.come.restaurants.R
-import com.come.restaurants.order.Order
+import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.persistence.stubs.StubOrderRepository
-import com.come.restaurants.order.usecases.GetOrder
+import com.come.restaurants.order.domain.usecases.GetOrder
 import kotlinx.android.synthetic.main.activity_order_detail.*
 
 class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {

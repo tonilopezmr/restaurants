@@ -1,4 +1,4 @@
-package com.come.restaurants.ui.list
+package com.come.restaurants.order.list.ui
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -6,10 +6,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
 import com.come.restaurants.R
-import com.come.restaurants.order.Order
+import com.come.restaurants.order.domain.model.Order
+import com.come.restaurants.order.list.OrderListPresenter
+import com.come.restaurants.order.list.ui.adapter.OrderListAdapter
 import com.come.restaurants.order.persistence.stubs.StubOrderRepository
-import com.come.restaurants.order.usecases.GetOrders
-import com.come.restaurants.ui.list.adapter.OrderListAdapter
+import com.come.restaurants.order.domain.usecases.GetOrders
 import kotlinx.android.synthetic.main.activity_list_view.*
 
 class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
