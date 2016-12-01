@@ -29,7 +29,7 @@ class OrderListPresenter(val getOrders: GetOrders) : MVP.Presenter<OrderListPres
     fun requestOrders() {
         getOrders.repository.getOrders(object : GetOrders.Callback{
             override fun ordersReceived(orders: List<Order>) {
-                receivedOrders(orders)
+                show(orders)
             }
 
             override fun error(exception: Exception) {
@@ -39,7 +39,7 @@ class OrderListPresenter(val getOrders: GetOrders) : MVP.Presenter<OrderListPres
         })
     }
 
-    fun receivedOrders(orderList: List<Order>) {
+    fun show(orderList: List<Order>) {
         view.hideLoader()
         if(orderList.isEmpty()) {
             view.showEmptyCase()
