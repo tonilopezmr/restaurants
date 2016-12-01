@@ -1,6 +1,6 @@
 package com.come.restaurants.ui.list
 
-import com.come.restaurants.order.Order
+    import com.come.restaurants.order.Order
 import com.come.restaurants.order.usecases.GetOrders
 import com.come.restaurants.ui.base.MVP
 
