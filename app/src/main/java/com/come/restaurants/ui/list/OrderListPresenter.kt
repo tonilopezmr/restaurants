@@ -27,8 +27,16 @@ class OrderListPresenter(val getOrders: GetOrders) : MVP.Presenter<OrderListPres
     }
 
     fun requestOrders() {
-        val list = this.getOrders.get()
-        receivedOrders(list)
+        getOrders.repository.getOrders(object : GetOrders.Callback{
+            override fun ordersReceived(orders: List<Order>) {
+                view.showList(orders)
+            }
+
+            override fun error(exception: Exception) {
+               //TODO: View error??
+            }
+
+        })
     }
 
     fun receivedOrders(orderList: List<Order>) {

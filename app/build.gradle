@@ -47,6 +47,11 @@ spoon {
 configurations.all {
     resolutionStrategy.force "com.android.support:support-annotations:$build_version"
 }
+android{
+    defaultConfig {
+        multiDexEnabled true
+    }
+}
 
 dependencies {
     //kotlin
