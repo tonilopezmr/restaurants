@@ -5,7 +5,7 @@ import com.come.restaurants.order.usecases.GetOrder
 import com.come.restaurants.ui.base.MVP
 
 
-class OrderDetailPresenter(val getOrder: GetOrder) : Presenter<OrderDetailPresenter.View> {
+class OrderDetailPresenter(val getOrder: GetOrder) : MVP.Presenter<OrderDetailPresenter.View> {
 
     lateinit var orderId: String
 
@@ -16,10 +16,14 @@ class OrderDetailPresenter(val getOrder: GetOrder) : Presenter<OrderDetailPresen
 
     lateinit private var view : View
 
-    override fun init(orderId: String) {
-        this.orderId = orderId
+    override fun init() {
         view.initUi()
         this.requestDetails()
+    }
+
+    fun init(orderId: String) {
+        this.orderId = orderId
+        this.init()
     }
 
     override fun setView(view: MVP.View) {
@@ -27,8 +31,17 @@ class OrderDetailPresenter(val getOrder: GetOrder) : Presenter<OrderDetailPresen
     }
 
     private fun requestDetails() {
-        var result = this.getOrder.get(this.orderId)
-        receivedDetails(result)
+        this.getOrder.get(this.orderId, object : GetOrder.Callback {
+            override fun orderReceived(order: Order) {
+                receivedDetails(order)
+            }
+
+            override fun error(exception: Exception) {
+                view.showError()
+            }
+
+        })
+
     }
 
     private fun receivedDetails(details: Order?) {
