@@ -7,8 +7,6 @@ import com.come.restaurants.ui.base.MVP
 
 class OrderDetailPresenter(val getOrder: GetOrder) : MVP.Presenter<OrderDetailPresenter.View> {
 
-    lateinit var orderId: String
-
     interface View : MVP.View {
         fun showDetails(details : Order)
         fun showError()
@@ -18,22 +16,22 @@ class OrderDetailPresenter(val getOrder: GetOrder) : MVP.Presenter<OrderDetailPr
 
     override fun init() {
         view.initUi()
-        this.requestDetails()
+
     }
 
     fun init(orderId: String) {
-        this.orderId = orderId
         this.init()
+        this.requestDetails(orderId)
     }
 
     override fun setView(view: MVP.View) {
         this.view = view as View
     }
 
-    private fun requestDetails() {
-        this.getOrder.get(this.orderId, object : GetOrder.Callback {
+    private fun requestDetails(id: String) {
+        this.getOrder.get(id, object : GetOrder.Callback {
             override fun orderReceived(order: Order) {
-                receivedDetails(order)
+                show(order)
             }
 
             override fun error(exception: Exception) {
@@ -44,7 +42,7 @@ class OrderDetailPresenter(val getOrder: GetOrder) : MVP.Presenter<OrderDetailPr
 
     }
 
-    private fun receivedDetails(details: Order?) {
+    private fun show(details: Order?) {
         if(details == null) {
             view.showError()
         } else {
