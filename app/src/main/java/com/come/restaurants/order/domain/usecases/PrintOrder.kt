@@ -10,7 +10,7 @@ class PrintOrder(val repository: PrinterRepository) {
     }
 
     fun print(order: Order, callback: Callback) {
-        repository.print(order,callback)
+        repository.print(order, callback)
     }
 
 }

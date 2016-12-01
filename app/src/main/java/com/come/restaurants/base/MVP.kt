@@ -8,7 +8,7 @@ interface MVP {
 
     interface Presenter<T : View> {
         fun init()
-        fun setView(view : View)
+        fun setView(view: View)
     }
 
 }

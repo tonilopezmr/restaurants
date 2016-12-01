@@ -1,22 +1,29 @@
-package com.come.restaurants.startscreen
+package com.come.restaurants.open.restaurant
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.come.restaurants.R
-import com.come.restaurants.startscreen.StartScreenPresenter.View
+import com.come.restaurants.open.restaurant.OpenRestaurantPresenter.View
+import com.come.restaurants.order.list.ui.OrderListActivity
+import kotlinx.android.synthetic.main.activity_open_restaurant.*
 
-class StartScreenActivity : AppCompatActivity(), View
-{
-    private lateinit var presenter : StartScreenPresenter
+class OpenRestaurantActivity : AppCompatActivity(), View {
+
+    private lateinit var presenter: OpenRestaurantPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_start_screen)
+        setContentView(R.layout.activity_open_restaurant)
 
-        this.presenter = StartScreenPresenter()
+        this.presenter = OpenRestaurantPresenter()
         this.presenter.setView(this)
         this.presenter.init()
+    }
+
+    override fun navigateToOrderList() {
+        startActivity(Intent(this, OrderListActivity::class.java))
     }
 
     override fun showConnectionError() {
@@ -40,6 +47,6 @@ class StartScreenActivity : AppCompatActivity(), View
     }
 
     override fun initUi() {
-
+        openButton.setOnClickListener { presenter.open() }
     }
 }
