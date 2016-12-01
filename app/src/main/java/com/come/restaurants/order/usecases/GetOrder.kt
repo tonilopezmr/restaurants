@@ -8,8 +8,8 @@ class GetOrder(val repository: OrderRepository) {
     interface Callback : BaseCallback{
         fun orderReceived(order : Order)
     }
-    lateinit private var callback : Callback
-    fun get(id: String){
+
+    fun get(id: String, callback: Callback){
         repository.getOrder(id, callback)
     }
 

@@ -7,8 +7,8 @@ class PrintOrder(val repository: PrinterRepository) {
     interface Callback : BaseCallback{
         fun orderPrinted()
     }
-    lateinit private var callback : Callback
-    fun print(order: Order) {
+
+    fun print(order: Order,callback: Callback) {
         repository.print(order,callback)
     }
 

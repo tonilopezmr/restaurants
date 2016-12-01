@@ -1,6 +1,6 @@
 package com.come.restaurants.ui.base
 
-public interface MVP {
+interface MVP {
 
     interface View {
         fun initUi()
