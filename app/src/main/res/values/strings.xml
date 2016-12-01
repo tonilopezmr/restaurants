@@ -5,4 +5,7 @@
     <string name="hour">Hour:</string>
     <string name="total_price">Total Price:</string>
     <string name="fetching_order">Fetching order...</string>
+    <string name="start">Start</string>
+    <string name="name">Name</string>
+    <string name="code">Code</string>
 </resources>
