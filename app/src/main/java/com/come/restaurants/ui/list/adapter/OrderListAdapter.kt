@@ -1,13 +1,17 @@
 package com.come.restaurants.ui.list.adapter
 
+import android.app.PendingIntent.getActivity
+import android.content.Intent
 import android.support.v7.util.SortedList
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.util.SortedListAdapterCallback
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import com.come.restaurants.R
 import com.come.restaurants.order.Order
+import com.come.restaurants.ui.orderdetail.OrderDetailActivity
 import kotlinx.android.synthetic.main.order_detail.view.*
 import java.util.*
 
@@ -34,6 +38,11 @@ class OrderListAdapter() : RecyclerView.Adapter<OrderListAdapter.ListViewHolder>
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.bindOrder(orderList[position], position)
+        holder.itemView.setOnClickListener { it ->
+            val intent: Intent = Intent(it.context, OrderDetailActivity::class.java)
+            intent.putExtra(OrderDetailActivity.NUMBER, position.toString())
+            intent.putExtra(OrderDetailActivity.ID, orderList[position].id)
+            it.context.startActivity(intent) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
