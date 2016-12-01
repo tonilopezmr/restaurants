@@ -1,9 +1,8 @@
 package com.come.restaurants.ui.list
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Toast
 import com.come.restaurants.R
@@ -32,7 +31,7 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
     }
 
     override fun showList(orders: List<Order>) {
-        adapter!!.addAll(orders)
+        adapter.addAll(orders)
     }
 
     override fun initUi() {
