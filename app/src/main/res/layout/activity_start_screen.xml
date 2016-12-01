@@ -14,38 +14,29 @@
     android:layout_marginLeft="35dp"
     android:layout_marginRight="35dp">
 
-    <GridLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:columnCount="2"
         >
 
-        <TextView
-            android:text="@string/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView3"/>
-
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/nameEditText"/>
-
-        <TextView
-            android:text="@string/code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView7"/>
+            android:id="@+id/nameEditText"
+            android:hint="@string/name"/>
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:id="@+id/codeEditText"/>
-    </GridLayout>
+            android:id="@+id/codeEditText"
+            android:hint="@string/code"/>
+    </LinearLayout>
 
     <Button
         android:text="@string/start"
