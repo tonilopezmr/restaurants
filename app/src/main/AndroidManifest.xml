@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.come.restaurants">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -19,6 +19,8 @@
         </activity>
         <activity android:name=".order.list.ui.OrderListActivity"/>
         <activity android:name=".order.detail.OrderDetailActivity"/>
+        <activity android:name=".printer.pairing.ui.BtPairingActivity">
+        </activity>
     </application>
 
 </manifest>
