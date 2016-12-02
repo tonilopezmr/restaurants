@@ -1,5 +1,7 @@
 package com.come.restaurants.printer.pairing.ui
 
+import android.content.BroadcastReceiver
+import android.content.IntentFilter
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -27,6 +29,18 @@ class BtPairingActivity : AppCompatActivity(), BtPairingPresenter.View {
         this.presenter = BtPairingPresenter()
         this.presenter.view = this
         this.presenter.init()
+    }
+
+    override fun onDestroy() {
+        this.presenter.finish()
+    }
+
+    override fun setReceiver(receiver: BroadcastReceiver, filter: IntentFilter) {
+        registerReceiver(receiver, filter)
+    }
+
+    override fun unsetReceiver(receiver: BroadcastReceiver) {
+        unregisterReceiver(receiver)
     }
 
     override fun showList(printers: List<Printer>) {
