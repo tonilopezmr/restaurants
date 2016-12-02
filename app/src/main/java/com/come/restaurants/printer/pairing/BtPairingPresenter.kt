@@ -9,7 +9,7 @@ class BtPairingPresenter : MVP.Presenter<BtPairingPresenter.View> {
     lateinit var view : View
 
     interface View : MVP.View {
-        fun show(printers : List<Printer>)
+        fun showList(printers : List<Printer>)
         fun turnOnBtMessage()
     }
 
@@ -22,7 +22,7 @@ class BtPairingPresenter : MVP.Presenter<BtPairingPresenter.View> {
         this.view = view as View
     }
 
-    fun requestPrinters() {
+    private fun requestPrinters() {
         /*
         * if bluetooth == ON:
         *   getPrinters
@@ -30,5 +30,9 @@ class BtPairingPresenter : MVP.Presenter<BtPairingPresenter.View> {
         *   showBtOnMessage()
         *
         * */
+    }
+
+    private fun show(printers: List<Printer>) {
+        this.view.showList(printers)
     }
 }
