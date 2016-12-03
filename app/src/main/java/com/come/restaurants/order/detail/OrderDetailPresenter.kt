@@ -11,7 +11,7 @@ class OrderDetailPresenter(val getOrder: GetOrder, val printOrder : PrintOrder) 
 
     interface View : MVP.View {
         fun showDetails(details : Order)
-        fun showError()
+        fun showFetchingError()
         fun showPrintError()
         fun showOrderPrinted()
     }

@@ -28,7 +28,7 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
         totalPriceTextView.text = "${details.getPrice()}€"
     }
 
-    override fun showError() {
+    override fun showFetchingError() {
         val toast = Toast.makeText(applicationContext,
                 "Error ocurred while fetching order details", 3)
         toast.show()
