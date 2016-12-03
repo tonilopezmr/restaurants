@@ -12,4 +12,5 @@
     <string name="connection_error">Error de conexión</string>
     <string name="invalid_name">Nombre inválido</string>
     <string name="invalid_code">Código inválido</string>
+    <string name="login_error">Fallo al autenticar</string>
 </resources>
