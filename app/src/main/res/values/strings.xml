@@ -12,4 +12,5 @@
     <string name="invalid_name">Invalid name</string>
     <string name="invalid_code">Invalid Code</string>
     <string name="login_error">Authentication failed</string>
+    <string name="print">Print</string>
 </resources>

@@ -91,6 +91,14 @@
                 android:gravity="right"/>
         </LinearLayout>
 
+        <Button
+            android:text="@string/print"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/printButton"
+            android:layout_gravity="center"
+            />
+
 
     </LinearLayout>
 </RelativeLayout>
