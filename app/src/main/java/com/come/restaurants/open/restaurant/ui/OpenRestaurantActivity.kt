@@ -1,10 +1,11 @@
-package com.come.restaurants.open.restaurant
+package com.come.restaurants.open.restaurant.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.come.restaurants.R
+import com.come.restaurants.open.restaurant.OpenRestaurantPresenter
 import com.come.restaurants.open.restaurant.OpenRestaurantPresenter.View
 import com.come.restaurants.order.list.ui.OrderListActivity
 import kotlinx.android.synthetic.main.activity_open_restaurant.*

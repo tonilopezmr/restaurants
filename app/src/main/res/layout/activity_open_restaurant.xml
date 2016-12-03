@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".open.restaurant.OpenRestaurantActivity"
+    tools:context=".open.restaurant.ui.OpenRestaurantActivity"
     android:id="@+id/activity_start_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
