@@ -32,6 +32,18 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
         toast.show()
     }
 
+    override fun showPrintError() {
+        val toast = Toast.makeText(applicationContext,
+                "Error ocurred while printing order details", 3)
+        toast.show()
+    }
+
+    override fun showOrderPrinted() {
+        val toast = Toast.makeText(applicationContext,
+                "Order details printed", 3)
+        toast.show()
+    }
+
     override fun initUi() {
         orderNumberTextView.text = getString(R.string.fetching_order)
         orderTextView.text = ""
