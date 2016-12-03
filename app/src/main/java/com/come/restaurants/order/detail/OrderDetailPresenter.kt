@@ -42,7 +42,7 @@ class OrderDetailPresenter(val getOrder: GetOrder, val printOrder : PrintOrder) 
             }
 
             override fun error(exception: Exception) {
-                view.showError()
+                view.showFetchingError()
             }
 
         })
@@ -50,7 +50,7 @@ class OrderDetailPresenter(val getOrder: GetOrder, val printOrder : PrintOrder) 
 
     private fun show(details: Order?) {
         if(details == null) {
-            view.showError()
+            view.showFetchingError()
         } else {
             view.showDetails(details)
         }
