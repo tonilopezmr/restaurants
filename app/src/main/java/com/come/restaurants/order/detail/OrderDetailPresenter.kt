@@ -7,7 +7,7 @@ import com.come.restaurants.order.domain.usecases.PrintOrder
 import com.come.restaurants.printer.PrinterRepository
 
 
-class OrderDetailPresenter(val getOrder: GetOrder) : MVP.Presenter<OrderDetailPresenter.View> {
+class OrderDetailPresenter(val getOrder: GetOrder, val printOrder : PrintOrder) : MVP.Presenter<OrderDetailPresenter.View> {
 
     interface View : MVP.View {
         fun showDetails(details : Order)
@@ -57,8 +57,7 @@ class OrderDetailPresenter(val getOrder: GetOrder) : MVP.Presenter<OrderDetailPr
     }
 
     public fun print() {
-        var printOrder = PrintOrder(printerRepository)
-        printOrder.print(order, object : PrintOrder.Callback{
+        this.printOrder.print(order, object : PrintOrder.Callback{
             override fun orderPrinted() {
                 view.showOrderPrinted()
             }
