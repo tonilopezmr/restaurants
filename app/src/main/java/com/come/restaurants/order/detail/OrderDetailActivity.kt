@@ -1,12 +1,12 @@
 package com.come.restaurants.order.detail
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.come.restaurants.R
 import com.come.restaurants.order.domain.model.Order
-import com.come.restaurants.order.persistence.stubs.StubOrderRepository
 import com.come.restaurants.order.domain.usecases.GetOrder
+import com.come.restaurants.order.persistence.stubs.StubOrderRepository
 import kotlinx.android.synthetic.main.activity_order_detail.*
 
 class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
@@ -18,7 +18,7 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
     private lateinit var presenter : OrderDetailPresenter
 
     override fun showDetails(details: Order) {
-        orderNumberTextView.text = intent.getStringExtra(NUMBER)
+        orderNumberTextView.text = getString(R.string.number) + " " + intent.getStringExtra(NUMBER)
         orderTextView.text = details.orderLines.fold("",
                 {total, current -> total.plus(
                         "${current.quantity}x ${current.plate.name} \t${current.getPrice()}€\n"

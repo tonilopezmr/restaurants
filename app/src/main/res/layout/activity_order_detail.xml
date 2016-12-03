@@ -24,23 +24,13 @@
             android:layout_gravity="center">
 
             <TextView
-                android:text="@string/number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView2"
-                android:layout_weight="1"
-                android:layout_marginRight="10dp"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-
-            <TextView
                 android:text="TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/orderNumberTextView"
                 android:layout_weight="1"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+
         </LinearLayout>
 
         <TextView
@@ -61,10 +51,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/orderTextView"
             android:gravity="center"
-            android:textColor="@android:color/black"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:textSize="16sp" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
 
         <TextView
             android:id="@id/line"
@@ -90,9 +79,7 @@
                 android:id="@+id/textView4"
                 android:layout_weight="1"
                 android:layout_marginRight="10dp"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                />
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>/>
 
             <TextView
                 android:text="TextView"
@@ -100,8 +87,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/totalPriceTextView"
                 android:layout_weight="1"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                 android:gravity="right"/>
         </LinearLayout>
 
