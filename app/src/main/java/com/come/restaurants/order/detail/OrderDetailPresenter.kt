@@ -3,6 +3,8 @@ package com.come.restaurants.order.detail
 import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.domain.usecases.GetOrder
 import com.come.restaurants.base.MVP
+import com.come.restaurants.order.domain.usecases.PrintOrder
+import com.come.restaurants.printer.PrinterRepository
 
 
 class OrderDetailPresenter(val getOrder: GetOrder) : MVP.Presenter<OrderDetailPresenter.View> {
@@ -13,15 +15,18 @@ class OrderDetailPresenter(val getOrder: GetOrder) : MVP.Presenter<OrderDetailPr
     }
 
     lateinit private var view : View
+    lateinit private var printerRepository : PrinterRepository
+    lateinit private var orderID : String
 
     override fun init() {
         view.initUi()
-
+        printerRepository = PrinterRepository()
     }
 
     fun init(orderId: String) {
         this.init()
         this.requestDetails(orderId)
+        this.orderID = orderId
     }
 
     override fun setView(view: MVP.View) {
@@ -48,5 +53,9 @@ class OrderDetailPresenter(val getOrder: GetOrder) : MVP.Presenter<OrderDetailPr
         } else {
             view.showDetails(details)
         }
+    }
+
+    public fun print() {
+        // Falta implementar porque no esta el Printer terminado
     }
 }

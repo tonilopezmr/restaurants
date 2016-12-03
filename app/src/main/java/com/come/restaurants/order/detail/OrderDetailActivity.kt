@@ -36,6 +36,8 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
         orderNumberTextView.text = getString(R.string.fetching_order)
         orderTextView.text = ""
         totalPriceTextView.text = ""
+
+        printButton.setOnClickListener { presenter.print() }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
