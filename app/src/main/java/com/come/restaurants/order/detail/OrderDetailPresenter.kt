@@ -18,7 +18,7 @@ class OrderDetailPresenter(val getOrder: GetOrder) : MVP.Presenter<OrderDetailPr
 
     lateinit private var view : View
     lateinit private var printerRepository : PrinterRepository
-    lateinit private var _order : Order
+    lateinit private var order : Order
 
     override fun init() {
         view.initUi()
@@ -36,9 +36,9 @@ class OrderDetailPresenter(val getOrder: GetOrder) : MVP.Presenter<OrderDetailPr
 
     private fun requestDetails(id: String) {
         this.getOrder.get(id, object : GetOrder.Callback {
-            override fun orderReceived(order: Order) {
-                show(order)
-                _order = order
+            override fun orderReceived(receivedOrder: Order) {
+                show(receivedOrder)
+                order = receivedOrder
             }
 
             override fun error(exception: Exception) {
@@ -58,7 +58,7 @@ class OrderDetailPresenter(val getOrder: GetOrder) : MVP.Presenter<OrderDetailPr
 
     public fun print() {
         var printOrder = PrintOrder(printerRepository)
-        printOrder.print(_order, object : PrintOrder.Callback{
+        printOrder.print(order, object : PrintOrder.Callback{
             override fun orderPrinted() {
                 view.showOrderPrinted()
             }
