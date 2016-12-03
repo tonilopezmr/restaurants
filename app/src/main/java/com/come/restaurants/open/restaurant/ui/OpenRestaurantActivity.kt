@@ -11,11 +11,7 @@ import com.come.restaurants.order.list.ui.OrderListActivity
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_open_restaurant.*
@@ -29,11 +25,11 @@ class OpenRestaurantActivity : AppCompatActivity(), View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_open_restaurant)
 
-        this.loginGoogle()
-
         this.presenter = OpenRestaurantPresenter()
         this.presenter.setView(this)
         this.presenter.init()
+
+        this.loginGoogle()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -49,7 +45,7 @@ class OpenRestaurantActivity : AppCompatActivity(), View {
 
     fun loginGoogle() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken(getString(R.string.oauth_token))
                 .requestEmail()
                 .build()
 
@@ -77,6 +73,8 @@ class OpenRestaurantActivity : AppCompatActivity(), View {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         presenter.open()
+                    } else {
+                        this.showLoginError()
                     }
                 }
 
@@ -93,6 +91,11 @@ class OpenRestaurantActivity : AppCompatActivity(), View {
 
     override fun showConnectionError() {
         val toast = Toast.makeText(applicationContext, getString(R.string.connection_error), 3)
+        toast.show()
+    }
+
+    override fun showLoginError() {
+        val toast = Toast.makeText(applicationContext, getString(R.string.login_error), 3)
         toast.show()
     }
 

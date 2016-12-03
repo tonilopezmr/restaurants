@@ -13,4 +13,5 @@
     <string name="invalid_name">Nombre inválido</string>
     <string name="invalid_code">Código inválido</string>
     <string name="oauth_token">724117243630-cpgmhtamktrtghvsucvb1smmab0sm7q0.apps.googleusercontent.com</string>
+    <string name="login_error">Fallo al autenticar</string>
 </resources>
