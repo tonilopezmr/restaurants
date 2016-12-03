@@ -8,23 +8,87 @@ import com.come.restaurants.R
 import com.come.restaurants.open.restaurant.OpenRestaurantPresenter
 import com.come.restaurants.open.restaurant.OpenRestaurantPresenter.View
 import com.come.restaurants.order.list.ui.OrderListActivity
+import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.auth.api.signin.GoogleSignInResult
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_open_restaurant.*
 
 class OpenRestaurantActivity : AppCompatActivity(), View {
 
+    private val RC_SIGN_IN = 9001
     private lateinit var presenter: OpenRestaurantPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_open_restaurant)
 
+        this.loginGoogle()
+
         this.presenter = OpenRestaurantPresenter()
         this.presenter.setView(this)
         this.presenter.init()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_SIGN_IN) {
+            val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
+            if(result.isSuccess) {
+                val account = result.signInAccount
+                this.firebaseAuthWithGoogle(account)
+            }
+        }
+    }
+
+    fun loginGoogle() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
+
+        val apiClient = GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this.presenter)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build()
+
+        val mAuthListener = FirebaseAuth.AuthStateListener { auth ->
+            val user = auth.currentUser
+            if(user != null) {
+
+            } else {
+
+            }
+        }
+
+        openButton.setOnClickListener { presenter.createSignInIntent(apiClient) }
+    }
+
+    fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
+        val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
+        val firebaseAuth = FirebaseAuth.getInstance()
+        firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        presenter.open()
+                    }
+                }
+
+    }
+
+    override fun signIn(intent: Intent) {
+        startActivityForResult(intent, RC_SIGN_IN)
+    }
+
     override fun navigateToOrderList() {
         startActivity(Intent(this, OrderListActivity::class.java))
+        finish()
     }
 
     override fun showConnectionError() {
@@ -48,6 +112,6 @@ class OpenRestaurantActivity : AppCompatActivity(), View {
     }
 
     override fun initUi() {
-        openButton.setOnClickListener { presenter.open() }
+
     }
 }
