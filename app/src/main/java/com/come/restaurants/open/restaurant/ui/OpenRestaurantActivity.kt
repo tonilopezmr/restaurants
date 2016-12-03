@@ -1,10 +1,11 @@
-package com.come.restaurants.open.restaurant
+package com.come.restaurants.open.restaurant.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.come.restaurants.R
+import com.come.restaurants.open.restaurant.OpenRestaurantPresenter
 import com.come.restaurants.open.restaurant.OpenRestaurantPresenter.View
 import com.come.restaurants.order.list.ui.OrderListActivity
 import kotlinx.android.synthetic.main.activity_open_restaurant.*
@@ -19,15 +20,30 @@ class OpenRestaurantActivity : AppCompatActivity(), View {
 
         this.presenter = OpenRestaurantPresenter()
         this.presenter.setView(this)
-        this.presenter.init()
+        this.presenter.init(applicationContext, this)
+    }
+
+    override fun launchSignIn(intent: Intent) {
+        startActivityForResult(intent, OpenRestaurantPresenter.RC_SIGN_IN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        this.presenter.checkSignIn(requestCode, resultCode, data)
     }
 
     override fun navigateToOrderList() {
         startActivity(Intent(this, OrderListActivity::class.java))
+        finish()
     }
 
     override fun showConnectionError() {
         val toast = Toast.makeText(applicationContext, getString(R.string.connection_error), 3)
+        toast.show()
+    }
+
+    override fun showLoginError() {
+        val toast = Toast.makeText(applicationContext, getString(R.string.login_error), 3)
         toast.show()
     }
 
@@ -47,6 +63,6 @@ class OpenRestaurantActivity : AppCompatActivity(), View {
     }
 
     override fun initUi() {
-        openButton.setOnClickListener { presenter.open() }
+        openButton.setOnClickListener { this.presenter.signIn() }
     }
 }
