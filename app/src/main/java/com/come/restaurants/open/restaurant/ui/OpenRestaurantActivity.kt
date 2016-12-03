@@ -3,6 +3,7 @@ package com.come.restaurants.open.restaurant.ui
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.widget.Toast
 import com.come.restaurants.R
 import com.come.restaurants.open.restaurant.OpenRestaurantPresenter
@@ -19,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_open_restaurant.*
 class OpenRestaurantActivity : AppCompatActivity(), View {
 
     private val RC_SIGN_IN = 9001
+    private val TAG = "OpenRestaurantActivity"
     private lateinit var presenter: OpenRestaurantPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +47,7 @@ class OpenRestaurantActivity : AppCompatActivity(), View {
 
     fun loginGoogle() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.oauth_token))
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build()
 
@@ -57,9 +59,9 @@ class OpenRestaurantActivity : AppCompatActivity(), View {
         val mAuthListener = FirebaseAuth.AuthStateListener { auth ->
             val user = auth.currentUser
             if(user != null) {
-
+                Log.d(TAG, "onAuthStateChanged:signed_in:${user.uid}")
             } else {
-
+                Log.d(TAG, "onAuthStateChanged:signed_out")
             }
         }
 
@@ -72,8 +74,10 @@ class OpenRestaurantActivity : AppCompatActivity(), View {
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
+                        Log.d(TAG, "signInWithCredential:onComplete:${task.isSuccessful}")
                         presenter.open()
                     } else {
+                        Log.d(TAG, "signInWithCredential", task.exception)
                         this.showLoginError()
                     }
                 }
