@@ -15,12 +15,12 @@ class FirebaseOrderRepository : OrderRepository {
 
     override fun getOrder(id: String, callback: GetOrder.Callback) {
        reference.child("orders").child(id).addListenerForSingleValueEvent(object : ValueEventListener{
-           override fun onCancelled(p0: DatabaseError) {
-               callback.error(Exception(p0.message))
+           override fun onCancelled(databaseError: DatabaseError) {
+               callback.error(Exception(databaseError.message))
            }
 
-           override fun onDataChange(p0: DataSnapshot) {
-               callback.orderReceived(p0.getValue(Order :: class.java))
+           override fun onDataChange(dataSnapshot: DataSnapshot) {
+               callback.orderReceived(dataSnapshot.getValue(Order :: class.java))
            }
 
        })
