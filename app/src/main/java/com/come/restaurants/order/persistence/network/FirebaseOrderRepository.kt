@@ -4,7 +4,6 @@ import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.domain.OrderRepository
 import com.come.restaurants.order.domain.usecases.*
 import com.google.firebase.database.*
-import java.util.*
 
 class FirebaseOrderRepository : OrderRepository {
     private var database : FirebaseDatabase
@@ -15,19 +14,25 @@ class FirebaseOrderRepository : OrderRepository {
     }
 
     override fun getOrder(id: String, callback: GetOrder.Callback) {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+       reference.child("orders").child(id).addListenerForSingleValueEvent(object : ValueEventListener{
+           override fun onCancelled(p0: DatabaseError) {
+               callback.error(Exception(p0.message))
+           }
 
-    override fun orderReceived(order: Order, callback: OrderReceived.Callback) {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+           override fun onDataChange(p0: DataSnapshot) {
+               callback.orderReceived(p0.getValue(Order :: class.java))
+           }
+
+       })
     }
 
     override fun orderPrinted(order: Order, callback: OrderPrinted.Callback) {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+        reference.child("orders").child(order.id).removeValue()
+        reference.child("history").child(order.id).setValue(order)
     }
 
     override fun getOrders(callback: GetOrders.Callback) {
-       reference.child("orders").addListenerForSingleValueEvent(object : ValueEventListener{
+       reference.child("orders").addValueEventListener(object : ValueEventListener{
            override fun onCancelled(databaseError: DatabaseError){
                callback.error(Exception(databaseError.message))
            }

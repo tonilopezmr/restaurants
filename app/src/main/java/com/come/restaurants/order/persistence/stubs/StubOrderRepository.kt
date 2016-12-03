@@ -7,7 +7,6 @@ import com.come.restaurants.order.domain.OrderRepository
 import com.come.restaurants.order.domain.usecases.GetOrder
 import com.come.restaurants.order.domain.usecases.GetOrders
 import com.come.restaurants.order.domain.usecases.OrderPrinted
-import com.come.restaurants.order.domain.usecases.OrderReceived
 import java.util.*
 
 class StubOrderRepository : OrderRepository {
@@ -33,10 +32,6 @@ class StubOrderRepository : OrderRepository {
 
     override fun getOrder(id: String, callback: GetOrder.Callback) {
         callback.orderReceived(orderList[0])
-    }
-
-    override fun orderReceived(order: Order, callback: OrderReceived.Callback) {
-        callback.orderRegistered()
     }
 
     override fun orderPrinted(order: Order, callback: OrderPrinted.Callback) {
