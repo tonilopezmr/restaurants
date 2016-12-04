@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="60dp"
     android:weightSum="1">
 
     <ImageView
@@ -14,7 +14,7 @@
     <TextView
         android:text="TextView"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="match_parent"
         android:id="@+id/printerNameText"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textSize="16sp"
