@@ -19,6 +19,7 @@ import com.come.restaurants.order.detail.OrderDetailActivity
 import com.come.restaurants.order.list.ui.adapter.OrderListAdapter
 import com.come.restaurants.order.list.ui.matchers.RecyclerViewItemsCountMatcher
 import com.come.restaurants.order.list.ui.viewassertion.RecyclerSortedViewAssertion
+import com.come.restaurants.order.persistence.stubs.StubOrderRepository
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -34,8 +35,11 @@ class OrderListActivityShould {
 
     @Test
     fun show_all_characters_size_in_list_view() {
+        val repository = StubOrderRepository()
+        val ordersCount = repository.orderList.size
+
         onView(withId(R.id.ordersRecyclerView))
-                .check(matches(RecyclerViewItemsCountMatcher.withItemCounts(2)))
+                .check(matches(RecyclerViewItemsCountMatcher.withItemCounts(ordersCount)))
     }
 
     @Test
