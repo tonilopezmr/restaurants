@@ -3,6 +3,9 @@
           package="com.come.restaurants">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
 
     <application
         android:allowBackup="true"
@@ -11,16 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".open.restaurant.OpenRestaurantActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER"/>
+        </intent-filter>
         </activity>
         <activity android:name=".order.list.ui.OrderListActivity"/>
         <activity android:name=".order.detail.OrderDetailActivity"/>
-        <activity android:name=".printer.pairing.ui.BtPairingActivity">
-        </activity>
+        <activity android:name=".printer.pairing.ui.BtPairingActivity"/>
     </application>
 
 </manifest>
