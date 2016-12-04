@@ -9,7 +9,6 @@ import android.content.IntentFilter
 import android.support.v4.app.ActivityCompat
 import android.util.Log
 import com.come.restaurants.base.MVP
-import com.come.restaurants.printer.domain.model.Printer
 import com.come.restaurants.printer.pairing.ui.BtPairingActivity
 
 

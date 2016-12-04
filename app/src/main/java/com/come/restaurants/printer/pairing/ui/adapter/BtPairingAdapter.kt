@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.come.restaurants.R
-import com.come.restaurants.printer.domain.model.Printer
 import kotlinx.android.synthetic.main.printer_list_item.view.*
 import java.util.*
 

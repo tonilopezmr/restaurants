@@ -15,7 +15,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
 import com.come.restaurants.R
-import com.come.restaurants.printer.domain.model.Printer
 import com.come.restaurants.printer.pairing.BtPairingPresenter
 import com.come.restaurants.printer.pairing.ui.adapter.BtPairingAdapter
 import kotlinx.android.synthetic.main.activity_bt_pairing.*
