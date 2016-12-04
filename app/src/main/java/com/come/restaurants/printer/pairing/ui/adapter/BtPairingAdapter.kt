@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import com.come.restaurants.R
 import com.come.restaurants.printer.domain.model.BtDevice
 import kotlinx.android.synthetic.main.printer_list_item.view.*
+import java.util.*
 
 
 class BtPairingAdapter() : RecyclerView.Adapter<BtPairingAdapter.ListViewHolder>() {
 
-    lateinit var printerList: MutableList<BtDevice>
+    val printerList = ArrayList<BtDevice>()
 
     override fun getItemCount(): Int {
         return printerList.size
