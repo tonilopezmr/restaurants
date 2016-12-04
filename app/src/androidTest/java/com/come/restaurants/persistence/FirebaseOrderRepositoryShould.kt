@@ -6,6 +6,6 @@ import org.junit.Test
 class FirebaseOrderRepositoryShould {
     @Test fun should_return_a_single_order(){
         var orderRepository = FirebaseOrderRepository()
-
+        
     }
 }

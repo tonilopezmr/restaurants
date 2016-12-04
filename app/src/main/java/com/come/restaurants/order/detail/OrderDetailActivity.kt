@@ -1,12 +1,14 @@
 package com.come.restaurants.order.detail
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.come.restaurants.R
 import com.come.restaurants.order.domain.model.Order
-import com.come.restaurants.order.persistence.stubs.StubOrderRepository
 import com.come.restaurants.order.domain.usecases.GetOrder
+import com.come.restaurants.order.domain.usecases.PrintOrder
+import com.come.restaurants.order.persistence.stubs.StubOrderRepository
+import com.come.restaurants.printer.PrinterRepository
 import kotlinx.android.synthetic.main.activity_order_detail.*
 
 class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
@@ -18,7 +20,7 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
     private lateinit var presenter : OrderDetailPresenter
 
     override fun showDetails(details: Order) {
-        orderNumberTextView.text = intent.getStringExtra(NUMBER)
+        orderNumberTextView.text = getString(R.string.number) + " " + intent.getStringExtra(NUMBER)
         orderTextView.text = details.orderLines.fold("",
                 {total, current -> total.plus(
                         "${current.quantity}x ${current.plate.name} \t${current.getPrice()}€\n"
@@ -26,9 +28,21 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
         totalPriceTextView.text = "${details.getPrice()}€"
     }
 
-    override fun showError() {
+    override fun showFetchingError() {
         val toast = Toast.makeText(applicationContext,
                 "Error ocurred while fetching order details", 3)
+        toast.show()
+    }
+
+    override fun showPrintError() {
+        val toast = Toast.makeText(applicationContext,
+                "Error ocurred while printing order details", 3)
+        toast.show()
+    }
+
+    override fun showOrderPrinted() {
+        val toast = Toast.makeText(applicationContext,
+                "Order details printed", 3)
         toast.show()
     }
 
@@ -36,6 +50,8 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
         orderNumberTextView.text = getString(R.string.fetching_order)
         orderTextView.text = ""
         totalPriceTextView.text = ""
+
+        printButton.setOnClickListener { presenter.print() }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +62,10 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
         val getOrder = GetOrder(repository)
         val orderId = intent.getStringExtra(ID)
 
-        this.presenter = OrderDetailPresenter(getOrder)
+        var printerRepository = PrinterRepository()
+        val printOrder = PrintOrder(printerRepository)
+
+        this.presenter = OrderDetailPresenter(getOrder, printOrder)
         this.presenter.setView(this)
         this.presenter.init(orderId)
     }

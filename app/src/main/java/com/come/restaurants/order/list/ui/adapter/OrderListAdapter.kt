@@ -1,6 +1,5 @@
 package com.come.restaurants.order.list.ui.adapter
 
-import android.app.PendingIntent.getActivity
 import android.content.Intent
 import android.support.v7.util.SortedList
 import android.support.v7.widget.RecyclerView
@@ -8,15 +7,15 @@ import android.support.v7.widget.util.SortedListAdapterCallback
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import com.come.restaurants.R
-import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.detail.OrderDetailActivity
-import kotlinx.android.synthetic.main.order_detail.view.*
+import com.come.restaurants.order.domain.model.Order
+import kotlinx.android.synthetic.main.order_item.view.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 class OrderListAdapter() : RecyclerView.Adapter<OrderListAdapter.ListViewHolder>() {
-    lateinit var orderList : SortedList<Order>
+    private var orderList : SortedList<Order>
 
     init {
         orderList  = SortedList<Order>(Order::class.java, object : SortedListAdapterCallback<Order>(this) {
@@ -48,7 +47,7 @@ class OrderListAdapter() : RecyclerView.Adapter<OrderListAdapter.ListViewHolder>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val view = LayoutInflater
                 .from(parent.context)
-                .inflate(R.layout.order_detail, parent, false)
+                .inflate(R.layout.order_item, parent, false)
         return ListViewHolder(view)
     }
 
@@ -57,12 +56,15 @@ class OrderListAdapter() : RecyclerView.Adapter<OrderListAdapter.ListViewHolder>
         notifyDataSetChanged()
     }
 
+    fun getItems() = this.orderList
+
     class ListViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         fun bindOrder(order: Order, position: Int) {
             with(order) {
-                itemView.orderNumberText.text = "$position"
-                itemView.orderHourText.text = "${Date(order.timestamp).hours}:${Date(order.timestamp).minutes}"
-                itemView.totalPriceText.text = "${order.getPrice()}€"
+                var dateFromat = SimpleDateFormat("HH:mm:ss")
+                itemView.orderNumberText.text = "${itemView.context.getString(R.string.number)} $position"
+                itemView.orderHourText.text = "${dateFromat.format(Date(order.timestamp))}"
+                itemView.totalPriceText.text = "${itemView.context.getString(R.string.total_price)} ${order.getPrice()}€"
                 itemView.orderPlatesText.text = orderLines.fold("", {total, current ->
                     total.plus("${current.quantity}x${current.plate.name}\n")} )
             }
