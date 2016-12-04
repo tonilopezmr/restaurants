@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.come.restaurants.R
-import com.come.restaurants.printer.domain.model.Printer
+import com.come.restaurants.printer.domain.model.BtDevice
 import kotlinx.android.synthetic.main.printer_list_item.view.*
 
 
 class BtPairingAdapter() : RecyclerView.Adapter<BtPairingAdapter.ListViewHolder>() {
 
-    lateinit var printerList: MutableList<Printer>
+    lateinit var printerList: MutableList<BtDevice>
 
     override fun getItemCount(): Int {
         return printerList.size
@@ -28,12 +28,12 @@ class BtPairingAdapter() : RecyclerView.Adapter<BtPairingAdapter.ListViewHolder>
         holder.bindPrinter(printerList[position])
     }
 
-    fun addAll(printers: List<Printer>) {
+    fun addAll(printers: List<BtDevice>) {
         this.printerList.addAll(printers)
     }
 
     class ListViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-        fun bindPrinter(printer: Printer) {
+        fun bindPrinter(printer: BtDevice) {
             with(printer) {
             itemView.printerNameText.text = printer.name
             }

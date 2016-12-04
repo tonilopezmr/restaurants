@@ -7,14 +7,14 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import com.come.restaurants.base.MVP
-import com.come.restaurants.printer.domain.model.Printer
+import com.come.restaurants.printer.domain.model.BtDevice
 
 
 
 class BtPairingPresenter : MVP.Presenter<BtPairingPresenter.View> {
 
     lateinit var view : View
-    private val devicesList: MutableList<Printer> = mutableListOf()
+    private val devicesList: MutableList<BtDevice> = mutableListOf()
     lateinit var btAdapter : BluetoothAdapter
 
     private val btReceiver: BroadcastReceiver = object : BroadcastReceiver() {
@@ -23,13 +23,13 @@ class BtPairingPresenter : MVP.Presenter<BtPairingPresenter.View> {
             if(BluetoothDevice.ACTION_FOUND.equals(action)) {
                 val device = intent
                         .getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
-                devicesList.add(Printer(device.name, device.address))
+                devicesList.add(BtDevice(device.name, device.address))
             }
         }
     }
 
     interface View : MVP.View {
-        fun showList(printers : List<Printer>)
+        fun showList(printers : List<BtDevice>)
         fun setReceiver(receiver: BroadcastReceiver, filter: IntentFilter)
         fun unsetReceiver(receiver: BroadcastReceiver)
         fun turnOnBtMessage()
@@ -74,7 +74,7 @@ class BtPairingPresenter : MVP.Presenter<BtPairingPresenter.View> {
         this.show(devicesList)
     }
 
-    private fun show(printers: List<Printer>) {
+    private fun show(printers: List<BtDevice>) {
         this.view.showList(printers)
     }
 }
