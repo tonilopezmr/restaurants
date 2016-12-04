@@ -1,5 +1,6 @@
 package com.come.restaurants.printer.pairing.ui.adapter
 
+import android.bluetooth.BluetoothDevice
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,7 @@ import java.util.*
 
 class BtPairingAdapter() : RecyclerView.Adapter<BtPairingAdapter.ListViewHolder>() {
 
-    val printerList: MutableList<Printer> = ArrayList()
+    val printerList: MutableList<BluetoothDevice> = ArrayList()
 
     override fun getItemCount(): Int {
         return printerList.size
@@ -34,12 +35,13 @@ class BtPairingAdapter() : RecyclerView.Adapter<BtPairingAdapter.ListViewHolder>
         }
     }
 
-    fun addAll(printers: List<Printer>) {
+    fun addAll(printers: List<BluetoothDevice>) {
         this.printerList.addAll(printers)
+        notifyDataSetChanged()
     }
 
     class ListViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-        fun bindPrinter(printer: Printer) {
+        fun bindPrinter(printer: BluetoothDevice) {
             with(printer) {
             itemView.printerNameText.text = printer.name
             }

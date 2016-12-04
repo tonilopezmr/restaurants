@@ -14,4 +14,6 @@
     <string name="login_error">Authentication failed</string>
     <string name="print">Print</string>
     <string name="scanning_bt">Scaning...</string>
+    <string name="cancel">Cancel</string>
+    <string name="permission_failure">Permission not granted</string>
 </resources>
