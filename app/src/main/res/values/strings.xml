@@ -11,4 +11,6 @@
     <string name="connection_error">Connection error</string>
     <string name="invalid_name">Invalid name</string>
     <string name="invalid_code">Invalid Code</string>
+    <string name="bluetooth_not_supported">The device doesn\'t support bluetooth</string>
+
 </resources>
