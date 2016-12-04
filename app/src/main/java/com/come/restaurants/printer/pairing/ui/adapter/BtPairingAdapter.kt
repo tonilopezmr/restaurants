@@ -4,14 +4,16 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.come.restaurants.R
 import com.come.restaurants.printer.domain.model.Printer
 import kotlinx.android.synthetic.main.printer_list_item.view.*
+import java.util.*
 
 
 class BtPairingAdapter() : RecyclerView.Adapter<BtPairingAdapter.ListViewHolder>() {
 
-    lateinit var printerList: MutableList<Printer>
+    val printerList: MutableList<Printer> = ArrayList()
 
     override fun getItemCount(): Int {
         return printerList.size
@@ -26,6 +28,10 @@ class BtPairingAdapter() : RecyclerView.Adapter<BtPairingAdapter.ListViewHolder>
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.bindPrinter(printerList[position])
+        holder.itemView.setOnClickListener { it ->
+            val toast = Toast.makeText(it.context, printerList[position].name, Toast.LENGTH_LONG)
+            toast.show()
+        }
     }
 
     fun addAll(printers: List<Printer>) {

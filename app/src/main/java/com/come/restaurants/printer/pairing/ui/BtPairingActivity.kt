@@ -1,6 +1,9 @@
 package com.come.restaurants.printer.pairing.ui
 
+import android.app.ProgressDialog
+import android.bluetooth.BluetoothAdapter
 import android.content.BroadcastReceiver
+import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -16,11 +19,8 @@ class BtPairingActivity : AppCompatActivity(), BtPairingPresenter.View {
 
     private lateinit var presenter: BtPairingPresenter
     private lateinit var adapter: BtPairingAdapter
+    private lateinit var progressDialog: ProgressDialog
 
-    override fun turnOnBtMessage() {
-        val toast = Toast.makeText(applicationContext, "Turn on bluetooth", 3)
-        toast.show()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +33,20 @@ class BtPairingActivity : AppCompatActivity(), BtPairingPresenter.View {
 
     override fun onDestroy() {
         this.presenter.finish()
+        super.onDestroy()
+    }
+
+    override fun turnOnBtMessage() {
+        val intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+        startActivityForResult(intent, 1000)
+    }
+
+    override fun showProgressDialog() {
+        this.progressDialog = ProgressDialog(this)
+        this.progressDialog.setMessage(getString(R.string.scanning_bt))
+        this.progressDialog.setCancelable(false)
+        this.progressDialog.show()
+
     }
 
     override fun setReceiver(receiver: BroadcastReceiver, filter: IntentFilter) {
@@ -44,6 +58,7 @@ class BtPairingActivity : AppCompatActivity(), BtPairingPresenter.View {
     }
 
     override fun showList(printers: List<Printer>) {
+        this.progressDialog.dismiss()
         this.adapter.addAll(printers)
     }
 

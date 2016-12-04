@@ -18,7 +18,11 @@ class BtPairingPresenter : MVP.Presenter<BtPairingPresenter.View> {
     private val btReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
             val action = intent.action
-            if(BluetoothDevice.ACTION_FOUND.equals(action)) {
+            if(BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
+                view.showProgressDialog()
+            } else if(BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
+                view.showList(devicesList)
+            } else if(BluetoothDevice.ACTION_FOUND.equals(action)) {
                 val device = intent
                         .getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
                 devicesList.add(Printer(device.name, device.address))
@@ -32,10 +36,16 @@ class BtPairingPresenter : MVP.Presenter<BtPairingPresenter.View> {
         fun setReceiver(receiver: BroadcastReceiver, filter: IntentFilter)
         fun unsetReceiver(receiver: BroadcastReceiver)
         fun turnOnBtMessage()
+        fun showProgressDialog()
     }
 
     override fun init() {
-        val filter = IntentFilter(BluetoothDevice.ACTION_FOUND)
+        this.view.initUi()
+
+        val filter = IntentFilter()
+        filter.addAction(BluetoothDevice.ACTION_FOUND)
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED)
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED)
         this.view.setReceiver(btReceiver, filter)
         requestPrinters()
     }
@@ -50,11 +60,10 @@ class BtPairingPresenter : MVP.Presenter<BtPairingPresenter.View> {
 
     private fun requestPrinters() {
         val btAdapter = BluetoothAdapter.getDefaultAdapter()
-        btAdapter.startDiscovery()
-        this.show(devicesList)
-    }
-
-    private fun show(printers: List<Printer>) {
-        this.view.showList(printers)
+        if(!btAdapter.isEnabled) {
+            this.view.turnOnBtMessage()
+        } else {
+            btAdapter.startDiscovery()
+        }
     }
 }
