@@ -74,7 +74,7 @@ class BtPairingPresenter : MVP.Presenter<BtPairingPresenter.View> {
         this.show(devicesList)
     }
 
-    private fun show(printers: List<BtDevice>) {
-        this.view.showList(printers)
+    private fun show(btDevices: List<BtDevice>) {
+        this.view.showList(btDevices)
     }
 }
