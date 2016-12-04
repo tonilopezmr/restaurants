@@ -40,6 +40,7 @@ class BtPairingPresenter : MVP.Presenter<BtPairingPresenter.View> {
     override fun init() {
         val filter = IntentFilter(BluetoothDevice.ACTION_FOUND)
         this.view.setReceiver(btReceiver, filter)
+        this.view.initUi()
         requestDevices()
     }
 
@@ -74,7 +75,7 @@ class BtPairingPresenter : MVP.Presenter<BtPairingPresenter.View> {
         this.show(devicesList)
     }
 
-    private fun show(btDevices: List<BtDevice>) {
-        this.view.showList(btDevices)
+    private fun show(printers: List<BtDevice>) {
+        this.view.showList(printers)
     }
 }
