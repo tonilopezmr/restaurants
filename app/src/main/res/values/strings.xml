@@ -16,4 +16,5 @@
     <string name="scanning_bt">Scaning...</string>
     <string name="cancel">Cancel</string>
     <string name="permission_failure">Permission not granted</string>
+    <string name="unknown_device">Unknown device</string>
 </resources>

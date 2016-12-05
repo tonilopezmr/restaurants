@@ -71,8 +71,12 @@ class BtPairingAdapter() : RecyclerView.Adapter<BtPairingAdapter.ListViewHolder>
 
     class ListViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         fun bindPrinter(printer: BluetoothDevice) {
-            with(printer) {
-            itemView.printerNameText.text = printer.name
+            with (printer) {
+                if (printer.name != null) {
+                    itemView.printerNameText.text = printer.name
+                } else {
+                    itemView.printerNameText.text = itemView.context.getString(R.string.unknown_device)
+                }
             }
         }
     }
