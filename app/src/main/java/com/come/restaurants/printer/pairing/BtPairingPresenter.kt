@@ -81,6 +81,8 @@ class BtPairingPresenter : MVP.Presenter<BtPairingPresenter.View> {
     }
 
     fun doDiscovery() {
+        val boundedDevices = btAdapter.bondedDevices
+        devicesList.addAll(boundedDevices)
         btAdapter.startDiscovery()
     }
 
