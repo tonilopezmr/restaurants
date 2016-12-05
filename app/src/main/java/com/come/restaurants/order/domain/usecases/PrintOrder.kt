@@ -6,7 +6,7 @@ import com.come.restaurants.printer.domain.PrinterRepository
 
 class PrintOrder(val repository: PrinterRepository) {
     interface Callback : BaseCallback {
-        fun orderPrinted()
+        fun orderPrinted(order: Order)
     }
 
     fun print(order: Order, callback: Callback) {
