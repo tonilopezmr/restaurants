@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.come.restaurants.R
+import com.come.restaurants.printer.pairing.ui.BtPairingActivity
 import kotlinx.android.synthetic.main.printer_list_item.view.*
 import java.util.*
 
@@ -34,13 +35,21 @@ class BtPairingAdapter() : RecyclerView.Adapter<BtPairingAdapter.ListViewHolder>
         holder.itemView.setOnClickListener { it ->
             val device = printerList[position]
             if (device.bondState == BluetoothDevice.BOND_BONDED) {
-                val method = device.javaClass.getMethod("removeBond")
-                val result = method.invoke(device)
-                Log.d(TAG, "Device was unpaired correctly: $result")
+                val result = unpairDevice(device)
+                if(result) {
+                    Toast.makeText(it.context,
+                            "Device ${device.name} was unpaired correctly", Toast.LENGTH_SHORT)
+                            .show()
+                    (it.context as BtPairingActivity).finish()
+                }
             } else {
-                val method = device.javaClass.getMethod("createBond")
-                val result = method.invoke(device)
-                Log.d(TAG, "Device was paired correctly: $result")
+                val result = pairDevice(device)
+                if(result) {
+                    Toast.makeText(it.context,
+                            "Device ${device.name} was paired correctly", Toast.LENGTH_SHORT)
+                            .show()
+                    (it.context as BtPairingActivity).finish()
+                }
             }
         }
     }
@@ -48,6 +57,16 @@ class BtPairingAdapter() : RecyclerView.Adapter<BtPairingAdapter.ListViewHolder>
     fun addAll(printers: List<BluetoothDevice>) {
         this.printerList.addAll(printers)
         notifyDataSetChanged()
+    }
+
+    private fun unpairDevice(device: BluetoothDevice): Boolean {
+        val method = device.javaClass.getMethod("removeBond")
+        return method.invoke(device) as Boolean
+    }
+
+    private fun pairDevice(device: BluetoothDevice): Boolean {
+        val method = device.javaClass.getMethod("createBond")
+        return method.invoke(device) as Boolean
     }
 
     class ListViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
