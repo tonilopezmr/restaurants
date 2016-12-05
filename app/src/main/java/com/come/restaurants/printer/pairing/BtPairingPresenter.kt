@@ -81,6 +81,8 @@ class BtPairingPresenter : MVP.Presenter<BtPairingPresenter.View> {
     }
 
     fun doDiscovery() {
+        if(btAdapter.isDiscovering())
+            btAdapter.cancelDiscovery()
         btAdapter.startDiscovery()
     }
 
