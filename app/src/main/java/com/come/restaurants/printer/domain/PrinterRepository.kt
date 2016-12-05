@@ -1,4 +1,4 @@
-package com.come.restaurants.printer
+package com.come.restaurants.printer.domain
 
 import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.domain.usecases.PrintOrder

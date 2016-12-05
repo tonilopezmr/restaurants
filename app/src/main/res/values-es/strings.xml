@@ -14,4 +14,8 @@
     <string name="invalid_code">Código inválido</string>
     <string name="print">Imprimir</string>
     <string name="login_error">Fallo al autenticar</string>
+    <string name="scanning_bt">Buscando dispositivos...</string>
+    <string name="cancel">Cancelar</string>
+    <string name="permission_failure">Permiso no concedido</string>
+    <string name="unknown_device">Dispositivo desconocido</string>
 </resources>
