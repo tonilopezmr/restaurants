@@ -15,16 +15,14 @@ public class PrinterBluetooth implements IPrinter {
 
   @Override
 
-  //TODO Create the message handler in PrinterBluetooth
   public void connect(Context context, Handler messageHandler) throws PrinterException {
     bluetoothService = new BluetoothService(context, messageHandler);
     BluetoothAdapter bAdapter = BluetoothAdapter.getDefaultAdapter();
-    //TODO Bluetooth Selection Activity?
     //We assume the printer was the most recent connection
     BluetoothDevice printer = bAdapter.getBondedDevices().iterator().next();
     if(printer != null) {
       bluetoothService.connect(printer);
-      //initialize();
+      initialize();
     }
     else {
       throw new PrinterException("NO PAIRED DEVICES FOUND");
