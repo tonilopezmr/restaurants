@@ -1,5 +1,6 @@
 package com.come.restaurants.order.detail
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
@@ -8,7 +9,8 @@ import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.domain.usecases.GetOrder
 import com.come.restaurants.order.domain.usecases.PrintOrder
 import com.come.restaurants.order.persistence.stubs.StubOrderRepository
-import com.come.restaurants.printer.PrinterRepository
+import com.come.restaurants.printer.domain.PrinterRepository
+import com.come.restaurants.printer.pairing.ui.BtPairingActivity
 import kotlinx.android.synthetic.main.activity_order_detail.*
 
 class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
@@ -68,5 +70,10 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
         this.presenter = OrderDetailPresenter(getOrder, printOrder)
         this.presenter.setView(this)
         this.presenter.init(orderId)
+    }
+
+    override fun moveToPairingActivity() {
+        val intent = Intent(this, BtPairingActivity::class.java)
+        startActivity(intent)
     }
 }
