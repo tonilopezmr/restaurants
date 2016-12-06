@@ -63,6 +63,6 @@ class OpenRestaurantActivity : AppCompatActivity(), View {
     }
 
     override fun initUi() {
-        openButton.setOnClickListener { this.presenter.signIn() }
+        openButton.setOnClickListener { navigateToOrderList() }
     }
 }
