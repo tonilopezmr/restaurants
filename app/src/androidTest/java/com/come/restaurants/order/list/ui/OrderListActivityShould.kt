@@ -13,9 +13,11 @@ import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.filters.LargeTest
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
+import android.support.v7.util.SortedList
 import android.support.v7.widget.RecyclerView
 import com.come.restaurants.R
 import com.come.restaurants.order.detail.OrderDetailActivity
+import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.list.ui.adapter.OrderListAdapter
 import com.come.restaurants.order.list.ui.matchers.RecyclerViewItemsCountMatcher
 import com.come.restaurants.order.list.ui.viewassertion.RecyclerSortedViewAssertion
@@ -23,7 +25,6 @@ import com.come.restaurants.order.persistence.stubs.StubOrderRepository
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.*
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
@@ -47,13 +48,9 @@ class OrderListActivityShould {
         val withAdapter = object : RecyclerSortedViewAssertion.WithAdapter<Long> {
             override fun itemsToSort(recyclerView: RecyclerView): List<Long> {
                 val adapter = recyclerView.adapter as OrderListAdapter
-                val result = ArrayList<Long>()
-                var i = 0
-                while (i < adapter.itemCount) {
-                    result.add(adapter.getItems()[i].timestamp)
-                    i++
-                }
-                return result
+                var items: SortedList<Order> = adapter.getItems()
+
+                return (0..items.size()).map { items[it].timestamp }
             }
         }
 
