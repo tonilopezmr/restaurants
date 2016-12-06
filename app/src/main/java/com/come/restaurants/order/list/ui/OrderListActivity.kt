@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.Toast
 import com.come.restaurants.R
 import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.domain.usecases.GetOrders
 import com.come.restaurants.order.list.OrderListPresenter
 import com.come.restaurants.order.list.ui.adapter.OrderListAdapter
-import com.come.restaurants.order.persistence.network.FirebaseOrderRepository
 import com.come.restaurants.order.persistence.stubs.StubOrderRepository
 import kotlinx.android.synthetic.main.activity_list.*
 
@@ -21,6 +19,7 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
 
     override fun showLoader() {
         orderLoader.visibility = View.VISIBLE
+        emptyCase.visibility = View.GONE
     }
 
     override fun hideLoader() {
@@ -28,12 +27,12 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
     }
 
     override fun showEmptyCase() {
-        val toast = Toast.makeText(applicationContext, "Empty list", 3)
-        toast.show()
+        emptyCase.visibility = View.VISIBLE
     }
 
     override fun showList(orders: List<Order>) {
         adapter.addAll(orders)
+        emptyCase.visibility = View.GONE
     }
 
     override fun initUi() {

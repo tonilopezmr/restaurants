@@ -79,7 +79,7 @@
                 android:id="@+id/textView4"
                 android:layout_weight="1"
                 android:layout_marginRight="10dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
 
             <TextView
                 android:text="TextView"
