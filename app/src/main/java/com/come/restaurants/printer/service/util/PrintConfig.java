@@ -1,4 +1,4 @@
-package com.come.restaurants.printer.printerlib.util;
+package com.come.restaurants.printer.service.util;
 
 public class PrintConfig {
   private PrinterCommands.Align alignment = PrinterCommands.Align.ALIGNMENT_LEFT;
@@ -24,11 +24,11 @@ public class PrintConfig {
     this.font = font;
   }
 
-  public String getSeparator_spacing() {
+  public String getSeparatorSpacing() {
     return separator_spacing;
   }
 
-  public void setSeparator_spacing(int spacing) {
+  public void setSeparatorSpacing(int spacing) {
     separator_spacing = "";
     for(int i = 0; i < spacing; i++) {
       separator_spacing += PrinterCommands.NEW_LINE;

@@ -1,4 +1,4 @@
-package com.come.restaurants.printer.printerlib.bluetooth;
+package com.come.restaurants.printer.service.bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -6,11 +6,11 @@ import android.content.Context;
 import android.os.Handler;
 
 
-import com.come.restaurants.printer.printerlib.IPrinter;
-import com.come.restaurants.printer.printerlib.util.PrinterCommands;
-import com.come.restaurants.printer.printerlib.PrinterException;
+import com.come.restaurants.printer.service.Printer;
+import com.come.restaurants.printer.service.util.PrinterCommands;
+import com.come.restaurants.printer.service.PrinterException;
 
-public class PrinterBluetooth implements IPrinter {
+public class PrinterBluetooth implements Printer {
   private BluetoothService bluetoothService;
 
   @Override
