@@ -57,6 +57,7 @@ dependencies {
 
     def espressoVersion = "2.2.2"
     def firebaseVersion = "9.6.1"
+    def ankoVersion = "0.9"
 
     //android test
     androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
@@ -91,9 +92,10 @@ dependencies {
     compile "com.google.firebase:firebase-database:${firebaseVersion}"
     compile "com.google.firebase:firebase-auth:${firebaseVersion}"
     compile "com.google.android.gms:play-services-auth:${firebaseVersion}"
-    compile 'org.jetbrains.anko:anko-sdk15:0.9' // sdk19, sdk21, sdk23 are also available
-    compile 'org.jetbrains.anko:anko-support-v4:0.9' // In case you need support-v4 bindings
-    compile 'org.jetbrains.anko:anko-appcompat-v7:0.9' // For appcompat-v7 bindings
+    compile "org.jetbrains.anko:anko-sdk15:${ankoVersion}" // sdk19, sdk21, sdk23 are also available
+    compile "org.jetbrains.anko:anko-support-v4:${ankoVersion}" // In case you need support-v4 bindings
+    compile "org.jetbrains.anko:anko-appcompat-v7:${ankoVersion}" // For appcompat-v7 bindings
+    compile "org.jetbrains.anko:anko-recyclerview-v7:${ankoVersion}"
 
 }
 
