@@ -2,18 +2,17 @@ package com.come.restaurants.printer.pairing.ui.adapter
 
 import android.bluetooth.BluetoothDevice
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.come.restaurants.R
-import com.come.restaurants.printer.pairing.ui.BtPairingActivity
+import com.come.restaurants.printer.pairing.ui.PairingBluetoothActivity
 import kotlinx.android.synthetic.main.printer_list_item.view.*
-import java.util.*
+import java.util.ArrayList
 
 
-class BtPairingAdapter() : RecyclerView.Adapter<BtPairingAdapter.ListViewHolder>() {
+class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.ListViewHolder>() {
 
     private val TAG = "BtPairing"
 
@@ -40,7 +39,7 @@ class BtPairingAdapter() : RecyclerView.Adapter<BtPairingAdapter.ListViewHolder>
                     Toast.makeText(it.context,
                             "Device ${device.name} was unpaired correctly", Toast.LENGTH_SHORT)
                             .show()
-                    (it.context as BtPairingActivity).finish()
+                    (it.context as PairingBluetoothActivity).finish()
                 }
             } else {
                 val result = pairDevice(device)
@@ -48,7 +47,7 @@ class BtPairingAdapter() : RecyclerView.Adapter<BtPairingAdapter.ListViewHolder>
                     Toast.makeText(it.context,
                             "Device ${device.name} was paired correctly", Toast.LENGTH_SHORT)
                             .show()
-                    (it.context as BtPairingActivity).finish()
+                    (it.context as PairingBluetoothActivity).finish()
                 }
             }
         }

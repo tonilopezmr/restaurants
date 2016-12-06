@@ -5,7 +5,7 @@
     android:id="@+id/activity_bt_pairing"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.come.restaurants.printer.pairing.ui.BtPairingActivity"
+    tools:context="com.come.restaurants.printer.pairing.ui.PairingBluetoothActivity"
     android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView

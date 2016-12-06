@@ -9,10 +9,10 @@ import android.content.IntentFilter
 import android.support.v4.app.ActivityCompat
 import android.util.Log
 import com.come.restaurants.base.MVP
-import com.come.restaurants.printer.pairing.ui.BtPairingActivity
+import com.come.restaurants.printer.pairing.ui.PairingBluetoothActivity
 
 
-class BtPairingPresenter : MVP.Presenter<BtPairingPresenter.View> {
+class PairingBluetoothPresenter : MVP.Presenter<PairingBluetoothPresenter.View> {
 
     private val TAG = "BtPairing"
 

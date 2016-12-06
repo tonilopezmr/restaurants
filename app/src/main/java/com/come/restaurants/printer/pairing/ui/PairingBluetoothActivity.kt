@@ -15,16 +15,16 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
 import com.come.restaurants.R
-import com.come.restaurants.printer.pairing.BtPairingPresenter
-import com.come.restaurants.printer.pairing.ui.adapter.BtPairingAdapter
+import com.come.restaurants.printer.pairing.PairingBluetoothPresenter
+import com.come.restaurants.printer.pairing.ui.adapter.BluetoothDeviceAdapter
 import kotlinx.android.synthetic.main.activity_bt_pairing.*
 
-class BtPairingActivity : AppCompatActivity(), BtPairingPresenter.View {
+class PairingBluetoothActivity : AppCompatActivity(), PairingBluetoothPresenter.View {
 
     private val REQUEST_COARSE_LOCATION_PERMISSIONS = 2000
 
-    private lateinit var presenter: BtPairingPresenter
-    private lateinit var adapter: BtPairingAdapter
+    private lateinit var bluetoothPresenter: PairingBluetoothPresenter
+    private lateinit var adapter: BluetoothDeviceAdapter
     private lateinit var progressDialog: ProgressDialog
 
 
@@ -32,17 +32,16 @@ class BtPairingActivity : AppCompatActivity(), BtPairingPresenter.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bt_pairing)
 
-        this.presenter = BtPairingPresenter()
-        this.presenter.setView(this)
-        this.presenter.init()
-
+        this.bluetoothPresenter = PairingBluetoothPresenter()
+        this.bluetoothPresenter.setView(this)
+        this.bluetoothPresenter.init()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when(requestCode) {
             REQUEST_COARSE_LOCATION_PERMISSIONS -> {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    this.presenter.doDiscovery()
+                    this.bluetoothPresenter.doDiscovery()
                 } else {
                     this.showPermissionError()
                 }
@@ -51,7 +50,7 @@ class BtPairingActivity : AppCompatActivity(), BtPairingPresenter.View {
     }
 
     override fun onDestroy() {
-        this.presenter.finish()
+        this.bluetoothPresenter.finish()
         super.onDestroy()
     }
 
@@ -86,7 +85,7 @@ class BtPairingActivity : AppCompatActivity(), BtPairingPresenter.View {
                 getString(R.string.cancel),
                 { dialog, which ->
                     progressDialog.dismiss()
-                    presenter.cancelDiscovery()
+                    bluetoothPresenter.cancelDiscovery()
         })
         this.progressDialog.show()
 
@@ -106,7 +105,7 @@ class BtPairingActivity : AppCompatActivity(), BtPairingPresenter.View {
     }
 
     override fun initUi() {
-        this.adapter = BtPairingAdapter()
+        this.adapter = BluetoothDeviceAdapter()
         printersRecyclerView.adapter = this.adapter
         printersRecyclerView.layoutManager = LinearLayoutManager(this)
     }
