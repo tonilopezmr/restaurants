@@ -21,7 +21,7 @@ android {
 
     defaultConfig {
         applicationId "com.come.restaurants"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -56,6 +56,7 @@ dependencies {
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
 
     def espressoVersion = "2.2.2"
+    def firebaseVersion = "9.6.1"
 
     //android test
     androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
@@ -87,9 +88,13 @@ dependencies {
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile "com.android.support:recyclerview-v7:$build_version "
-    compile 'com.google.firebase:firebase-database:9.6.1'
-    compile 'com.google.firebase:firebase-auth:9.6.1'
-    compile 'com.google.android.gms:play-services-auth:9.6.1'
+    compile "com.google.firebase:firebase-database:${firebaseVersion}"
+    compile "com.google.firebase:firebase-auth:${firebaseVersion}"
+    compile "com.google.android.gms:play-services-auth:${firebaseVersion}"
+    compile 'org.jetbrains.anko:anko-sdk15:0.9' // sdk19, sdk21, sdk23 are also available
+    compile 'org.jetbrains.anko:anko-support-v4:0.9' // In case you need support-v4 bindings
+    compile 'org.jetbrains.anko:anko-appcompat-v7:0.9' // For appcompat-v7 bindings
+
 }
 
 apply plugin: 'com.google.gms.google-services'  //must be the last one
