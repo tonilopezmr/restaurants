@@ -4,13 +4,13 @@ import android.content.Intent
 import android.support.v7.util.SortedList
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.util.SortedListAdapterCallback
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.come.restaurants.R
 import com.come.restaurants.order.detail.OrderDetailActivity
 import com.come.restaurants.order.domain.model.Order
 import kotlinx.android.synthetic.main.order_item.view.*
-import org.jetbrains.anko.AnkoContext
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -44,9 +44,9 @@ class OrderListAdapter() : RecyclerView.Adapter<OrderListAdapter.OrderItemViewHo
             it.context.startActivity(intent) }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderItemViewHolder? {
-        return OrderItemViewHolder(OrderItemUI()
-                .createView(AnkoContext.Companion.create(parent!!.context, parent)))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderItemViewHolder {
+        return OrderItemViewHolder(LayoutInflater.from(parent.context)
+                .inflate(R.layout.order_item, parent, false))
     }
 
     fun addAll(orderList: List<Order>) {
@@ -59,12 +59,12 @@ class OrderListAdapter() : RecyclerView.Adapter<OrderListAdapter.OrderItemViewHo
     class OrderItemViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         fun bindOrder(order: Order, position: Int) {
             with(order) {
-                var dateFromat = SimpleDateFormat("HH:mm:ss")
-                itemView.orderNumberText.text = "${itemView.context.getString(R.string.number)} $position"
+                var dateFromat = SimpleDateFormat("HH:mm")
+                itemView.orderNumberText.text = "#$position"
                 itemView.orderHourText.text = "${dateFromat.format(Date(order.timestamp))}"
                 itemView.totalPriceText.text = "${itemView.context.getString(R.string.total_price)} ${order.getPrice()}€"
                 itemView.orderPlatesText.text = orderLines.fold("", {total, current ->
-                    total.plus("${current.quantity}x${current.plate.name}\n")} )
+                    total.plus("${current.quantity}x\t${current.plate.name}\n")} )
             }
         }
     }

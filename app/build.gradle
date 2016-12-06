@@ -89,13 +89,17 @@ dependencies {
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile "com.android.support:recyclerview-v7:$build_version "
+    compile "com.android.support:cardview-v7:$build_version"
+
     compile "com.google.firebase:firebase-database:${firebaseVersion}"
     compile "com.google.firebase:firebase-auth:${firebaseVersion}"
     compile "com.google.android.gms:play-services-auth:${firebaseVersion}"
+
     compile "org.jetbrains.anko:anko-sdk15:${ankoVersion}" // sdk19, sdk21, sdk23 are also available
     compile "org.jetbrains.anko:anko-support-v4:${ankoVersion}" // In case you need support-v4 bindings
     compile "org.jetbrains.anko:anko-appcompat-v7:${ankoVersion}" // For appcompat-v7 bindings
     compile "org.jetbrains.anko:anko-recyclerview-v7:${ankoVersion}"
+    compile "org.jetbrains.anko:anko-cardview-v7:${ankoVersion}"
 
 }
 

@@ -37,7 +37,7 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
 
     override fun initUi() {
         this.adapter = OrderListAdapter()
-        ordersRecyclerView.adapter = this.adapter
+        ordersRecyclerView.adapter = adapter
         ordersRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 
