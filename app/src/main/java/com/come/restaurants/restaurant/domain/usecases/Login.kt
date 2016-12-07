@@ -8,7 +8,7 @@ import java.nio.charset.Charset
 class Login(val restaurantRepository: RestaurantRepository) {
 
   fun login(name: String, passwd: String): Boolean {
-    val restaurant = restaurantRepository.getRestaurantByName(name)
+    val restaurant = restaurantRepository.getRestaurant(name, passwd)
     val hash = Hashing.sha256()
         .hashString(passwd, Charset.forName("UTF-8"))
         .toString()
