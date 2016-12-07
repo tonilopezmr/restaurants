@@ -20,4 +20,7 @@
     <string name="there_are_not">There aren\'t %s right now</string>
     <string name="orders">orders</string>
     <string name="printers">printers</string>
+    <string name="error_fetching_order_details">Error ocurred while fetching order details</string>
+    <string name="error_printing_order_details">Error ocurred while printing order details</string>
+    <string name="order_printed">Order printed</string>
 </resources>
