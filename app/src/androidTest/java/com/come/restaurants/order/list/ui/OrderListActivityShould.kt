@@ -32,48 +32,48 @@ import org.junit.runner.RunWith
 @LargeTest
 class OrderListActivityShould {
 
-    @Rule
-    fun orderListActivityTestRule(): IntentsTestRule<OrderListActivity> =
-        IntentsTestRule<OrderListActivity>(OrderListActivity::class.java)
+  @Rule
+  fun orderListActivityTestRule(): IntentsTestRule<OrderListActivity> =
+      IntentsTestRule<OrderListActivity>(OrderListActivity::class.java)
 
-    @Test
-    fun show_all_characters_size_in_list_view() {
-        val repository = StubOrderRepository()
-        val ordersCount = repository.orderList.size
+  @Test
+  fun show_all_characters_size_in_list_view() {
+    val repository = StubOrderRepository()
+    val ordersCount = repository.orderList.size
 
-        onView(withId(R.id.recyclerView))
-                .check(matches(RecyclerViewItemsCountMatcher.withItemCounts(ordersCount)))
+    onView(withId(R.id.recyclerView))
+        .check(matches(RecyclerViewItemsCountMatcher.withItemCounts(ordersCount)))
+  }
+
+  @Test
+  fun recycler_view_should_be_sorted_by_timestamp() {
+    val withAdapter = object : RecyclerSortedViewAssertion.WithAdapter<Long> {
+
+      override fun assert(description: StringDescription, list: List<Long>) {
+        assertTrue(description.toString(),
+            Ordering.natural<Long>()
+                .reverse<Long>()
+                .isOrdered(list))
+      }
+
+      override fun itemsToSort(recyclerView: RecyclerView): List<Long> {
+        val adapter = recyclerView.adapter as OrderListAdapter
+        var items: SortedList<Order> = adapter.getItems()
+
+        return (0 until items.size()).map { items[it].timestamp }
+      }
     }
 
-    @Test
-    fun recycler_view_should_be_sorted_by_timestamp() {
-        val withAdapter = object : RecyclerSortedViewAssertion.WithAdapter<Long> {
+    onView(withId(R.id.recyclerView))
+        .check(RecyclerSortedViewAssertion.isSorted(withAdapter))
+  }
 
-            override fun assert(description: StringDescription, list: List<Long>) {
-                assertTrue(description.toString(),
-                    Ordering.natural<Long>()
-                            .reverse<Long>()
-                            .isOrdered(list))
-            }
+  @Test
+  fun item_click_should_start_details_activity() {
+    onView(withId(R.id.recyclerView))
+        .perform(RecyclerViewActions
+            .actionOnItemAtPosition<OrderListAdapter.ListViewHolder>(1, click()))
 
-            override fun itemsToSort(recyclerView: RecyclerView): List<Long> {
-                val adapter = recyclerView.adapter as OrderListAdapter
-                var items: SortedList<Order> = adapter.getItems()
-
-                return (0 until items.size()).map { items[it].timestamp }
-            }
-        }
-
-        onView(withId(R.id.recyclerView))
-                .check(RecyclerSortedViewAssertion.isSorted(withAdapter))
-    }
-
-    @Test
-    fun item_click_should_start_details_activity() {
-        onView(withId(R.id.recyclerView))
-                .perform(RecyclerViewActions
-                        .actionOnItemAtPosition<OrderListAdapter.ListViewHolder>(1, click()))
-
-        intended(hasComponent(ComponentName(getTargetContext(), OrderDetailActivity::class.java)))
-    }
+    intended(hasComponent(ComponentName(getTargetContext(), OrderDetailActivity::class.java)))
+  }
 }
