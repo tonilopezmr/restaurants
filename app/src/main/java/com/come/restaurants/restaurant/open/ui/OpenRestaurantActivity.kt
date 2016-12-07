@@ -8,6 +8,8 @@ import com.come.restaurants.R
 import com.come.restaurants.open.restaurant.OpenRestaurantPresenter
 import com.come.restaurants.open.restaurant.OpenRestaurantPresenter.View
 import com.come.restaurants.order.list.ui.OrderListActivity
+import com.come.restaurants.restaurant.domain.usecases.Login
+import com.come.restaurants.restaurant.persistence.stubs.StubRestaurantRepository
 import kotlinx.android.synthetic.main.activity_open_restaurant.*
 
 class OpenRestaurantActivity : AppCompatActivity(), View {
@@ -18,7 +20,9 @@ class OpenRestaurantActivity : AppCompatActivity(), View {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_open_restaurant)
 
-    this.presenter = OpenRestaurantPresenter()
+    val restaurantRepository = StubRestaurantRepository()
+    val login = Login(restaurantRepository)
+    this.presenter = OpenRestaurantPresenter(login)
     this.presenter.setView(this)
     this.presenter.init(applicationContext, this)
   }
