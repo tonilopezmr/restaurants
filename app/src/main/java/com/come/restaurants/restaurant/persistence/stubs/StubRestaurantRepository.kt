@@ -1,16 +1,16 @@
 package com.come.restaurants.restaurant.persistence.stubs
 
-import com.come.restaurants.menu.Category
 import com.come.restaurants.menu.Menu
 import com.come.restaurants.restaurant.domain.RestaurantRepository
 import com.come.restaurants.restaurant.domain.model.Restaurant
-import java.util.*
+import java.util.ArrayList
 
 
 class StubRestaurantRepository : RestaurantRepository {
-  override fun getRestaurantByName(name: String): Restaurant {
+
+  override fun getRestaurant(name: String, code: String) : Restaurant {
     return restaurants
-        .filter { rest -> rest.name == name }
+        .filter { rest -> rest.code == code && rest.name == name }
         .first()
   }
 
@@ -30,13 +30,6 @@ class StubRestaurantRepository : RestaurantRepository {
         "2",
         menu
     ))
-
-  }
-
-  override fun getRestaurantByCode(code: String): Restaurant {
-    return restaurants
-        .filter { rest -> rest.code == code }
-        .first()
 
   }
 
