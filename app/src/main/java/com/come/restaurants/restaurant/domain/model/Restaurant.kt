@@ -1,4 +1,4 @@
-package com.come.restaurants.restaurant
+package com.come.restaurants.restaurant.domain.model
 
 import com.come.restaurants.menu.Menu
 
