@@ -64,7 +64,11 @@ class OpenRestaurantPresenter : MVP.Presenter<OpenRestaurantPresenter.View>, Goo
     this.init()
   }
 
-  fun signIn() {
+  fun signIn(username: String, password: String) {
+
+  }
+
+  fun signInGoogle() {
     val signInIntent = Auth.GoogleSignInApi.getSignInIntent(apiClient)
     view.launchSignIn(signInIntent)
   }

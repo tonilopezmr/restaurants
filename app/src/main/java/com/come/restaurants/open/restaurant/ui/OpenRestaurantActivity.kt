@@ -63,6 +63,7 @@ class OpenRestaurantActivity : AppCompatActivity(), View {
   }
 
   override fun initUi() {
+    openGoogleButton.setOnClickListener { this.presenter.signInGoogle() }
     openButton.setOnClickListener { this.presenter.signIn() }
   }
 }
