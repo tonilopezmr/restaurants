@@ -23,52 +23,52 @@ import com.come.restaurants.order.persistence.stubs.StubOrderRepository
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.*
+import java.util.ArrayList
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
 class OrderListActivityShould {
 
-    @Rule
-    fun orderListActivityTestRule(): ActivityTestRule<OrderListActivity> =
-            ActivityTestRule<OrderListActivity>(OrderListActivity::class.java)
+  @Rule
+  fun orderListActivityTestRule(): ActivityTestRule<OrderListActivity> =
+      ActivityTestRule<OrderListActivity>(OrderListActivity::class.java)
 
-    @Test
-    fun show_all_characters_size_in_list_view() {
-        val repository = StubOrderRepository()
-        val ordersCount = repository.orderList.size
+  @Test
+  fun show_all_characters_size_in_list_view() {
+    val repository = StubOrderRepository()
+    val ordersCount = repository.orderList.size
 
-        onView(withId(R.id.ordersRecyclerView))
-                .check(matches(RecyclerViewItemsCountMatcher.withItemCounts(ordersCount)))
-    }
+    onView(withId(R.id.ordersRecyclerView))
+        .check(matches(RecyclerViewItemsCountMatcher.withItemCounts(ordersCount)))
+  }
 
-    @Test
-    fun recycler_view_should_be_sorted_by_timestamp() {
-        val withAdapter = object : RecyclerSortedViewAssertion.WithAdapter<Long> {
-            override fun itemsToSort(recyclerView: RecyclerView): List<Long> {
-                val adapter = recyclerView.adapter as OrderListAdapter
-                val result = ArrayList<Long>()
-                var i = 0
-                while (i < adapter.itemCount) {
-                    result.add(adapter.getItems()[i].timestamp)
-                    i++
-                }
-                return result
-            }
+  @Test
+  fun recycler_view_should_be_sorted_by_timestamp() {
+    val withAdapter = object : RecyclerSortedViewAssertion.WithAdapter<Long> {
+      override fun itemsToSort(recyclerView: RecyclerView): List<Long> {
+        val adapter = recyclerView.adapter as OrderListAdapter
+        val result = ArrayList<Long>()
+        var i = 0
+        while (i < adapter.itemCount) {
+          result.add(adapter.getItems()[i].timestamp)
+          i++
         }
-
-        onView(withId(R.id.ordersRecyclerView))
-                .check(RecyclerSortedViewAssertion.isSorted(withAdapter))
+        return result
+      }
     }
 
-    @Test
-    fun item_click_should_start_details_activity() {
-        Intents.init()
-        onView(withId(R.id.ordersRecyclerView))
-                .perform(RecyclerViewActions
-                        .actionOnItemAtPosition<OrderListAdapter.ListViewHolder>(1, click()))
+    onView(withId(R.id.ordersRecyclerView))
+        .check(RecyclerSortedViewAssertion.isSorted(withAdapter))
+  }
 
-        intended(hasComponent(ComponentName(getTargetContext(), OrderDetailActivity::class.java)))
-        Intents.release()
-    }
+  @Test
+  fun item_click_should_start_details_activity() {
+    Intents.init()
+    onView(withId(R.id.ordersRecyclerView))
+        .perform(RecyclerViewActions
+            .actionOnItemAtPosition<OrderListAdapter.ListViewHolder>(1, click()))
+
+    intended(hasComponent(ComponentName(getTargetContext(), OrderDetailActivity::class.java)))
+    Intents.release()
+  }
 }

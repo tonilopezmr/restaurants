@@ -1,4 +1,5 @@
 package com.come.restaurants.printer.printerlib;
+
 import com.come.restaurants.printer.printerlib.util.PrintConfig;
 import com.come.restaurants.printer.printerlib.util.PrinterCommands;
 
@@ -12,7 +13,7 @@ public class PrinterJobImpl implements IPrinterJob {
   //Implementation following the Builder pattern -> The product is each print
   public PrinterJobImpl(IPrinter printer) {
     this.printer = printer;
-    this.config  = new PrintConfig();
+    this.config = new PrintConfig();
   }
 
   @Override
@@ -55,7 +56,7 @@ public class PrinterJobImpl implements IPrinterJob {
   }
 
   @Override
-  public IPrinterJob printSeparator() throws PrinterJobException{
+  public IPrinterJob printSeparator() throws PrinterJobException {
     try {
       printer.write(config.getSeparator() + config.getSeparator_spacing());
     } catch (PrinterException e) {
