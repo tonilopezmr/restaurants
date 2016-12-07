@@ -2,11 +2,11 @@ package com.come.restaurants.printer.domain
 
 import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.domain.usecases.PrintOrder
-import com.come.restaurants.printer.printerlib.IPrinterJob
-import com.come.restaurants.printer.printerlib.util.PrinterCommands
-import java.util.*
+import com.come.restaurants.printer.service.PrinterJob
+import com.come.restaurants.printer.service.util.PrinterCommands
+import java.util.ArrayList
 
-class PrinterRepository(val printer: IPrinterJob) {
+class PrinterRepository(val printer: PrinterJob) {
     fun print(order: Order, callback: PrintOrder.Callback) {
 
         val orderLines = ArrayList<String>()
@@ -18,7 +18,7 @@ class PrinterRepository(val printer: IPrinterJob) {
                 .setFont(PrinterCommands.Font.FONT_STYLE_C)
                 .printLine("Order code ${order.code}")
         printer.setFont(PrinterCommands.Font.FONT_STYLE_B)
-                .printAllLines(orderLines)
+                .printLines(orderLines)
         printer.setSeparatorSpacing(5)
                 .printSeparator()
 
