@@ -1,6 +1,7 @@
 package com.come.restaurants.order.detail
 
 import android.bluetooth.BluetoothAdapter
+import com.come.restaurants.printer.service.bluetooth.PrinterBluetooth
 import android.bluetooth.BluetoothDevice
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -30,7 +31,7 @@ class OrderDetailPresenter(val getOrder: GetOrder, val printOrder : PrintOrder) 
     lateinit private var view : View
     lateinit private var order : Order
 
-    private var deviceConnected : Boolean = false
+    private var deviceConnected : Boolean = PrinterBluetooth.isConnected()
     private val btReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
             val action = intent.action

@@ -13,10 +13,15 @@ import com.come.restaurants.printer.service.util.PrinterCommands;
 public class PrinterBluetooth implements Printer {
   //TODO REMOVE SINGLETON PATTERN
   private static Printer printer = new PrinterBluetooth();
+  private static boolean isConnected = false;
   private BluetoothService bluetoothService;
 
   public static Printer getPrinter() {
     return printer;
+  }
+
+  public static boolean isConnected() {
+    return isConnected;
   }
 
   @Override
@@ -28,7 +33,8 @@ public class PrinterBluetooth implements Printer {
     BluetoothDevice printer = bAdapter.getBondedDevices().iterator().next();
     if (printer != null) {
       bluetoothService.connect(printer);
-      initialize();
+      isConnected = true;
+      //initialize();
     } else {
       throw new PrinterException("NO PAIRED DEVICES FOUND");
     }
@@ -39,6 +45,7 @@ public class PrinterBluetooth implements Printer {
     bluetoothService = new BluetoothService(context, messageHandler);
     if(printer != null) {
       bluetoothService.connect(printer);
+      isConnected = true;
       //initialize();
     }
     else {

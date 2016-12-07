@@ -40,7 +40,7 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
     holder.bindPrinter(printerList[position])
     holder.itemView.setOnClickListener { it ->
       val device = printerList[position]
-      if (device.bondState == BluetoothDevice.BOND_BONDED) {
+      /*if (device.bondState == BluetoothDevice.BOND_BONDED) {
         val result = unpairDevice(device)
         if (result) {
             Toast.makeText(it.context,
@@ -49,8 +49,9 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
             (it.context as PairingPrinterActivity).finish()
         }
       } else {
+      */
         val result = pairDevice(it.context, device)
-      }
+      //}
     }
   }
 
