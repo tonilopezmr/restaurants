@@ -5,10 +5,9 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.os.Handler;
 
-
 import com.come.restaurants.printer.service.Printer;
-import com.come.restaurants.printer.service.util.PrinterCommands;
 import com.come.restaurants.printer.service.PrinterException;
+import com.come.restaurants.printer.service.util.PrinterCommands;
 
 public class PrinterBluetooth implements Printer {
   private BluetoothService bluetoothService;
@@ -20,11 +19,10 @@ public class PrinterBluetooth implements Printer {
     BluetoothAdapter bAdapter = BluetoothAdapter.getDefaultAdapter();
     //We assume the printer was the most recent connection
     BluetoothDevice printer = bAdapter.getBondedDevices().iterator().next();
-    if(printer != null) {
+    if (printer != null) {
       bluetoothService.connect(printer);
       initialize();
-    }
-    else {
+    } else {
       throw new PrinterException("NO PAIRED DEVICES FOUND");
     }
   }
@@ -41,7 +39,7 @@ public class PrinterBluetooth implements Printer {
 
   @Override
   public void write(byte[] data) throws PrinterException {
-    if(bluetoothService.getState() != BluetoothService.STATE_CONNECTED)
+    if (bluetoothService.getState() != BluetoothService.STATE_CONNECTED)
       throw new PrinterException("NO DEVICE CONNECTED");
     bluetoothService.write(data);
   }
@@ -62,7 +60,7 @@ public class PrinterBluetooth implements Printer {
   }
 
   @Override
-  public void initialize() throws PrinterException{
+  public void initialize() throws PrinterException {
     write(PrinterCommands.INITIALIZE);
   }
 }

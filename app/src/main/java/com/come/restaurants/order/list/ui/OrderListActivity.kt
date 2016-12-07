@@ -14,44 +14,44 @@ import kotlinx.android.synthetic.main.activity_list.*
 
 class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
 
-    private lateinit var adapter : OrderListAdapter
-    private lateinit var presenter : OrderListPresenter
+  private lateinit var adapter: OrderListAdapter
+  private lateinit var presenter: OrderListPresenter
 
-    override fun showLoader() {
-        progressBar.visibility = View.VISIBLE
-        emptyCase.visibility = View.GONE
-    }
+  override fun showLoader() {
+    progressBar.visibility = View.VISIBLE
+    emptyCase.visibility = View.GONE
+  }
 
-    override fun hideLoader() {
-        progressBar.visibility = View.GONE
-    }
+  override fun hideLoader() {
+    progressBar.visibility = View.GONE
+  }
 
-    override fun showEmptyCase() {
-        emptyCase.visibility = View.VISIBLE
-        progressBar.visibility = View.GONE
-    }
+  override fun showEmptyCase() {
+    emptyCase.visibility = View.VISIBLE
+    progressBar.visibility = View.GONE
+  }
 
-    override fun showList(orders: List<Order>) {
-        adapter.addAll(orders)
-        emptyCase.visibility = View.GONE
-        progressBar.visibility = View.GONE
-    }
+  override fun showList(orders: List<Order>) {
+    adapter.addAll(orders)
+    emptyCase.visibility = View.GONE
+    progressBar.visibility = View.GONE
+  }
 
-    override fun initUi() {
-        emptyCase.text = String.format(getString(R.string.there_are_not), getString(R.string.orders))
-        this.adapter = OrderListAdapter()
-        recyclerView.adapter = this.adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
-    }
+  override fun initUi() {
+    emptyCase.text = String.format(getString(R.string.there_are_not), getString(R.string.orders))
+    this.adapter = OrderListAdapter()
+    recyclerView.adapter = this.adapter
+    recyclerView.layoutManager = LinearLayoutManager(this)
+  }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_list)
 
-        val repository = StubOrderRepository()
-        val getOrders = GetOrders(repository)
-        this.presenter = OrderListPresenter(getOrders)
-        this.presenter.setView(this)
-        this.presenter.init()
-    }
+    val repository = StubOrderRepository()
+    val getOrders = GetOrders(repository)
+    this.presenter = OrderListPresenter(getOrders)
+    this.presenter.setView(this)
+    this.presenter.init()
+  }
 }

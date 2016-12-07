@@ -27,7 +27,7 @@ class PairingPresenter : MVP.Presenter<PairingPresenter.View> {
           Log.d(TAG, "Showing list with ${devicesList.size} items")
           if (devicesList.isEmpty()) {
             view.emptyCase()
-          } else{
+          } else {
             view.showList(devicesList)
           }
         }
@@ -87,7 +87,7 @@ class PairingPresenter : MVP.Presenter<PairingPresenter.View> {
       hasProblems = true
     }
 
-    if(!hasProblems){
+    if (!hasProblems) {
       doDiscovery()
     }
   }
