@@ -1,12 +1,14 @@
 package com.come.restaurants.printer.pairing.ui.adapter
 
 import android.bluetooth.BluetoothDevice
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.come.restaurants.R
+import com.come.restaurants.order.list.ui.OrderListActivity
 import com.come.restaurants.printer.pairing.ui.PairingPrinterActivity
 import kotlinx.android.synthetic.main.printer_list_item.view.*
 import java.util.*
@@ -47,7 +49,8 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
           Toast.makeText(it.context,
               "Device ${device.name} was paired correctly", Toast.LENGTH_SHORT)
               .show()
-          (it.context as PairingPrinterActivity).finish()
+          (it.context as PairingPrinterActivity)
+              .startActivity(Intent(it.context, OrderListActivity::class.java))
         }
       }
     }

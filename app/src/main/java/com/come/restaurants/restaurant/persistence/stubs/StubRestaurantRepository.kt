@@ -8,9 +8,9 @@ import java.util.ArrayList
 
 class StubRestaurantRepository : RestaurantRepository {
 
-  override fun getRestaurant(name: String, code: String) : Restaurant {
+  override fun getRestaurant(name: String, passwd: String) : Restaurant {
     return restaurants
-        .filter { rest -> rest.code == code && rest.name == name }
+        .filter { rest -> rest.password == passwd && rest.name == name }
         .first()
   }
 

@@ -8,6 +8,7 @@ import com.come.restaurants.R
 import com.come.restaurants.open.restaurant.OpenRestaurantPresenter
 import com.come.restaurants.open.restaurant.OpenRestaurantPresenter.View
 import com.come.restaurants.order.list.ui.OrderListActivity
+import com.come.restaurants.printer.pairing.ui.PairingPrinterActivity
 import com.come.restaurants.restaurant.domain.usecases.Login
 import com.come.restaurants.restaurant.persistence.stubs.StubRestaurantRepository
 import kotlinx.android.synthetic.main.activity_open_restaurant.*
@@ -36,9 +37,8 @@ class OpenRestaurantActivity : AppCompatActivity(), View {
     this.presenter.checkSignIn(requestCode, resultCode, data)
   }
 
-  override fun navigateToOrderList() {
-    startActivity(Intent(this, OrderListActivity::class.java))
-    finish()
+  override fun moveToPairingActivity() {
+    startActivity(Intent(this, PairingPrinterActivity::class.java))
   }
 
   override fun showConnectionError() {
@@ -67,6 +67,10 @@ class OpenRestaurantActivity : AppCompatActivity(), View {
   }
 
   override fun initUi() {
-    openButton.setOnClickListener { navigateToOrderList() }
+    openButton.setOnClickListener { this.presenter.signIn(
+        nameEditText.text.toString(),
+        textPassword.text.toString()) }
+
+    openGoogleButton.setOnClickListener { this.presenter.signInGoogle() }
   }
 }
