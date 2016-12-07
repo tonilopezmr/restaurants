@@ -41,7 +41,7 @@ class OrderListActivityShould {
         val repository = StubOrderRepository()
         val ordersCount = repository.orderList.size
 
-        onView(withId(R.id.ordersRecyclerView))
+        onView(withId(R.id.recyclerView))
                 .check(matches(RecyclerViewItemsCountMatcher.withItemCounts(ordersCount)))
     }
 
@@ -64,13 +64,13 @@ class OrderListActivityShould {
             }
         }
 
-        onView(withId(R.id.ordersRecyclerView))
+        onView(withId(R.id.recyclerView))
                 .check(RecyclerSortedViewAssertion.isSorted(withAdapter))
     }
 
     @Test
     fun item_click_should_start_details_activity() {
-        onView(withId(R.id.ordersRecyclerView))
+        onView(withId(R.id.recyclerView))
                 .perform(RecyclerViewActions
                         .actionOnItemAtPosition<OrderListAdapter.ListViewHolder>(1, click()))
 

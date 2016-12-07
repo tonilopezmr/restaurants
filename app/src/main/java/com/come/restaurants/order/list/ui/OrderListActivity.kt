@@ -18,27 +18,30 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
     private lateinit var presenter : OrderListPresenter
 
     override fun showLoader() {
-        orderLoader.visibility = View.VISIBLE
+        progressBar.visibility = View.VISIBLE
         emptyCase.visibility = View.GONE
     }
 
     override fun hideLoader() {
-        orderLoader.visibility = View.GONE
+        progressBar.visibility = View.GONE
     }
 
     override fun showEmptyCase() {
         emptyCase.visibility = View.VISIBLE
+        progressBar.visibility = View.GONE
     }
 
     override fun showList(orders: List<Order>) {
         adapter.addAll(orders)
         emptyCase.visibility = View.GONE
+        progressBar.visibility = View.GONE
     }
 
     override fun initUi() {
+        emptyCase.text = String.format(getString(R.string.there_are_not), getString(R.string.orders))
         this.adapter = OrderListAdapter()
-        ordersRecyclerView.adapter = this.adapter
-        ordersRecyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = this.adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

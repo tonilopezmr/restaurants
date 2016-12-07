@@ -17,5 +17,7 @@
     <string name="cancel">Cancel</string>
     <string name="permission_failure">Permission not granted</string>
     <string name="unknown_device">Unknown device</string>
-    <string name="not_orders">There aren\'t orders right now</string>
+    <string name="there_are_not">There aren\'t %s right now</string>
+    <string name="orders">orders</string>
+    <string name="printers">printers</string>
 </resources>
