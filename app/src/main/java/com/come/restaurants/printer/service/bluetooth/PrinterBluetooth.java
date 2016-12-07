@@ -27,6 +27,18 @@ public class PrinterBluetooth implements Printer {
     }
   }
 
+
+  public void connect(BluetoothDevice printer, Context context, Handler messageHandler) throws PrinterException {
+    bluetoothService = new BluetoothService(context, messageHandler);
+    if(printer != null) {
+      bluetoothService.connect(printer);
+      initialize();
+    }
+    else {
+      throw new PrinterException("NO PAIRED DEVICES FOUND");
+    }
+  }
+
   @Override
   public void disconnect() {
 
