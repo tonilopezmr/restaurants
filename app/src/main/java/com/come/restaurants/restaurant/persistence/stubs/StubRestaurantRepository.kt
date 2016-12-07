@@ -3,18 +3,19 @@ package com.come.restaurants.restaurant.persistence.stubs
 import com.come.restaurants.menu.Menu
 import com.come.restaurants.restaurant.domain.RestaurantRepository
 import com.come.restaurants.restaurant.domain.model.Restaurant
-import java.util.ArrayList
+import com.come.restaurants.restaurant.domain.usecases.Login
+import java.util.*
 
 
 class StubRestaurantRepository : RestaurantRepository {
 
-  override fun getRestaurant(name: String, code: String) : Restaurant {
+  override fun getRestaurant(name: String, code: String, callback: Login.Callback): Restaurant {
     return restaurants
         .filter { rest -> rest.code == code && rest.name == name }
         .first()
   }
 
-  val restaurants  = ArrayList<Restaurant>()
+  val restaurants = ArrayList<Restaurant>()
 
   init {
     val menu = Menu(emptyList())
@@ -31,9 +32,5 @@ class StubRestaurantRepository : RestaurantRepository {
         menu
     ))
 
-  }
-
-  override fun getRestaurants(): List<Restaurant> {
-    return restaurants
   }
 }
