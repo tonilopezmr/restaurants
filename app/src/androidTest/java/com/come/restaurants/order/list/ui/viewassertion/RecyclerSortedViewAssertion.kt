@@ -3,13 +3,11 @@ package com.come.restaurants.order.list.ui.viewassertion
 import android.support.test.espresso.NoMatchingViewException
 import android.support.test.espresso.PerformException
 import android.support.test.espresso.ViewAssertion
-import android.support.test.espresso.core.deps.guava.collect.Ordering
 import android.support.test.espresso.util.HumanReadables
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import org.hamcrest.StringDescription
-import org.junit.Assert.assertTrue
-import java.util.*
+import java.util.ArrayList
 
 class RecyclerSortedViewAssertion<T: Comparable<T>>(val withAdapter: WithAdapter<T>) : ViewAssertion {
     companion object {
@@ -31,7 +29,7 @@ class RecyclerSortedViewAssertion<T: Comparable<T>>(val withAdapter: WithAdapter
         checkIsNotEmpty(view, description)
 
         description.appendText("The list $sortedList is not sorted")
-        assertTrue(description.toString(), Ordering.natural<T>().isOrdered(sortedList))
+        withAdapter.assert(description, sortedList)
     }
 
     fun checkIsNotEmpty(view: View?, description: StringDescription) {
@@ -47,5 +45,6 @@ class RecyclerSortedViewAssertion<T: Comparable<T>>(val withAdapter: WithAdapter
 
     interface WithAdapter<T> {
         fun itemsToSort(recyclerView: RecyclerView) : List<T>
+        fun assert(description: StringDescription, list: List<T>)
     }
 }
