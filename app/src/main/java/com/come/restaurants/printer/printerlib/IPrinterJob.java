@@ -16,6 +16,7 @@ public interface IPrinterJob {
   /**
    * Method that prints the arg line using the PrinterJob and then resets the config
    * By default it prints a plain line
+   *
    * @param line
    * @throws PrinterJobException
    */
@@ -24,6 +25,7 @@ public interface IPrinterJob {
 
   /**
    * Prints all lines passed with the same PrinterJob config and then resets the config
+   *
    * @param lines
    * @throws PrinterJobException
    */
@@ -32,26 +34,31 @@ public interface IPrinterJob {
   /**
    * Method that prints a separator.
    * Default: ----------------
+   *
    * @throws PrinterJobException
    */
   IPrinterJob printSeparator() throws PrinterJobException;
 
   /**
    * Allows to specify the separator to be used in the print
+   *
    * @param separator
    * @return
    */
   IPrinterJob setSeparator(String separator);
 
 
-  /** Method that sets the number of newLines that goes after a separator
+  /**
+   * Method that sets the number of newLines that goes after a separator
    * Default: 2 new lines
+   *
    * @param spacing
    */
   IPrinterJob setSeparatorSpacing(int spacing);
 
   /**
    * Changes the alignment in the print
+   *
    * @param align
    * @return
    */
@@ -59,6 +66,7 @@ public interface IPrinterJob {
 
   /**
    * Changes the font to be used in the print
+   *
    * @param font
    * @return
    */
@@ -66,6 +74,7 @@ public interface IPrinterJob {
 
   /**
    * Feeds paper
+   *
    * @param feed
    * @return
    * @throws PrinterJobException
@@ -73,16 +82,18 @@ public interface IPrinterJob {
   IPrinterJob feedPaper(PrinterCommands.FeedPaper feed) throws PrinterJobException;
 
   /**
+   * Retrieves the current configuration to be used on the print
+   * WARNING: After a print, it returns the default configuration
+   *
+   * @return
+   */
+  PrintConfig getConfig();
+
+  /**
    * Sets the parameter config to be used on the print
+   *
    * @param config
    * @return
    */
   IPrinterJob setConfig(PrintConfig config);
-
-  /**
-   * Retrieves the current configuration to be used on the print
-   * WARNING: After a print, it returns the default configuration
-   * @return
-   */
-  PrintConfig getConfig();
 }

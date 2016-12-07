@@ -6,7 +6,8 @@ public class PrintConfig {
   private String separator = "--------------------------";
   private String separator_spacing = "" + PrinterCommands.NEW_LINE + PrinterCommands.NEW_LINE;
 
-  public PrintConfig() { }
+  public PrintConfig() {
+  }
 
   public PrinterCommands.Align getAlignment() {
     return alignment;
@@ -30,7 +31,7 @@ public class PrintConfig {
 
   public void setSeparator_spacing(int spacing) {
     separator_spacing = "";
-    for(int i = 0; i < spacing; i++) {
+    for (int i = 0; i < spacing; i++) {
       separator_spacing += PrinterCommands.NEW_LINE;
     }
   }
