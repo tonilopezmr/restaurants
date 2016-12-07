@@ -15,7 +15,7 @@ public class PrinterBluetooth implements Printer {
   private static Printer printer = new PrinterBluetooth();
   private BluetoothService bluetoothService;
 
-  public Printer getPrinter() {
+  public static Printer getPrinter() {
     return printer;
   }
 
@@ -39,7 +39,7 @@ public class PrinterBluetooth implements Printer {
     bluetoothService = new BluetoothService(context, messageHandler);
     if(printer != null) {
       bluetoothService.connect(printer);
-      initialize();
+      //initialize();
     }
     else {
       throw new PrinterException("NO PAIRED DEVICES FOUND");

@@ -30,7 +30,7 @@ class OrderDetailPresenter(val getOrder: GetOrder, val printOrder : PrintOrder) 
     lateinit private var view : View
     lateinit private var order : Order
 
-    private var deviceConnected = false
+    private var deviceConnected : Boolean = false
     private val btReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
             val action = intent.action
