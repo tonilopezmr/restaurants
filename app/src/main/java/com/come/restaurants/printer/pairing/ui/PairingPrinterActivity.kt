@@ -1,11 +1,10 @@
 package com.come.restaurants.printer.pairing.ui
 
 import android.Manifest
-import android.app.ProgressDialog
+import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.content.BroadcastReceiver
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
@@ -13,29 +12,27 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import android.widget.Toast
 import com.come.restaurants.R
-import com.come.restaurants.printer.pairing.BtPairingPresenter
-import com.come.restaurants.printer.pairing.ui.adapter.BtPairingAdapter
-import kotlinx.android.synthetic.main.activity_bt_pairing.*
+import com.come.restaurants.printer.pairing.PairingPresenter
+import com.come.restaurants.printer.pairing.ui.adapter.BluetoothDeviceAdapter
+import kotlinx.android.synthetic.main.activity_list.*
 
-class BtPairingActivity : AppCompatActivity(), BtPairingPresenter.View {
-
+class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
   private val REQUEST_COARSE_LOCATION_PERMISSIONS = 2000
+  private val REQUEST_OPEN_BLUETOOTH = 1000
 
-  private lateinit var presenter: BtPairingPresenter
-  private lateinit var adapter: BtPairingAdapter
-  private lateinit var progressDialog: ProgressDialog
-
+  private lateinit var presenter: PairingPresenter
+  private lateinit var adapter: BluetoothDeviceAdapter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_bt_pairing)
+    setContentView(R.layout.activity_list)
 
-    this.presenter = BtPairingPresenter()
+    this.presenter = PairingPresenter()
     this.presenter.setView(this)
     this.presenter.init()
-
   }
 
   override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -47,6 +44,20 @@ class BtPairingActivity : AppCompatActivity(), BtPairingPresenter.View {
           this.showPermissionError()
         }
       }
+    }
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+    when (requestCode) {
+      REQUEST_OPEN_BLUETOOTH -> {
+        if (resultCode == Activity.RESULT_OK) {
+          this.presenter.doDiscovery()
+        } else {
+          emptyCase() //TODO SHOW A BUTTON TO START BLUETOOTH
+        }
+      }
+      else -> super.onActivityResult(requestCode, resultCode, data)
     }
   }
 
@@ -70,7 +81,7 @@ class BtPairingActivity : AppCompatActivity(), BtPairingPresenter.View {
 
   override fun turnOnBtMessage() {
     val intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-    startActivityForResult(intent, 1000)
+    startActivityForResult(intent, REQUEST_OPEN_BLUETOOTH)
   }
 
   override fun showPermissionError() {
@@ -79,17 +90,8 @@ class BtPairingActivity : AppCompatActivity(), BtPairingPresenter.View {
   }
 
   override fun showProgressDialog() {
-    this.progressDialog = ProgressDialog(this)
-    this.progressDialog.setMessage(getString(R.string.scanning_bt))
-    this.progressDialog.setCancelable(false)
-    this.progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE,
-        getString(R.string.cancel),
-        { dialog, which ->
-          progressDialog.dismiss()
-          presenter.cancelDiscovery()
-        })
-    this.progressDialog.show()
-
+    progressBar.visibility = View.VISIBLE
+    emptyCase.visibility = View.GONE
   }
 
   override fun setReceiver(receiver: BroadcastReceiver, filter: IntentFilter) {
@@ -101,13 +103,19 @@ class BtPairingActivity : AppCompatActivity(), BtPairingPresenter.View {
   }
 
   override fun showList(printers: List<BluetoothDevice>) {
-    this.progressDialog.dismiss()
+    progressBar.visibility = View.GONE
     this.adapter.addAll(printers)
   }
 
+  override fun emptyCase() {
+    emptyCase.visibility = View.VISIBLE
+    progressBar.visibility = View.GONE
+  }
+
   override fun initUi() {
-    this.adapter = BtPairingAdapter()
-    printersRecyclerView.adapter = this.adapter
-    printersRecyclerView.layoutManager = LinearLayoutManager(this)
+    emptyCase.text = String.format(getString(R.string.there_are_not), getString(R.string.printers))
+    this.adapter = BluetoothDeviceAdapter()
+    recyclerView.adapter = this.adapter
+    recyclerView.layoutManager = LinearLayoutManager(this)
   }
 }

@@ -10,9 +10,9 @@ import android.util.Log
 import com.come.restaurants.base.MVP
 
 
-class BtPairingPresenter : MVP.Presenter<BtPairingPresenter.View> {
+class PairingPresenter : MVP.Presenter<PairingPresenter.View> {
 
-  private val TAG = "BtPairing"
+  private val TAG = javaClass.canonicalName
 
   private lateinit var view: View
   private lateinit var btAdapter: BluetoothAdapter
@@ -21,16 +21,22 @@ class BtPairingPresenter : MVP.Presenter<BtPairingPresenter.View> {
   private val btReceiver: BroadcastReceiver = object : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent) {
       val action = intent.action
-      if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
-        view.showProgressDialog()
-      } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-        Log.d(TAG, "Showing list with ${devicesList.size} items")
-        view.showList(devicesList)
-      } else if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-        val device = intent
-            .getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
-        Log.i(TAG, "Found device: ${device.name} with MAC ${device.address}")
-        devicesList.add(device)
+      when (action) {
+        BluetoothAdapter.ACTION_DISCOVERY_STARTED -> view.showProgressDialog()
+        BluetoothAdapter.ACTION_DISCOVERY_FINISHED -> {
+          Log.d(TAG, "Showing list with ${devicesList.size} items")
+          if (devicesList.isEmpty()) {
+            view.emptyCase()
+          } else {
+            view.showList(devicesList)
+          }
+        }
+        BluetoothDevice.ACTION_FOUND -> {
+          val device = intent
+              .getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
+          Log.i(TAG, "Found device: ${device.name} with MAC ${device.address}")
+          devicesList.add(device)
+        }
       }
     }
 
@@ -45,6 +51,7 @@ class BtPairingPresenter : MVP.Presenter<BtPairingPresenter.View> {
     fun requestPermission()
     fun showPermissionError()
     fun hasPermission(): Boolean
+    fun emptyCase()
   }
 
   override fun init() {
@@ -66,15 +73,22 @@ class BtPairingPresenter : MVP.Presenter<BtPairingPresenter.View> {
     filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED)
     filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED)
     this.view.setReceiver(btReceiver, filter)
-
     btAdapter = BluetoothAdapter.getDefaultAdapter()
+
+    var hasProblems = false
+
     if (!btAdapter.isEnabled) {
       this.view.turnOnBtMessage()
+      hasProblems = true
     }
-    if (this.view.hasPermission()) {
-      this.doDiscovery()
-    } else {
+
+    if (!this.view.hasPermission()) {
       this.view.requestPermission()
+      hasProblems = true
+    }
+
+    if (!hasProblems) {
+      doDiscovery()
     }
   }
 

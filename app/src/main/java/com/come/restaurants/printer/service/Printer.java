@@ -1,10 +1,11 @@
-package com.come.restaurants.printer.printerlib;
+package com.come.restaurants.printer.service;
 
 import android.content.Context;
 import android.os.Handler;
-import com.come.restaurants.printer.printerlib.util.PrinterCommands;
 
-public interface IPrinter {
+import com.come.restaurants.printer.service.util.PrinterCommands;
+
+public interface Printer {
   void connect(Context context, Handler messageHandler) throws PrinterException;
 
   void disconnect();

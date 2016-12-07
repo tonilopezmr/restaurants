@@ -1,4 +1,4 @@
-package com.come.restaurants.printer.printerlib.bluetooth;
+package com.come.restaurants.printer.service.bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;

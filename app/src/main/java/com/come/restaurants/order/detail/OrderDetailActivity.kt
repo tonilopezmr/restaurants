@@ -10,7 +10,7 @@ import com.come.restaurants.order.domain.usecases.GetOrder
 import com.come.restaurants.order.domain.usecases.PrintOrder
 import com.come.restaurants.order.persistence.stubs.StubOrderRepository
 import com.come.restaurants.printer.domain.PrinterRepository
-import com.come.restaurants.printer.pairing.ui.BtPairingActivity
+import com.come.restaurants.printer.pairing.ui.PairingPrinterActivity
 import kotlinx.android.synthetic.main.activity_order_detail.*
 
 class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
@@ -75,7 +75,7 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
   }
 
   override fun moveToPairingActivity() {
-    val intent = Intent(this, BtPairingActivity::class.java)
+    val intent = Intent(this, PairingPrinterActivity::class.java)
     startActivity(intent)
   }
 }

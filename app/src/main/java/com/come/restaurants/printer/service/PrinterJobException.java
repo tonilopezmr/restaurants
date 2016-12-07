@@ -1,7 +1,8 @@
-package com.come.restaurants.printer.printerlib;
+package com.come.restaurants.printer.service;
 
 
 public class PrinterJobException extends Exception {
+
   public PrinterJobException(String message) {
     super(message);
   }

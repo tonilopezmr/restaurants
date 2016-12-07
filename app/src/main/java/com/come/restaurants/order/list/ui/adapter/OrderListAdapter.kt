@@ -12,7 +12,7 @@ import com.come.restaurants.order.detail.OrderDetailActivity
 import com.come.restaurants.order.domain.model.Order
 import kotlinx.android.synthetic.main.order_item.view.*
 import java.text.SimpleDateFormat
-import java.util.Date
+import java.util.*
 
 class OrderListAdapter() : RecyclerView.Adapter<OrderListAdapter.ListViewHolder>() {
   private var orderList: SortedList<Order>
@@ -20,15 +20,15 @@ class OrderListAdapter() : RecyclerView.Adapter<OrderListAdapter.ListViewHolder>
   init {
     orderList = SortedList<Order>(Order::class.java, object : SortedListAdapterCallback<Order>(this) {
       override fun compare(o1: Order, o2: Order): Int {
-        return o1.timestamp.toInt().minus(o2.timestamp.toInt())
+        return o2.timestamp.compareTo(o1.timestamp)
       }
 
       override fun areContentsTheSame(oldItem: Order, newItem: Order): Boolean {
-        return oldItem.equals(newItem)
+        return oldItem == newItem
       }
 
       override fun areItemsTheSame(item1: Order, item2: Order): Boolean {
-        return item1.id.equals(item2.id)
+        return item1.id === item2.id
       }
     })
   }
