@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity
 import android.util.Log
 import com.come.restaurants.R
 import com.come.restaurants.base.MVP
+import com.come.restaurants.restaurant.domain.usecases.Login
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -14,7 +15,8 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
-class OpenRestaurantPresenter : MVP.Presenter<OpenRestaurantPresenter.View>, GoogleApiClient.OnConnectionFailedListener {
+class OpenRestaurantPresenter(private val login: Login) : MVP.Presenter<OpenRestaurantPresenter.View>,
+    GoogleApiClient.OnConnectionFailedListener {
   companion object {
     val RC_SIGN_IN = 9001
   }
@@ -65,7 +67,11 @@ class OpenRestaurantPresenter : MVP.Presenter<OpenRestaurantPresenter.View>, Goo
   }
 
   fun signIn(username: String, password: String) {
-
+    if (this.login.login(username, password)) {
+      this.view.navigateToOrderList()
+    } else {
+      this.view.showLoginError()
+    }
   }
 
   fun signInGoogle() {
