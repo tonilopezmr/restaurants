@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.come.restaurants.R
-import com.come.restaurants.printer.pairing.ui.PairingBluetoothActivity
+import com.come.restaurants.printer.pairing.ui.PairingPrinterActivity
 import kotlinx.android.synthetic.main.printer_list_item.view.*
 import java.util.ArrayList
 
@@ -39,7 +39,7 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
                     Toast.makeText(it.context,
                             "Device ${device.name} was unpaired correctly", Toast.LENGTH_SHORT)
                             .show()
-                    (it.context as PairingBluetoothActivity).finish()
+                    (it.context as PairingPrinterActivity).finish()
                 }
             } else {
                 val result = pairDevice(device)
@@ -47,7 +47,7 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
                     Toast.makeText(it.context,
                             "Device ${device.name} was paired correctly", Toast.LENGTH_SHORT)
                             .show()
-                    (it.context as PairingBluetoothActivity).finish()
+                    (it.context as PairingPrinterActivity).finish()
                 }
             }
         }

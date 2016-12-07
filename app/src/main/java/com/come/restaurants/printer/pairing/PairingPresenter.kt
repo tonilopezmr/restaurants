@@ -10,7 +10,7 @@ import android.util.Log
 import com.come.restaurants.base.MVP
 
 
-class PairingBluetoothPresenter : MVP.Presenter<PairingBluetoothPresenter.View> {
+class PairingPresenter : MVP.Presenter<PairingPresenter.View> {
 
   private val TAG = javaClass.canonicalName
 

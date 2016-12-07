@@ -22,7 +22,7 @@
         </activity>
         <activity android:name=".order.list.ui.OrderListActivity"/>
         <activity android:name=".order.detail.OrderDetailActivity"/>
-        <activity android:name=".printer.pairing.ui.PairingBluetoothActivity">
+        <activity android:name=".printer.pairing.ui.PairingPrinterActivity">
         </activity>
     </application>
 

@@ -15,31 +15,31 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
 import com.come.restaurants.R
-import com.come.restaurants.printer.pairing.PairingBluetoothPresenter
+import com.come.restaurants.printer.pairing.PairingPresenter
 import com.come.restaurants.printer.pairing.ui.adapter.BluetoothDeviceAdapter
 import kotlinx.android.synthetic.main.activity_list.*
 
-class PairingBluetoothActivity : AppCompatActivity(), PairingBluetoothPresenter.View {
+class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
     private val REQUEST_COARSE_LOCATION_PERMISSIONS = 2000
     private val REQUEST_OPEN_BLUETOOTH = 1000
 
-    private lateinit var bluetoothPresenter: PairingBluetoothPresenter
+    private lateinit var presenter: PairingPresenter
     private lateinit var adapter: BluetoothDeviceAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
 
-        this.bluetoothPresenter = PairingBluetoothPresenter()
-        this.bluetoothPresenter.setView(this)
-        this.bluetoothPresenter.init()
+        this.presenter = PairingPresenter()
+        this.presenter.setView(this)
+        this.presenter.init()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when(requestCode) {
             REQUEST_COARSE_LOCATION_PERMISSIONS -> {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    this.bluetoothPresenter.doDiscovery()
+                    this.presenter.doDiscovery()
                 } else {
                     this.showPermissionError()
                 }
@@ -52,7 +52,7 @@ class PairingBluetoothActivity : AppCompatActivity(), PairingBluetoothPresenter.
         when(requestCode) {
             REQUEST_OPEN_BLUETOOTH -> {
                 if(resultCode == Activity.RESULT_OK){
-                    this.bluetoothPresenter.doDiscovery()
+                    this.presenter.doDiscovery()
                 } else {
                     emptyCase() //TODO SHOW A BUTTON TO START BLUETOOTH
                 }
@@ -62,7 +62,7 @@ class PairingBluetoothActivity : AppCompatActivity(), PairingBluetoothPresenter.
     }
 
     override fun onDestroy() {
-        this.bluetoothPresenter.finish()
+        this.presenter.finish()
         super.onDestroy()
     }
 
