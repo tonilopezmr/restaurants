@@ -18,7 +18,7 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
 
   private val TAG = "BtPairing"
 
-  val printerList: MutableList<BluetoothDevice> = ArrayList()
+  private val printerList: MutableList<BluetoothDevice> = ArrayList()
 
   override fun getItemCount(): Int {
     return printerList.size
@@ -41,7 +41,6 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
           Toast.makeText(it.context,
               "Device ${device.name} was unpaired correctly", Toast.LENGTH_SHORT)
               .show()
-          (it.context as PairingPrinterActivity).finish()
         }
       } else {
         val result = pairDevice(device)
@@ -58,6 +57,11 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
 
   fun addAll(printers: List<BluetoothDevice>) {
     this.printerList.addAll(printers)
+    notifyDataSetChanged()
+  }
+
+  fun resetList() {
+    this.printerList.clear()
     notifyDataSetChanged()
   }
 

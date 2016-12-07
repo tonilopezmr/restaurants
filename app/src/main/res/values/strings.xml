@@ -20,4 +20,5 @@
     <string name="there_are_not">There aren\'t %s right now</string>
     <string name="orders">orders</string>
     <string name="printers">printers</string>
+    <string name="retry">Retry</string>
 </resources>
