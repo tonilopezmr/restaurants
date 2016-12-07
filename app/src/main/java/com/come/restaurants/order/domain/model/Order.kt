@@ -5,10 +5,10 @@ class Order(val id: String = "",
             val timestamp: Long = 0,
             val orderLines: List<OrderLine> = emptyList()) {
 
-    fun getPrice(): Double {
-        return orderLines.fold(0.0) { price, orderLine ->
-            price + orderLine.getPrice()
-        }
+  fun getPrice(): Double {
+    return orderLines.fold(0.0) { price, orderLine ->
+      price + orderLine.getPrice()
     }
+  }
 
 }
