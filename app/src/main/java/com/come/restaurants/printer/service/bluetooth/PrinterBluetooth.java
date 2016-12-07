@@ -2,6 +2,7 @@ package com.come.restaurants.printer.service.bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.os.Handler;
 
@@ -10,7 +11,13 @@ import com.come.restaurants.printer.service.PrinterException;
 import com.come.restaurants.printer.service.util.PrinterCommands;
 
 public class PrinterBluetooth implements Printer {
+  //TODO REMOVE SINGLETON PATTERN
+  private static Printer printer = new PrinterBluetooth();
   private BluetoothService bluetoothService;
+
+  public Printer getPrinter() {
+    return printer;
+  }
 
   @Override
 
