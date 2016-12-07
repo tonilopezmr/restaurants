@@ -15,13 +15,13 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
-class OpenRestaurantPresenter(private val login: Login) : MVP.Presenter<OpenRestaurantPresenter.View>,
+class LoginRestaurantPresenter(private val login: Login) : MVP.Presenter<LoginRestaurantPresenter.View>,
     GoogleApiClient.OnConnectionFailedListener {
   companion object {
     val RC_SIGN_IN = 9001
   }
 
-  private val TAG = "OpenRestaurantActivity"
+  private val TAG = "LoginRestaurantActivity"
 
   interface View : MVP.View {
     fun showConnectionError()
