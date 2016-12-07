@@ -11,7 +11,8 @@ class Login(val restaurantRepository: RestaurantRepository) {
     val hash = Hashing.sha256()
         .hashString(passwd, Charset.forName("UTF-8"))
         .toString()
-    val restaurant = restaurantRepository.getRestaurant(name, hash)
+    val restaurant = restaurantRepository.getRestaurant(name, hash) ?: return false
+
     return hash == restaurant.password
   }
 
