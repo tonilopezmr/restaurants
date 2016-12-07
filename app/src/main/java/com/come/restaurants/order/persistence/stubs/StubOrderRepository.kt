@@ -7,7 +7,7 @@ import com.come.restaurants.order.domain.model.Plate
 import com.come.restaurants.order.domain.usecases.GetOrder
 import com.come.restaurants.order.domain.usecases.GetOrders
 import com.come.restaurants.order.domain.usecases.OrderPrinted
-import java.util.Date
+import java.util.*
 
 class StubOrderRepository : OrderRepository {
   var orderList = emptyList<Order>()

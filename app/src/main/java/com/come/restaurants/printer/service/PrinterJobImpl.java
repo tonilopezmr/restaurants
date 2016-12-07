@@ -1,23 +1,28 @@
-package com.come.restaurants.printer.printerlib;
+package com.come.restaurants.printer.service;
 
-import com.come.restaurants.printer.printerlib.util.PrintConfig;
-import com.come.restaurants.printer.printerlib.util.PrinterCommands;
+import com.come.restaurants.printer.service.util.PrintConfig;
+import com.come.restaurants.printer.service.util.PrinterCommands;
 
 import java.util.List;
 
-public class PrinterJobImpl implements IPrinterJob {
+public class PrinterJobImpl implements PrinterJob {
 
-  private IPrinter printer;
+  private Printer printer;
   private PrintConfig config;
 
   //Implementation following the Builder pattern -> The product is each print
-  public PrinterJobImpl(IPrinter printer) {
+  public PrinterJobImpl(Printer printer) {
     this.printer = printer;
     this.config = new PrintConfig();
   }
 
+  private void print() throws PrinterJobException {
+    //After a print we reset the settings
+    initializePrinter();
+  }
+
   @Override
-  public IPrinterJob initializePrinter() throws PrinterJobException {
+  public PrinterJob initializePrinter() throws PrinterJobException {
     try {
       printer.initialize();
       config = new PrintConfig();
@@ -36,12 +41,11 @@ public class PrinterJobImpl implements IPrinterJob {
     } catch (PrinterException e) {
       throw new PrinterJobException(e.getMessage());
     }
-    //After a print we reset the settings
-    initializePrinter();
+    print();
   }
 
   @Override
-  public void printAllLines(List<String> lines) throws PrinterJobException {
+  public void printLines(List<String> lines) throws PrinterJobException {
     try {
       printer.setAlignment(config.getAlignment());
       printer.setFont(config.getFont());
@@ -51,14 +55,13 @@ public class PrinterJobImpl implements IPrinterJob {
     } catch (PrinterException e) {
       throw new PrinterJobException(e.getMessage());
     }
-    //After a print we reset the settings
-    initializePrinter();
+    print();
   }
 
   @Override
-  public IPrinterJob printSeparator() throws PrinterJobException {
+  public PrinterJob printSeparator() throws PrinterJobException {
     try {
-      printer.write(config.getSeparator() + config.getSeparator_spacing());
+      printer.write(config.getSeparator() + config.getSeparatorSpacing());
     } catch (PrinterException e) {
       throw new PrinterJobException(e.getMessage());
     }
@@ -66,31 +69,31 @@ public class PrinterJobImpl implements IPrinterJob {
   }
 
   @Override
-  public IPrinterJob setSeparator(String separator) {
+  public PrinterJob setSeparator(String separator) {
     config.setSeparator(separator);
     return this;
   }
 
   @Override
-  public IPrinterJob setSeparatorSpacing(int spacing) {
-    config.setSeparator_spacing(spacing);
+  public PrinterJob setSeparatorSpacing(int spacing) {
+    config.setSeparatorSpacing(spacing);
     return this;
   }
 
   @Override
-  public IPrinterJob setAlignment(PrinterCommands.Align align) {
+  public PrinterJob setAlignment(PrinterCommands.Align align) {
     config.setAlignment(align);
     return this;
   }
 
   @Override
-  public IPrinterJob setFont(PrinterCommands.Font font) {
+  public PrinterJob setFont(PrinterCommands.Font font) {
     config.setFont(font);
     return this;
   }
 
   @Override
-  public IPrinterJob feedPaper(PrinterCommands.FeedPaper feed) throws PrinterJobException {
+  public PrinterJob feed(PrinterCommands.FeedPaper feed) throws PrinterJobException {
     try {
       printer.feedPaper(feed);
     } catch (PrinterException e) {
@@ -100,7 +103,7 @@ public class PrinterJobImpl implements IPrinterJob {
   }
 
   @Override
-  public IPrinterJob setConfig(PrintConfig config) {
+  public PrinterJob setConfig(PrintConfig config) {
     this.config = config;
     return this;
   }

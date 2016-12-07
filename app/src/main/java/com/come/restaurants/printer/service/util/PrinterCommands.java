@@ -1,4 +1,4 @@
-package com.come.restaurants.printer.printerlib.util;
+package com.come.restaurants.printer.service.util;
 
 public class PrinterCommands {
   public static final byte ESC = 0x1B;

@@ -1,4 +1,4 @@
-package com.come.restaurants.printer.printerlib;
+package com.come.restaurants.printer.service;
 
 public class PrinterException extends Exception {
 

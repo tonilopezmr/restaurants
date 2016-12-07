@@ -38,32 +38,31 @@ class OpenRestaurantActivity : AppCompatActivity(), View {
   }
 
   override fun showConnectionError() {
-    val toast = Toast.makeText(applicationContext, getString(R.string.connection_error), 3)
+    val toast = Toast.makeText(applicationContext, getString(R.string.connection_error), Toast.LENGTH_SHORT)
     toast.show()
   }
 
   override fun showLoginError() {
-    val toast = Toast.makeText(applicationContext, getString(R.string.login_error), 3)
+    val toast = Toast.makeText(applicationContext, getString(R.string.login_error), Toast.LENGTH_SHORT)
     toast.show()
   }
 
   override fun showNameError() {
-    val toast = Toast.makeText(applicationContext, getString(R.string.invalid_name), 3)
+    val toast = Toast.makeText(applicationContext, getString(R.string.invalid_name), Toast.LENGTH_SHORT)
     toast.show()
   }
 
   override fun showCodeError() {
-    val toast = Toast.makeText(applicationContext, getString(R.string.invalid_code), 3)
+    val toast = Toast.makeText(applicationContext, getString(R.string.invalid_code), Toast.LENGTH_SHORT)
     toast.show()
   }
 
   override fun showNameAndCodeError() {
-    val toast = Toast.makeText(applicationContext, "Invalid Name and Code", 3)
+    val toast = Toast.makeText(applicationContext, "Invalid Name and Code", Toast.LENGTH_SHORT)
     toast.show()
   }
 
   override fun initUi() {
-    openGoogleButton.setOnClickListener { this.presenter.signInGoogle() }
-    openButton.setOnClickListener { this.presenter.signIn() }
+    openButton.setOnClickListener { navigateToOrderList() }
   }
 }
