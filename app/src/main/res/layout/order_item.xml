@@ -1,50 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:text="@string/number"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/orderNumberText"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
-
-        <TextView
-            android:text="@string/hour"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/orderHourText"
-            android:gravity="end"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+            android:layout_height="match_parent">
+
+        <TextView
+                android:text="@string/number"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/orderNumberText"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+
+        <TextView
+                android:text="@string/hour"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/orderHourText"
+                android:gravity="end"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
 
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/orderPlatesText"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
-
-        <TextView
-            android:text="@string/total_price"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/totalPriceText"
-            android:gravity="end"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+            android:layout_height="match_parent">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/orderPlatesText"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+
+        <TextView
+                android:text="@string/total_price"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/totalPriceText"
+                android:gravity="end"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
 
     </LinearLayout>
 

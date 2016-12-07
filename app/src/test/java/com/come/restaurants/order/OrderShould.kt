@@ -9,23 +9,23 @@ import org.junit.Test
 
 class OrderShould {
 
-    @Test fun `get_correct_price_when_add_plate_once`() {
-        val plate = Plate("", "", 1.30, emptyList())
-        val orderLine = OrderLine("", plate)
-        val order = Order("", "", 234, listOf(orderLine))
+  @Test fun `get_correct_price_when_add_plate_once`() {
+    val plate = Plate("", "", 1.30, emptyList())
+    val orderLine = OrderLine("", plate)
+    val order = Order("", "", 234, listOf(orderLine))
 
-        assertThat(order.getPrice(), `is`(1.30))
-    }
+    assertThat(order.getPrice(), `is`(1.30))
+  }
 
-    @Test fun `get_correct_price_when_add_multiple_plates`() {
-        val tortilla = Plate("", "Tortilla", 1.30, emptyList())
-        val zumo = Plate("", "Zumo", 0.95, emptyList())
+  @Test fun `get_correct_price_when_add_multiple_plates`() {
+    val tortilla = Plate("", "Tortilla", 1.30, emptyList())
+    val zumo = Plate("", "Zumo", 0.95, emptyList())
 
-        val orderLine1 = OrderLine("", tortilla, 2)
-        val orderLine2 = OrderLine("", zumo)
-        val order = Order("", "", 234, listOf(orderLine1, orderLine2))
+    val orderLine1 = OrderLine("", tortilla, 2)
+    val orderLine2 = OrderLine("", zumo)
+    val order = Order("", "", 234, listOf(orderLine1, orderLine2))
 
-        assertThat(order.getPrice(), `is`(3.55))
-    }
+    assertThat(order.getPrice(), `is`(3.55))
+  }
 
 }

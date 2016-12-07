@@ -5,12 +5,12 @@ import com.come.restaurants.order.domain.OrderRepository
 import com.come.restaurants.order.domain.model.Order
 
 class GetOrders(val repository: OrderRepository) {
-    interface Callback : BaseCallback {
-        fun ordersReceived(orders: List<Order>)
-    }
+  interface Callback : BaseCallback {
+    fun ordersReceived(orders: List<Order>)
+  }
 
-    fun getOrders(callback: Callback) {
-        repository.getOrders(callback)
-    }
+  fun getOrders(callback: Callback) {
+    repository.getOrders(callback)
+  }
 
 }
