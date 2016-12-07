@@ -35,21 +35,18 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
     }
 
     override fun showFetchingError() {
-        val toast = Toast.makeText(applicationContext,
-                "Error ocurred while fetching order details", 3)
-        toast.show()
+        Toast.makeText(applicationContext,
+                getString(R.string.error_fetching_order_details), Toast.LENGTH_SHORT).show()
     }
 
     override fun showPrintError() {
-        val toast = Toast.makeText(applicationContext,
-                "Error ocurred while printing order details", 3)
-        toast.show()
+        Toast.makeText(applicationContext,
+                getString(R.string.error_printing_order_details), Toast.LENGTH_SHORT).show()
     }
 
     override fun showOrderPrinted() {
-        val toast = Toast.makeText(applicationContext,
-                "Order details printed", 3)
-        toast.show()
+        Toast.makeText(applicationContext,
+                getString(R.string.order_printed), Toast.LENGTH_SHORT).show()
     }
 
     override fun initUi() {
