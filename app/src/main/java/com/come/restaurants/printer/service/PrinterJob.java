@@ -82,18 +82,18 @@ public interface PrinterJob {
   PrinterJob feed(PrinterCommands.FeedPaper feed) throws PrinterJobException;
 
   /**
-   * Sets the parameter config to be used on the print
-   *
-   * @param config
-   * @return
-   */
-  PrinterJob setConfig(PrintConfig config);
-
-  /**
    * Retrieves the current configuration to be used on the print
    * WARNING: After a print, it returns the default configuration
    *
    * @return
    */
   PrintConfig getConfig();
+
+  /**
+   * Sets the parameter config to be used on the print
+   *
+   * @param config
+   * @return
+   */
+  PrinterJob setConfig(PrintConfig config);
 }
