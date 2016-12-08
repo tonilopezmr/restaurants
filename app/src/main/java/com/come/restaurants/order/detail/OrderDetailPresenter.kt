@@ -10,6 +10,7 @@ import com.come.restaurants.base.MVP
 import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.domain.usecases.GetOrder
 import com.come.restaurants.order.domain.usecases.PrintOrder
+import com.come.restaurants.printer.service.bluetooth.PrinterBluetooth
 
 
 class OrderDetailPresenter(val getOrder: GetOrder, val printOrder: PrintOrder) : MVP.Presenter<OrderDetailPresenter.View> {
@@ -29,18 +30,18 @@ class OrderDetailPresenter(val getOrder: GetOrder, val printOrder: PrintOrder) :
   lateinit private var view: View
   lateinit private var order: Order
 
-  private var deviceConnected = false
-  private val btReceiver = object : BroadcastReceiver() {
-    override fun onReceive(context: Context?, intent: Intent) {
-      val action = intent.action
-      val device = intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
-      if (BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)) {
-        Log.d(TAG, "Bluetooth device connected")
-        deviceConnected = true
-      } else if (BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action)) {
-        Log.d(TAG, "Bluetooth device disconnected")
-        deviceConnected = false
-      }
+    private var deviceConnected : Boolean = PrinterBluetooth.isConnected()
+    private val btReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent) {
+            val action = intent.action
+            val device = intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
+            if(BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)) {
+                Log.d(TAG, "Bluetooth device connected")
+                deviceConnected = true
+            } else if(BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action)) {
+                Log.d(TAG, "Bluetooth device disconnected")
+                deviceConnected = false
+            }
 
     }
 

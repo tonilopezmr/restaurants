@@ -42,28 +42,25 @@ class LoginRestaurantActivity : AppCompatActivity(), View {
   }
 
   override fun showConnectionError() {
-    val toast = Toast.makeText(applicationContext, getString(R.string.connection_error), Toast.LENGTH_SHORT)
-    toast.show()
+    Toast.makeText(applicationContext, getString(R.string.connection_error),
+            Toast.LENGTH_SHORT).show()
   }
 
   override fun showLoginError() {
-    val toast = Toast.makeText(applicationContext, getString(R.string.login_error), Toast.LENGTH_SHORT)
-    toast.show()
+    Toast.makeText(applicationContext, getString(R.string.login_error), Toast.LENGTH_SHORT).show()
   }
 
   override fun showNameError() {
-    val toast = Toast.makeText(applicationContext, getString(R.string.invalid_name), Toast.LENGTH_SHORT)
-    toast.show()
+    Toast.makeText(applicationContext, getString(R.string.invalid_name), Toast.LENGTH_SHORT).show()
   }
 
   override fun showCodeError() {
-    val toast = Toast.makeText(applicationContext, getString(R.string.invalid_code), Toast.LENGTH_SHORT)
-    toast.show()
+    Toast.makeText(applicationContext, getString(R.string.invalid_code), Toast.LENGTH_SHORT).show()
   }
 
   override fun showNameAndCodeError() {
-    val toast = Toast.makeText(applicationContext, "Invalid Name and Code", Toast.LENGTH_SHORT)
-    toast.show()
+    Toast.makeText(applicationContext, getString(R.string.invalid_name_and_code),
+            Toast.LENGTH_SHORT).show()
   }
 
   override fun initUi() {
