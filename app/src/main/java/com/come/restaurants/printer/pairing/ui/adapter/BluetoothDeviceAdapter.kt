@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.come.restaurants.R
 import com.come.restaurants.order.list.ui.OrderListActivity
-import com.come.restaurants.printer.service.Printer
 import com.come.restaurants.printer.service.bluetooth.BluetoothService
 import com.come.restaurants.printer.service.bluetooth.PrinterBluetooth
 import kotlinx.android.synthetic.main.printer_list_item.view.*
@@ -55,7 +54,7 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
   }
 
   private fun pairDevice(context: Context, device: BluetoothDevice): Boolean {
-    printer.connect(device, context, getHandler(context, device))
+    printer.connect(device, getHandler(context, device))
     return true //TODO WE ASSUME THAT IT GOES WELL
   }
 
