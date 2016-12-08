@@ -22,7 +22,7 @@ class LoginRestaurantPresenter(private val login: Login) : MVP.Presenter<LoginRe
     val RC_SIGN_IN = 9001
   }
 
-  private val TAG = "LoginRestaurantActivity"
+  private val TAG = javaClass.canonicalName
 
   interface View : MVP.View {
     fun showConnectionError()
