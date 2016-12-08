@@ -16,13 +16,13 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
-class OpenRestaurantPresenter(private val login: Login) : MVP.Presenter<OpenRestaurantPresenter.View>,
+class LoginRestaurantPresenter(private val login: Login) : MVP.Presenter<LoginRestaurantPresenter.View>,
     GoogleApiClient.OnConnectionFailedListener {
   companion object {
     val RC_SIGN_IN = 9001
   }
 
-  private val TAG = "OpenRestaurantActivity"
+  private val TAG = "LoginRestaurantActivity"
 
   interface View : MVP.View {
     fun showConnectionError()
@@ -30,7 +30,7 @@ class OpenRestaurantPresenter(private val login: Login) : MVP.Presenter<OpenRest
     fun showNameError()
     fun showCodeError()
     fun showNameAndCodeError()
-    fun navigateToOrderList()
+    fun moveToPairingActivity()
     fun launchSignIn(intent: Intent)
   }
 
@@ -89,7 +89,7 @@ class OpenRestaurantPresenter(private val login: Login) : MVP.Presenter<OpenRest
   }
 
   fun correctSingIn(restaurant: Restaurant) {
-    this.view.navigateToOrderList();
+    this.view.moveToPairingActivity()
   }
 
   fun errorSingingIn(exception: Exception){
@@ -126,7 +126,7 @@ class OpenRestaurantPresenter(private val login: Login) : MVP.Presenter<OpenRest
         .addOnCompleteListener { task ->
           if (task.isSuccessful) {
             Log.d(TAG, "signInWithCredential:onComplete:${task.isSuccessful}")
-            view.navigateToOrderList()
+            view.moveToPairingActivity()
           } else {
             Log.d(TAG, "signInWithCredential", task.exception)
             view.showLoginError()
