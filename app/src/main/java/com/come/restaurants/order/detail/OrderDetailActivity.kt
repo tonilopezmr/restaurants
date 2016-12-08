@@ -59,9 +59,9 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_order_detail)
 
-        var repository = FirebaseOrderRepository()
-        val getOrder = GetOrder(repository)
-        val orderId = intent.getStringExtra(ID)
+    var repository = FirebaseOrderRepository()
+    val getOrder = GetOrder(repository)
+    val orderId = intent.getStringExtra(ID)
 
     val printer = PrinterBluetooth.getPrinter()
     val printerJob = PrinterJobImpl(printer)
