@@ -1,6 +1,8 @@
 package com.come.restaurants.order.detail.ui
 
+import android.content.BroadcastReceiver
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
@@ -11,7 +13,9 @@ import com.come.restaurants.order.domain.usecases.GetOrder
 import com.come.restaurants.order.domain.usecases.PrintOrder
 import com.come.restaurants.order.persistence.stubs.StubOrderRepository
 import com.come.restaurants.printer.domain.PrinterRepository
-import com.come.restaurants.printer.pairing.ui.BtPairingActivity
+import com.come.restaurants.printer.pairing.ui.PairingPrinterActivity
+import com.come.restaurants.printer.service.PrinterJobImpl
+import com.come.restaurants.printer.service.bluetooth.PrinterBluetooth
 import kotlinx.android.synthetic.main.activity_order_detail.*
 import org.jetbrains.anko.setContentView
 
@@ -33,21 +37,18 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
     }
 
     override fun showFetchingError() {
-        val toast = Toast.makeText(applicationContext,
-                "Error ocurred while fetching order details", 3)
-        toast.show()
+        Toast.makeText(applicationContext,
+                getString(R.string.error_fetching_order_details), Toast.LENGTH_SHORT).show()
     }
 
     override fun showPrintError() {
-        val toast = Toast.makeText(applicationContext,
-                "Error ocurred while printing order details", 3)
-        toast.show()
+        Toast.makeText(applicationContext,
+                getString(R.string.error_printing_order_details), Toast.LENGTH_SHORT).show()
     }
 
     override fun showOrderPrinted() {
-        val toast = Toast.makeText(applicationContext,
-                "Order details printed", 3)
-        toast.show()
+        Toast.makeText(applicationContext,
+                getString(R.string.order_printed), Toast.LENGTH_SHORT).show()
     }
 
     override fun initUi() {
@@ -58,6 +59,10 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
         printButton.setOnClickListener { presenter.print() }
     }
 
+    override fun setReceiver(btReceiver: BroadcastReceiver, filter: IntentFilter) {
+        this.registerReceiver(btReceiver, filter)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         OrderDetailUI().setContentView(this)
@@ -66,7 +71,9 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
         val getOrder = GetOrder(repository)
         val orderId = intent.getStringExtra(ID)
 
-        var printerRepository = PrinterRepository()
+        val printer = PrinterBluetooth()
+        val printerJob = PrinterJobImpl(printer)
+        var printerRepository = PrinterRepository(printerJob)
         val printOrder = PrintOrder(printerRepository)
 
         this.presenter = OrderDetailPresenter(getOrder, printOrder)
@@ -74,8 +81,12 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
         this.presenter.init(orderId)
     }
 
+    override fun finishActivity() {
+        this.finish()
+    }
+
     override fun moveToPairingActivity() {
-        val intent = Intent(this, BtPairingActivity::class.java)
+        val intent = Intent(this, PairingPrinterActivity::class.java)
         startActivity(intent)
     }
 }

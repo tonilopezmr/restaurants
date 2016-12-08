@@ -21,7 +21,4 @@ class RecyclerViewItemsCountMatcher(val expectedItemCount: Int) : TypeSafeMatche
                 RecyclerViewItemsCountMatcher(itemCount)
     }
 
-
-
-
 }

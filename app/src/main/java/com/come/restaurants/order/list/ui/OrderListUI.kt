@@ -7,32 +7,43 @@ import org.jetbrains.anko.recyclerview.v7.recyclerView
 
 class OrderListUI : AnkoComponent<OrderListActivity> {
 
-    override fun createView(ui: AnkoContext<OrderListActivity>): View {
-        return with(ui) {
-            relativeLayout {
-                lparams {
-                    width = matchParent
-                    height = matchParent
-                    leftMargin = 64
-                    rightMargin = 64
-                    topMargin = 64
+  override fun createView(ui: AnkoContext<OrderListActivity>): View {
+    return with(ui) {
+      relativeLayout {
+        lparams {
+          width = matchParent
+          height = matchParent
+          leftMargin = 64
+          rightMargin = 64
+          topMargin = 64
 
-                }
-                progressBar {
-                    id = R.id.orderLoader
-                    visibility = View.GONE
-                    lparams {
-                        centerHorizontally()
-                        centerVertically()
-                        width = wrapContent
-                        height = wrapContent
-                    }
-                }
-
-                recyclerView {
-                    id = R.id.ordersRecyclerView
-                }.lparams(height = matchParent, width = matchParent)
-            }
         }
+        progressBar {
+          id = R.id.progressBar
+          visibility = View.GONE
+          lparams {
+            centerHorizontally()
+            centerVertically()
+            width = wrapContent
+            height = wrapContent
+          }
+        }
+
+        textView {
+          id = R.id.emptyCase
+          visibility = View.GONE
+          lparams {
+            centerHorizontally()
+            centerVertically()
+            width = wrapContent
+            height = wrapContent
+          }
+        }
+
+        recyclerView {
+          id = R.id.recyclerView
+        }.lparams(height = matchParent, width = matchParent)
+      }
     }
+  }
 }

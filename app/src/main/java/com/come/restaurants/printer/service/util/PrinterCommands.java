@@ -1,4 +1,4 @@
-package com.come.restaurants.printer.printerlib.util;
+package com.come.restaurants.printer.service.util;
 
 public class PrinterCommands {
   public static final byte ESC = 0x1B;
@@ -6,9 +6,9 @@ public class PrinterCommands {
   public static final char NEW_LINE = '\n';
 
   public static final byte[] INITIALIZE = {ESC, '@'};
-
-
+  public static final byte FEED_PAPER = 'J';
   private static final byte ALIGN = (byte) 'a';
+  private static final byte EXCLM = (byte) '!';
 
   public enum Align {
     ALIGNMENT_LEFT(new byte[]{ESC, ALIGN, 0x00}),
@@ -26,7 +26,6 @@ public class PrinterCommands {
     }
   }
 
-  private static final byte EXCLM = (byte) '!';
 
   public enum Font {
     FONT_DEFAULT(new byte[]{GS, EXCLM, 0x00}),
@@ -44,13 +43,10 @@ public class PrinterCommands {
     }
   }
 
-
-  public static final byte FEED_PAPER = 'J';
-
   public enum FeedPaper {
-    FEED(new byte[] {ESC, FEED_PAPER, 0x00}), //??? NOT SURE WHAT DOES THIS DO, BUT K
-    FEED_LINE(new byte[] {ESC, FEED_PAPER, 0x10}),
-    FEED_END(new byte[] {ESC, FEED_PAPER, 0x70});
+    FEED(new byte[]{ESC, FEED_PAPER, 0x00}), //??? NOT SURE WHAT DOES THIS DO, BUT K
+    FEED_LINE(new byte[]{ESC, FEED_PAPER, 0x10}),
+    FEED_END(new byte[]{ESC, FEED_PAPER, 0x70});
 
     byte[] value;
 
