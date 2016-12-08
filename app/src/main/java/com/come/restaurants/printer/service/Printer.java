@@ -1,14 +1,12 @@
 package com.come.restaurants.printer.service;
 
-import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.os.Handler;
+
 import com.come.restaurants.printer.service.util.PrinterCommands;
 
 public interface Printer {
   void connect(Context context, Handler messageHandler) throws PrinterException;
-
-  void connect(BluetoothDevice printer, Context context, Handler messageHandler) throws PrinterException;
 
   void disconnect();
 

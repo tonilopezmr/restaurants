@@ -1,28 +1,21 @@
 package com.come.restaurants.printer.pairing.ui.adapter
 
-import android.annotation.SuppressLint
 import android.bluetooth.BluetoothDevice
-import android.content.Context
-import android.content.Intent
-import android.os.Handler
-import android.os.Message
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.come.restaurants.R
-import com.come.restaurants.order.list.ui.OrderListActivity
-import com.come.restaurants.printer.service.Printer
-import com.come.restaurants.printer.service.bluetooth.BluetoothService
-import com.come.restaurants.printer.service.bluetooth.PrinterBluetooth
+import com.come.restaurants.printer.pairing.ui.PairingPrinterActivity
 import kotlinx.android.synthetic.main.printer_list_item.view.*
-import java.util.ArrayList
+import java.util.*
 
 
 class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.ListViewHolder>() {
 
-  private var printer: Printer = PrinterBluetooth.getPrinter()
+  private val TAG = "BtPairing"
+
   val printerList: MutableList<BluetoothDevice> = ArrayList()
 
   override fun getItemCount(): Int {
@@ -40,7 +33,23 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
     holder.bindPrinter(printerList[position])
     holder.itemView.setOnClickListener { it ->
       val device = printerList[position]
-      pairDevice(it.context, device)
+      if (device.bondState == BluetoothDevice.BOND_BONDED) {
+        val result = unpairDevice(device)
+        if (result) {
+          Toast.makeText(it.context,
+              "Device ${device.name} was unpaired correctly", Toast.LENGTH_SHORT)
+              .show()
+          (it.context as PairingPrinterActivity).finish()
+        }
+      } else {
+        val result = pairDevice(device)
+        if (result) {
+          Toast.makeText(it.context,
+              "Device ${device.name} was paired correctly", Toast.LENGTH_SHORT)
+              .show()
+          (it.context as PairingPrinterActivity).finish()
+        }
+      }
     }
   }
 
@@ -49,14 +58,14 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
     notifyDataSetChanged()
   }
 
-  fun resetList() {
-    this.printerList.clear()
-    notifyDataSetChanged()
+  private fun unpairDevice(device: BluetoothDevice): Boolean {
+    val method = device.javaClass.getMethod("removeBond")
+    return method.invoke(device) as Boolean
   }
 
-  private fun pairDevice(context: Context, device: BluetoothDevice): Boolean {
-    printer.connect(device, context, getHandler(context, device))
-    return true //TODO WE ASSUME THAT IT GOES WELL
+  private fun pairDevice(device: BluetoothDevice): Boolean {
+    val method = device.javaClass.getMethod("createBond")
+    return method.invoke(device) as Boolean
   }
 
   class ListViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
@@ -71,53 +80,4 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
     }
   }
 
-  private fun getHandler(context: Context, device: BluetoothDevice): Handler {
-    val MESSAGE_STATE_CHANGE = 1
-    val MESSAGE_READ = 2
-    val MESSAGE_WRITE = 3
-    val MESSAGE_DEVICE_NAME = 4
-    val MESSAGE_TOAST = 5
-    val MESSAGE_CONNECTION_LOST = 6
-    val MESSAGE_UNABLE_CONNECT = 7
-
-    @SuppressLint("HandlerLeak")
-    val mHandler = object : Handler() {
-      override fun handleMessage(msg: Message) {
-        when (msg.what) {
-          MESSAGE_STATE_CHANGE -> {
-            when (msg.arg1) {
-              BluetoothService.STATE_CONNECTED -> {
-                Toast.makeText(context,
-                    "Device ${device.name} was paired correctly", Toast.LENGTH_SHORT)
-                    .show()
-                context.startActivity(Intent(context, OrderListActivity::class.java))
-              }
-              BluetoothService.STATE_CONNECTING -> {
-
-              }
-              BluetoothService.STATE_LISTEN, BluetoothService.STATE_NONE -> {
-              }
-            }
-          }
-          MESSAGE_WRITE -> {
-          }
-          MESSAGE_READ -> {
-          }
-          MESSAGE_DEVICE_NAME -> {
-            // save the connected device's name
-
-          }
-          MESSAGE_TOAST -> {
-          }
-          MESSAGE_CONNECTION_LOST    //蓝牙已断开连接
-          -> {
-          }
-          MESSAGE_UNABLE_CONNECT     //无法连接设备
-          -> {
-          }
-        }
-      }
-    }
-    return mHandler
-  }
 }
