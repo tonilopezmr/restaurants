@@ -9,15 +9,11 @@ import java.util.*
 
 class FirebaseRestaurantRepository : RestaurantRepository {
 
-  private var database: FirebaseDatabase
-  private var reference: DatabaseReference
+  private val database: FirebaseDatabase = FirebaseDatabase.getInstance();
+  private val reference: DatabaseReference = database.getReference("restaurant")
 
-  init {
-    database = FirebaseDatabase.getInstance()
-    reference = database.getReference("restaurant")
-  }
 
-  override fun getRestaurant(name: String, code: String, callback: Login.Callback): Restaurant {
+  override fun getRestaurant(name: String, code: String, callback: Login.Callback) {
     reference.child(name).addListenerForSingleValueEvent(object : ValueEventListener {
       override fun onCancelled(databaseError: DatabaseError) {
         callback.error(Exception(databaseError.message))
@@ -36,6 +32,5 @@ class FirebaseRestaurantRepository : RestaurantRepository {
       }
 
     })
-    throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
   }
 }
