@@ -37,7 +37,7 @@ class StubOrderRepository : OrderRepository {
   }
 
   override fun getOrder(id: String, callback: GetOrder.Callback) {
-    callback.orderReceived(orderList[0])
+    callback.orderReceived(orderList.filter { it.id == id }.first())
   }
 
   override fun orderPrinted(order: Order, callback: OrderPrinted.Callback) {
