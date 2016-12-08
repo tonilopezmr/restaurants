@@ -22,7 +22,6 @@ import java.util.ArrayList
 
 class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.ListViewHolder>() {
 
-  private val TAG = "BtPairing"
   private var printer : Printer = PrinterBluetooth.getPrinter()
   val printerList: MutableList<BluetoothDevice> = ArrayList()
 
