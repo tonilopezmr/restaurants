@@ -9,10 +9,8 @@ import java.util.*
 
 class StubRestaurantRepository : RestaurantRepository {
 
-  override fun getRestaurant(name: String, code: String, callback: Login.Callback): Restaurant {
-    return restaurants
-        .filter { rest -> rest.code == code && rest.name == name }
-        .first()
+  override fun getRestaurant(name: String, code: String, callback: Login.Callback) {
+    callback.loginCorrect(restaurants.first())
   }
 
   val restaurants = ArrayList<Restaurant>()

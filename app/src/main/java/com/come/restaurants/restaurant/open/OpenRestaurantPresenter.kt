@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity
 import android.util.Log
 import com.come.restaurants.R
 import com.come.restaurants.base.MVP
+import com.come.restaurants.restaurant.domain.model.Restaurant
 import com.come.restaurants.restaurant.domain.usecases.Login
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -67,11 +68,40 @@ class OpenRestaurantPresenter(private val login: Login) : MVP.Presenter<OpenRest
   }
 
   fun signIn(username: String, password: String) {
-    if (this.login.login(username, password)) {
-      this.view.navigateToOrderList()
-    } else {
-      this.view.showLoginError()
-    }
+    this.login.login(username,password, object : Login.Callback{
+      override fun loginCorrect(restaurant: Restaurant) {
+        correctSingIn(restaurant);
+      }
+
+      override fun nameNotFound() {
+        errorWithName();
+      }
+
+      override fun passwordNotCorrect() {
+        errorWithPass();
+      }
+
+      override fun error(exception: Exception) {
+        errorSingingIn(exception);
+      }
+
+    })
+  }
+
+  fun correctSingIn(restaurant: Restaurant) {
+    this.view.navigateToOrderList();
+  }
+
+  fun errorSingingIn(exception: Exception){
+    this.view.showConnectionError();
+  }
+
+  fun errorWithName(){
+    this.view.showNameError();
+  }
+
+  fun errorWithPass(){
+    this.view.showCodeError();
   }
 
   fun signInGoogle() {

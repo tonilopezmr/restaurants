@@ -14,12 +14,8 @@ class Login(val restaurantRepository: RestaurantRepository) {
     fun passwordNotCorrect()
   }
 
-  fun login(name: String, passwd: String, callback: Login.Callback): Boolean {
-    val restaurant = restaurantRepository.getRestaurant(name, passwd, callback)
-    val hash = Hashing.sha256()
-        .hashString(passwd, Charset.forName("UTF-8"))
-        .toString()
-    return hash == restaurant.password
+  fun login(name: String, passwd: String, callback: Login.Callback) {
+      val restaurant = restaurantRepository.getRestaurant(name, passwd, callback)
   }
 
 }
