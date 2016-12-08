@@ -2,10 +2,12 @@ package com.come.restaurants.order.list
 
 import com.come.restaurants.base.MVP
 import com.come.restaurants.order.domain.model.Order
+import com.come.restaurants.order.domain.usecases.GetNewOrder
 import com.come.restaurants.order.domain.usecases.GetOrders
 
 
-class OrderListPresenter(val getOrders: GetOrders) : MVP.Presenter<OrderListPresenter.View> {
+class OrderListPresenter(val getOrders: GetOrders,
+                         val getNewOrder: GetNewOrder) : MVP.Presenter<OrderListPresenter.View> {
 
   interface View : MVP.View {
     fun showLoader()
@@ -20,6 +22,20 @@ class OrderListPresenter(val getOrders: GetOrders) : MVP.Presenter<OrderListPres
     view.initUi()
     view.showLoader()
     requestOrders()
+    requestNewOrder()
+  }
+
+  private fun requestNewOrder() {
+    getNewOrder.get(object : GetNewOrder.Callback{
+      override fun error(exception: Exception) {
+        //TODO: View error?? tonilopezmr: YES PLIS
+      }
+
+      override fun orderReceived(order: Order) {
+        show(listOf(order))
+      }
+
+    })
   }
 
   override fun setView(view: MVP.View) {
@@ -33,7 +49,7 @@ class OrderListPresenter(val getOrders: GetOrders) : MVP.Presenter<OrderListPres
       }
 
       override fun error(exception: Exception) {
-        //TODO: View error??
+        //TODO: View error?? tonilopezmr: YES PLIS
       }
 
     })
