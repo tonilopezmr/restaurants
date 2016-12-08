@@ -4,7 +4,6 @@ import android.bluetooth.BluetoothDevice
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.util.Log
 import com.come.restaurants.base.MVP
 import com.come.restaurants.order.domain.model.Order
@@ -22,9 +21,6 @@ class OrderDetailPresenter(val getOrder: GetOrder, val printOrder: PrintOrder) :
     fun showFetchingError()
     fun showPrintError()
     fun showOrderPrinted()
-    fun moveToPairingActivity()
-    fun finishActivity()
-    fun setReceiver(btReceiver: BroadcastReceiver, filter: IntentFilter)
   }
 
   lateinit private var view: View
@@ -34,11 +30,10 @@ class OrderDetailPresenter(val getOrder: GetOrder, val printOrder: PrintOrder) :
     private val btReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
             val action = intent.action
-            val device = intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
-            if(BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)) {
+            if(BluetoothDevice.ACTION_ACL_CONNECTED == action) {
                 Log.d(TAG, "Bluetooth device connected")
                 deviceConnected = true
-            } else if(BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action)) {
+            } else if(BluetoothDevice.ACTION_ACL_DISCONNECTED == action) {
                 Log.d(TAG, "Bluetooth device disconnected")
                 deviceConnected = false
             }
@@ -48,10 +43,6 @@ class OrderDetailPresenter(val getOrder: GetOrder, val printOrder: PrintOrder) :
   }
 
   override fun init() {
-    val filter = IntentFilter()
-    filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED)
-    filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED)
-    this.view.setReceiver(btReceiver, filter)
     view.initUi()
   }
 
@@ -89,7 +80,7 @@ class OrderDetailPresenter(val getOrder: GetOrder, val printOrder: PrintOrder) :
   fun print() {
     this.printOrder.print(order, object : PrintOrder.Callback {
       override fun orderPrinted(order: Order) {
-        view.finishActivity()
+        //TODO send that is printed
       }
 
       override fun error(exception: Exception) {

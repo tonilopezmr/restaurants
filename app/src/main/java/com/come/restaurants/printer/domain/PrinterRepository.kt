@@ -7,21 +7,23 @@ import com.come.restaurants.printer.service.util.PrinterCommands
 import java.util.ArrayList
 
 class PrinterRepository(val printerJob: PrinterJob) {
-    fun print(order: Order, callback: PrintOrder.Callback) {
 
-        val orderLines = ArrayList<String>()
-        order.orderLines.map { orderLine ->
-            orderLines.add("${orderLine.quantity}x ${orderLine.plate.name}\t${orderLine.plate.price}€")
-        }
+  fun print(order: Order, callback: PrintOrder.Callback) {
 
-        printerJob.setAlignment(PrinterCommands.Align.ALIGNMENT_CENTER)
-                .setFont(PrinterCommands.Font.FONT_STYLE_C)
-                .printLine("Order code ${order.code}")
-        printerJob.setFont(PrinterCommands.Font.FONT_STYLE_B)
-                .printLines(orderLines)
-        printerJob.setSeparatorSpacing(5)
-                .printSeparator()
-
-        callback.orderPrinted(order)
+    val orderLines = ArrayList<String>()
+    order.orderLines.map { orderLine ->
+      orderLines.add("${orderLine.quantity}x ${orderLine.plate.name}")
     }
+
+    printerJob.setAlignment(PrinterCommands.Align.ALIGNMENT_CENTER)
+        .setFont(PrinterCommands.Font.FONT_STYLE_C)
+        .printLine("# " + order.code)
+    printerJob.feed(PrinterCommands.FeedPaper.FEED_LINE)
+    printerJob.setFont(PrinterCommands.Font.FONT_STYLE_B)
+        .printLines(orderLines)
+
+    printerJob.setSeparatorSpacing(2)
+        .printSeparator()
+    callback.orderPrinted(order)
+  }
 }
