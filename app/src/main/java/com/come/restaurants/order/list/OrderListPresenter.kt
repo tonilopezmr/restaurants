@@ -4,9 +4,11 @@ import com.come.restaurants.base.MVP
 import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.domain.usecases.GetNewOrder
 import com.come.restaurants.order.domain.usecases.GetOrders
+import com.come.restaurants.order.domain.usecases.PrintOrder
 
 
 class OrderListPresenter(val getOrders: GetOrders,
+                         val printOrder: PrintOrder,
                          val getNewOrder: GetNewOrder) : MVP.Presenter<OrderListPresenter.View> {
 
   interface View : MVP.View {
@@ -33,6 +35,15 @@ class OrderListPresenter(val getOrders: GetOrders,
 
       override fun orderReceived(order: Order) {
         show(listOf(order))
+        printOrder.print(order, object : PrintOrder.Callback{
+          override fun error(exception: Exception) {
+            //TODO error do nothing at the moment
+          }
+
+          override fun orderPrinted(order: Order) {
+            //TODO order printed do nothing at the moment
+          }
+        })
       }
 
     })

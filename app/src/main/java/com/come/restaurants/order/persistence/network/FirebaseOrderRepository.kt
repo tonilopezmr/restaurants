@@ -17,6 +17,7 @@ class FirebaseOrderRepository : OrderRepository {
   private var database: FirebaseDatabase
 
   private var reference: DatabaseReference
+
   init {
     database = FirebaseDatabase.getInstance()
     reference = database.getReference("restaurant/vella")
@@ -41,7 +42,7 @@ class FirebaseOrderRepository : OrderRepository {
   }
 
   override fun getOrders(callback: GetOrders.Callback) {
-    reference.child("orders").addListenerForSingleValueEvent(object : ValueEventListener{
+    reference.child("orders").addListenerForSingleValueEvent(object : ValueEventListener {
       override fun onCancelled(databaseError: DatabaseError) {
         callback.error(Exception(databaseError.message))
       }
@@ -71,10 +72,8 @@ class FirebaseOrderRepository : OrderRepository {
 
       }
 
-      override fun onChildAdded(dataSnapshot: DataSnapshot?, child: String?) {
-        if (dataSnapshot != null) {
-          callback.orderReceived(dataSnapshot.getValue(Order :: class.java))
-        }
+      override fun onChildAdded(dataSnapshot: DataSnapshot, child: String?) {
+        callback.orderReceived(dataSnapshot.getValue(Order :: class.java))
       }
 
     })
