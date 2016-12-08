@@ -14,7 +14,7 @@ class StubRestaurantRepository : RestaurantRepository {
         .filter { rest -> rest.password == passwd && rest.name == name }
 
     if (list.isEmpty()) {
-      callback.loginCorrect(null)
+      callback.nameNotFound()
     } else {
       callback.loginCorrect(list.first())
     }
