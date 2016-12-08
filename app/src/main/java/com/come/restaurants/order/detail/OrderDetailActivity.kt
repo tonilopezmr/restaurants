@@ -69,7 +69,7 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
         val getOrder = GetOrder(repository)
         val orderId = intent.getStringExtra(ID)
 
-        val printer = PrinterBluetooth()
+        val printer = PrinterBluetooth.getPrinter()
         val printerJob = PrinterJobImpl(printer)
         var printerRepository = PrinterRepository(printerJob)
         val printOrder = PrintOrder(printerRepository)

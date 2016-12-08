@@ -93,8 +93,6 @@ class PairingPresenter : MVP.Presenter<PairingPresenter.View> {
   }
 
   fun doDiscovery() {
-    val boundedDevices = btAdapter.bondedDevices
-    devicesList.addAll(boundedDevices)
     if (btAdapter.isDiscovering) {
       btAdapter.cancelDiscovery()
     }
