@@ -94,6 +94,7 @@ class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
   override fun showProgressDialog() {
     progressBar.visibility = View.VISIBLE
     emptyCase.visibility = View.GONE
+    retryButton.visibility = View.GONE
   }
 
   override fun setReceiver(receiver: BroadcastReceiver, filter: IntentFilter) {
@@ -106,12 +107,18 @@ class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
 
   override fun showList(printers: List<BluetoothDevice>) {
     progressBar.visibility = View.GONE
+    retryButton.visibility = View.VISIBLE
     this.adapter.addAll(printers)
+  }
+
+  override fun resetList() {
+    this.adapter.resetList()
   }
 
   override fun emptyCase() {
     emptyCase.visibility = View.VISIBLE
     progressBar.visibility = View.GONE
+    retryButton.visibility = View.VISIBLE
   }
 
   override fun initUi() {
@@ -119,6 +126,7 @@ class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
     this.adapter = BluetoothDeviceAdapter()
     recyclerView.adapter = this.adapter
     recyclerView.layoutManager = LinearLayoutManager(this)
+    retryButton.setOnClickListener { this.presenter.doDiscovery() }
   }
 
   fun setPrinter(printer : Printer) {

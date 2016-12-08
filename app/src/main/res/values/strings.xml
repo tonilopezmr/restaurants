@@ -24,4 +24,5 @@
     <string name="error_printing_order_details">Error ocurred while printing order details</string>
     <string name="order_printed">Order printed</string>
     <string name="invalid_name_and_code">Invalid Name and Code</string>
+    <string name="retry">Retry</string>
 </resources>

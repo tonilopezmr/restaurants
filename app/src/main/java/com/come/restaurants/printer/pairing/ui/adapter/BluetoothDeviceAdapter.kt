@@ -60,6 +60,11 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
     notifyDataSetChanged()
   }
 
+  fun resetList() {
+    this.printerList.clear()
+    notifyDataSetChanged()
+  }
+
   private fun unpairDevice(device: BluetoothDevice): Boolean {
     val method = device.javaClass.getMethod("removeBond")
     return method.invoke(device) as Boolean

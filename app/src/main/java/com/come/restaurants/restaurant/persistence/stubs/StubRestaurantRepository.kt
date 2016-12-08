@@ -8,10 +8,15 @@ import java.util.ArrayList
 
 class StubRestaurantRepository : RestaurantRepository {
 
-  override fun getRestaurant(name: String, code: String) : Restaurant {
-    return restaurants
-        .filter { rest -> rest.code == code && rest.name == name }
-        .first()
+  override fun getRestaurant(name: String, passwd: String) : Restaurant? {
+    val list = restaurants
+        .filter { rest -> rest.password == passwd && rest.name == name }
+
+    if(list.isEmpty()) {
+      return null
+    } else {
+      return list.first()
+    }
   }
 
   val restaurants  = ArrayList<Restaurant>()
