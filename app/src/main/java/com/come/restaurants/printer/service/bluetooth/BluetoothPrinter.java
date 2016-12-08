@@ -7,13 +7,13 @@ import com.come.restaurants.printer.service.Printer;
 import com.come.restaurants.printer.service.PrinterException;
 import com.come.restaurants.printer.service.util.PrinterCommands;
 
-public class PrinterBluetooth implements Printer {
+public class BluetoothPrinter implements Printer {
   //TODO REMOVE SINGLETON PATTERN
-  private static PrinterBluetooth printer = new PrinterBluetooth();
+  private static BluetoothPrinter printer = new BluetoothPrinter();
   private static boolean isConnected = false;
   private BluetoothService bluetoothService;
 
-  public static PrinterBluetooth getPrinter() {
+  public static BluetoothPrinter getPrinter() {
     return printer;
   }
 

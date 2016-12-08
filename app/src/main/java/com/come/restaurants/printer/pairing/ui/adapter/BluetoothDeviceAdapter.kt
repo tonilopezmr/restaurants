@@ -14,14 +14,14 @@ import android.widget.Toast
 import com.come.restaurants.R
 import com.come.restaurants.order.list.ui.OrderListActivity
 import com.come.restaurants.printer.service.bluetooth.BluetoothService
-import com.come.restaurants.printer.service.bluetooth.PrinterBluetooth
+import com.come.restaurants.printer.service.bluetooth.BluetoothPrinter
 import kotlinx.android.synthetic.main.printer_list_item.view.*
 import java.util.ArrayList
 
 
 class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.ListViewHolder>() {
 
-  private var printer: PrinterBluetooth = PrinterBluetooth.getPrinter()
+  private var printer: BluetoothPrinter = BluetoothPrinter.getPrinter()
   val printerList: MutableList<BluetoothDevice> = ArrayList()
 
   override fun getItemCount(): Int {
