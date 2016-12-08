@@ -7,7 +7,6 @@ import android.widget.Toast
 import com.come.restaurants.R
 import com.come.restaurants.open.restaurant.LoginRestaurantPresenter
 import com.come.restaurants.open.restaurant.LoginRestaurantPresenter.View
-import com.come.restaurants.order.list.ui.OrderListActivity
 import com.come.restaurants.printer.pairing.ui.PairingPrinterActivity
 import com.come.restaurants.restaurant.domain.usecases.Login
 import com.come.restaurants.restaurant.persistence.stubs.StubRestaurantRepository
@@ -64,9 +63,10 @@ class LoginRestaurantActivity : AppCompatActivity(), View {
   }
 
   override fun initUi() {
-    openButton.setOnClickListener { this.presenter.signIn(
-        nameEditText.text.toString(),
-        textPassword.text.toString()) }
+    //this.presenter.signIn(
+//    nameEditText.text.toString(),
+//    textPassword.text.toString())
+    openButton.setOnClickListener { moveToPairingActivity() }
 
     openGoogleButton.setOnClickListener { this.presenter.signInGoogle() }
   }

@@ -3,6 +3,7 @@ package com.come.restaurants.printer.pairing.ui.adapter
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothDevice
 import android.content.Context
+import android.content.Intent
 import android.os.Handler
 import android.os.Message
 import android.support.v7.widget.RecyclerView
@@ -11,12 +12,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.come.restaurants.R
-import com.come.restaurants.printer.pairing.ui.PairingPrinterActivity
+import com.come.restaurants.order.list.ui.OrderListActivity
 import com.come.restaurants.printer.service.Printer
-import kotlinx.android.synthetic.main.printer_list_item.view.*
-import java.util.*
 import com.come.restaurants.printer.service.bluetooth.BluetoothService
 import com.come.restaurants.printer.service.bluetooth.PrinterBluetooth
+import kotlinx.android.synthetic.main.printer_list_item.view.*
+import java.util.ArrayList
 
 
 class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.ListViewHolder>() {
@@ -40,18 +41,7 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
     holder.bindPrinter(printerList[position])
     holder.itemView.setOnClickListener { it ->
       val device = printerList[position]
-      /*if (device.bondState == BluetoothDevice.BOND_BONDED) {
-        val result = unpairDevice(device)
-        if (result) {
-            Toast.makeText(it.context,
-                "Device ${device.name} was unpaired correctly", Toast.LENGTH_SHORT)
-                .show()
-            (it.context as PairingPrinterActivity).finish()
-        }
-      } else {
-      */
-        val result = pairDevice(it.context, device)
-      //}
+      pairDevice(it.context, device)
     }
   }
 
@@ -63,11 +53,6 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
   fun resetList() {
     this.printerList.clear()
     notifyDataSetChanged()
-  }
-
-  private fun unpairDevice(device: BluetoothDevice): Boolean {
-    val method = device.javaClass.getMethod("removeBond")
-    return method.invoke(device) as Boolean
   }
 
   private fun pairDevice(context: Context, device: BluetoothDevice): Boolean {
@@ -86,7 +71,6 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
       }
     }
   }
-
 
   private fun getHandler(context : Context, device : BluetoothDevice) : Handler {
     val MESSAGE_STATE_CHANGE = 1
@@ -107,7 +91,7 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
                 Toast.makeText(context,
                     "Device ${device.name} was paired correctly", Toast.LENGTH_SHORT)
                     .show()
-                (context as PairingPrinterActivity).finish()
+                context.startActivity(Intent(context, OrderListActivity::class.java))
               }
               BluetoothService.STATE_CONNECTING -> {
 
