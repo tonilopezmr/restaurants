@@ -14,7 +14,7 @@ import com.come.restaurants.printer.service.bluetooth.PrinterBluetooth
 
 class OrderDetailPresenter(val getOrder: GetOrder, val printOrder: PrintOrder) : MVP.Presenter<OrderDetailPresenter.View> {
 
-  private val TAG = "OrderDetailPresenter"
+  private val TAG = javaClass.canonicalName
 
   interface View : MVP.View {
     fun showDetails(details: Order)
