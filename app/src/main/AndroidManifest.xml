@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".order.list.ui.OrderListActivity"/>
-        <activity android:name=".order.detail.OrderDetailActivity"/>
+        <activity android:name=".order.detail.ui.OrderDetailActivity" />
         <activity android:name=".printer.pairing.ui.BtPairingActivity">
         </activity>
     </application>

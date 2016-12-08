@@ -100,6 +100,8 @@ dependencies {
     compile "org.jetbrains.anko:anko-appcompat-v7:${ankoVersion}" // For appcompat-v7 bindings
     compile "org.jetbrains.anko:anko-recyclerview-v7:${ankoVersion}"
     compile "org.jetbrains.anko:anko-cardview-v7:${ankoVersion}"
+    compile "org.jetbrains.anko:anko-design:${ankoVersion}"
+
 
 }
 
