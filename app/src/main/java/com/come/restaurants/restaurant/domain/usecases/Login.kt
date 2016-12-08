@@ -15,7 +15,7 @@ class Login(val restaurantRepository: RestaurantRepository) {
   }
 
   fun login(name: String, passwd: String, callback: Login.Callback) {
-      val restaurant = restaurantRepository.getRestaurant(name, passwd, callback)
+      restaurantRepository.getRestaurant(name, passwd, callback)
   }
 
 }
