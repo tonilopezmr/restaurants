@@ -42,7 +42,7 @@ class LoginRestaurantActivity : AppCompatActivity(), View {
 
   override fun showConnectionError() {
     Toast.makeText(applicationContext, getString(R.string.connection_error),
-            Toast.LENGTH_SHORT).show()
+        Toast.LENGTH_SHORT).show()
   }
 
   override fun showLoginError() {
@@ -59,7 +59,7 @@ class LoginRestaurantActivity : AppCompatActivity(), View {
 
   override fun showNameAndCodeError() {
     Toast.makeText(applicationContext, getString(R.string.invalid_name_and_code),
-            Toast.LENGTH_SHORT).show()
+        Toast.LENGTH_SHORT).show()
   }
 
   override fun initUi() {

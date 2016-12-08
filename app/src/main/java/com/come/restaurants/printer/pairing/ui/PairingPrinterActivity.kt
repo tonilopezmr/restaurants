@@ -129,7 +129,7 @@ class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
     retryButton.setOnClickListener { this.presenter.doDiscovery() }
   }
 
-  fun setPrinter(printer : Printer) {
+  fun setPrinter(printer: Printer) {
     this.printer = printer
   }
 }

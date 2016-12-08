@@ -3,7 +3,6 @@ package com.come.restaurants.printer.service;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.os.Handler;
-
 import com.come.restaurants.printer.service.util.PrinterCommands;
 
 public interface Printer {

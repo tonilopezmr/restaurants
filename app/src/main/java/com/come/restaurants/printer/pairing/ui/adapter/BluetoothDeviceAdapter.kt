@@ -22,7 +22,7 @@ import java.util.ArrayList
 
 class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.ListViewHolder>() {
 
-  private var printer : Printer = PrinterBluetooth.getPrinter()
+  private var printer: Printer = PrinterBluetooth.getPrinter()
   val printerList: MutableList<BluetoothDevice> = ArrayList()
 
   override fun getItemCount(): Int {
@@ -71,7 +71,7 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
     }
   }
 
-  private fun getHandler(context : Context, device : BluetoothDevice) : Handler {
+  private fun getHandler(context: Context, device: BluetoothDevice): Handler {
     val MESSAGE_STATE_CHANGE = 1
     val MESSAGE_READ = 2
     val MESSAGE_WRITE = 3
@@ -107,7 +107,8 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
             // save the connected device's name
 
           }
-          MESSAGE_TOAST -> {}
+          MESSAGE_TOAST -> {
+          }
           MESSAGE_CONNECTION_LOST    //蓝牙已断开连接
           -> {
           }

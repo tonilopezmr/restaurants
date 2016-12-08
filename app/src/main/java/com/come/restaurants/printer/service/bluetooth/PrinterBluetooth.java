@@ -2,10 +2,8 @@ package com.come.restaurants.printer.service.bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.os.Handler;
-
 import com.come.restaurants.printer.service.Printer;
 import com.come.restaurants.printer.service.PrinterException;
 import com.come.restaurants.printer.service.util.PrinterCommands;
@@ -43,12 +41,11 @@ public class PrinterBluetooth implements Printer {
 
   public void connect(BluetoothDevice printer, Context context, Handler messageHandler) throws PrinterException {
     bluetoothService = new BluetoothService(context, messageHandler);
-    if(printer != null) {
+    if (printer != null) {
       bluetoothService.connect(printer);
       isConnected = true;
       //initialize();
-    }
-    else {
+    } else {
       throw new PrinterException("NO PAIRED DEVICES FOUND");
     }
   }

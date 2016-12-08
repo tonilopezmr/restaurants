@@ -26,17 +26,17 @@ class OrderDetailPresenter(val getOrder: GetOrder, val printOrder: PrintOrder) :
   lateinit private var view: View
   lateinit private var order: Order
 
-    private var deviceConnected : Boolean = PrinterBluetooth.isConnected()
-    private val btReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent) {
-            val action = intent.action
-            if(BluetoothDevice.ACTION_ACL_CONNECTED == action) {
-                Log.d(TAG, "Bluetooth device connected")
-                deviceConnected = true
-            } else if(BluetoothDevice.ACTION_ACL_DISCONNECTED == action) {
-                Log.d(TAG, "Bluetooth device disconnected")
-                deviceConnected = false
-            }
+  private var deviceConnected: Boolean = PrinterBluetooth.isConnected()
+  private val btReceiver = object : BroadcastReceiver() {
+    override fun onReceive(context: Context?, intent: Intent) {
+      val action = intent.action
+      if (BluetoothDevice.ACTION_ACL_CONNECTED == action) {
+        Log.d(TAG, "Bluetooth device connected")
+        deviceConnected = true
+      } else if (BluetoothDevice.ACTION_ACL_DISCONNECTED == action) {
+        Log.d(TAG, "Bluetooth device disconnected")
+        deviceConnected = false
+      }
 
     }
 
