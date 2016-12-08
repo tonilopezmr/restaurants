@@ -53,9 +53,8 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
     notifyDataSetChanged()
   }
 
-  private fun pairDevice(context: Context, device: BluetoothDevice): Boolean {
+  private fun pairDevice(context: Context, device: BluetoothDevice) {
     printer.connect(device, getHandler(context, device))
-    return true //TODO WE ASSUME THAT IT GOES WELL
   }
 
   class ListViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
@@ -103,15 +102,13 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
           MESSAGE_READ -> {
           }
           MESSAGE_DEVICE_NAME -> {
-            // save the connected device's name
-
           }
           MESSAGE_TOAST -> {
           }
-          MESSAGE_CONNECTION_LOST    //蓝牙已断开连接
+          MESSAGE_CONNECTION_LOST
           -> {
           }
-          MESSAGE_UNABLE_CONNECT     //无法连接设备
+          MESSAGE_UNABLE_CONNECT
           -> {
           }
         }
