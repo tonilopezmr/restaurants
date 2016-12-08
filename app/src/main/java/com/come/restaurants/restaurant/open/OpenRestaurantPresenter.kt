@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity
 import android.util.Log
 import com.come.restaurants.R
 import com.come.restaurants.base.MVP
+import com.come.restaurants.restaurant.domain.model.Restaurant
 import com.come.restaurants.restaurant.domain.usecases.Login
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -15,13 +16,13 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
-class LoginRestaurantPresenter(private val login: Login) : MVP.Presenter<LoginRestaurantPresenter.View>,
+class OpenRestaurantPresenter(private val login: Login) : MVP.Presenter<OpenRestaurantPresenter.View>,
     GoogleApiClient.OnConnectionFailedListener {
   companion object {
     val RC_SIGN_IN = 9001
   }
 
-  private val TAG = "LoginRestaurantActivity"
+  private val TAG = "OpenRestaurantActivity"
 
   interface View : MVP.View {
     fun showConnectionError()
@@ -29,7 +30,7 @@ class LoginRestaurantPresenter(private val login: Login) : MVP.Presenter<LoginRe
     fun showNameError()
     fun showCodeError()
     fun showNameAndCodeError()
-    fun moveToPairingActivity()
+    fun navigateToOrderList()
     fun launchSignIn(intent: Intent)
   }
 
@@ -67,11 +68,40 @@ class LoginRestaurantPresenter(private val login: Login) : MVP.Presenter<LoginRe
   }
 
   fun signIn(username: String, password: String) {
-    if (this.login.login(username, password)) {
-      this.view.moveToPairingActivity()
-    } else {
-      this.view.showLoginError()
-    }
+    this.login.login(username,password, object : Login.Callback{
+      override fun loginCorrect(restaurant: Restaurant) {
+        correctSingIn(restaurant);
+      }
+
+      override fun nameNotFound() {
+        errorWithName();
+      }
+
+      override fun passwordNotCorrect() {
+        errorWithPass();
+      }
+
+      override fun error(exception: Exception) {
+        errorSingingIn(exception);
+      }
+
+    })
+  }
+
+  fun correctSingIn(restaurant: Restaurant) {
+    this.view.navigateToOrderList();
+  }
+
+  fun errorSingingIn(exception: Exception){
+    this.view.showConnectionError();
+  }
+
+  fun errorWithName(){
+    this.view.showNameError();
+  }
+
+  fun errorWithPass(){
+    this.view.showCodeError();
   }
 
   fun signInGoogle() {
@@ -96,7 +126,7 @@ class LoginRestaurantPresenter(private val login: Login) : MVP.Presenter<LoginRe
         .addOnCompleteListener { task ->
           if (task.isSuccessful) {
             Log.d(TAG, "signInWithCredential:onComplete:${task.isSuccessful}")
-            view.moveToPairingActivity()
+            view.navigateToOrderList()
           } else {
             Log.d(TAG, "signInWithCredential", task.exception)
             view.showLoginError()

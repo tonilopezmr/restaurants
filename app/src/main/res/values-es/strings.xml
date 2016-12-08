@@ -21,9 +21,4 @@
     <string name="there_are_not">No hay %s</string>
     <string name="orders">pedidos</string>
     <string name="printers">impresoras</string>
-    <string name="error_fetching_order_details">Error al descargar los detalles del pedido</string>
-    <string name="error_printing_order_details">Error al imprimir los detalles del pedido</string>
-    <string name="order_printed">Pedido impreso</string>
-    <string name="invalid_name_and_code">Nombre y codigos invalidos</string>
-    <string name="retry">Reintentar</string>
 </resources>

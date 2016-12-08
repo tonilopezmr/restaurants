@@ -52,7 +52,6 @@ class PairingPresenter : MVP.Presenter<PairingPresenter.View> {
     fun showPermissionError()
     fun hasPermission(): Boolean
     fun emptyCase()
-    fun resetList()
   }
 
   override fun init() {
@@ -94,8 +93,8 @@ class PairingPresenter : MVP.Presenter<PairingPresenter.View> {
   }
 
   fun doDiscovery() {
-    devicesList.clear()
-    view.resetList()
+    val boundedDevices = btAdapter.bondedDevices
+    devicesList.addAll(boundedDevices)
     if (btAdapter.isDiscovering) {
       btAdapter.cancelDiscovery()
     }
