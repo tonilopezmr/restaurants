@@ -6,10 +6,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.come.restaurants.R
 import com.come.restaurants.order.domain.model.Order
+import com.come.restaurants.order.domain.usecases.GetNewOrder
 import com.come.restaurants.order.domain.usecases.GetOrders
 import com.come.restaurants.order.list.OrderListPresenter
 import com.come.restaurants.order.list.ui.adapter.OrderListAdapter
-import com.come.restaurants.order.persistence.stubs.StubOrderRepository
+import com.come.restaurants.order.persistence.network.FirebaseOrderRepository
 import kotlinx.android.synthetic.main.activity_list.*
 
 class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
@@ -48,9 +49,9 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_list)
 
-    val repository = StubOrderRepository()
+    val repository = FirebaseOrderRepository()
     val getOrders = GetOrders(repository)
-    this.presenter = OrderListPresenter(getOrders)
+    this.presenter = OrderListPresenter(getOrders, GetNewOrder(repository))
     this.presenter.setView(this)
     this.presenter.init()
   }

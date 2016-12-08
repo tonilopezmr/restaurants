@@ -1,35 +1,27 @@
 {
   "project_info": {
-    "project_number": "315556141026",
-    "firebase_url": "https://come-fae31.firebaseio.com",
-    "project_id": "come-fae31",
-    "storage_bucket": "come-fae31.appspot.com"
+    "project_number": "604282301293",
+    "firebase_url": "https://come-ac046.firebaseio.com",
+    "project_id": "come-ac046",
+    "storage_bucket": "come-ac046.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:315556141026:android:500d2637bea86e07",
+        "mobilesdk_app_id": "1:604282301293:android:500d2637bea86e07",
         "android_client_info": {
           "package_name": "com.come.restaurants"
         }
       },
       "oauth_client": [
         {
-          "client_id": "315556141026-tg78cuguml72h25qspmd0fpu2re1uimt.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.come.restaurants",
-            "certificate_hash": "CD7E24BCA8D5F53B01BBA653B32D372EFC460C3A"
-          }
-        },
-        {
-          "client_id": "315556141026-iq4kkisf54jl4gqellfcua18ptb2416k.apps.googleusercontent.com",
+          "client_id": "604282301293-u8n3mo9v60nh71sb3v4g7devpskk89md.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAqnooCfcNbEOrrcP53RHaGGtgPYo-VFYE"
+          "current_key": "AIzaSyBBPP9SzvX5gXX4aQ5LRTPwt4_RaikmMI4"
         }
       ],
       "services": {
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "315556141026-iq4kkisf54jl4gqellfcua18ptb2416k.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

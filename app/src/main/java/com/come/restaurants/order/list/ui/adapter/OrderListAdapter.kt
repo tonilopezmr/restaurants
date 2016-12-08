@@ -63,11 +63,12 @@ class OrderListAdapter() : RecyclerView.Adapter<OrderListAdapter.ListViewHolder>
     fun bindOrder(order: Order, position: Int) {
       with(order) {
         var dateFromat = SimpleDateFormat("HH:mm:ss")
-        itemView.orderNumberText.text = "${itemView.context.getString(R.string.number)} $position"
+        itemView.orderNumberText.text = "# ${order.code}"
         itemView.orderHourText.text = "${dateFromat.format(Date(order.timestamp))}"
         itemView.totalPriceText.text = "${itemView.context.getString(R.string.total_price)} ${order.getPrice()}€"
-        itemView.orderPlatesText.text = orderLines.fold("", { total, current ->
-          total.plus("${current.quantity}x${current.plate.name}\n")
+        itemView.orderPlatesText.text = orderLines.foldIndexed("", { idx, total, current ->
+          val sep = if (idx == orderLines.size-1) "" else "\n"
+          total.plus("${current.quantity}x ${current.plate.name} ${current.getPrice()}" + sep)
         })
       }
     }

@@ -7,7 +7,7 @@ import com.come.restaurants.R
 import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.domain.usecases.GetOrder
 import com.come.restaurants.order.domain.usecases.PrintOrder
-import com.come.restaurants.order.persistence.stubs.StubOrderRepository
+import com.come.restaurants.order.persistence.network.FirebaseOrderRepository
 import com.come.restaurants.printer.domain.PrinterRepository
 import com.come.restaurants.printer.service.PrinterJobImpl
 import com.come.restaurants.printer.service.bluetooth.PrinterBluetooth
@@ -59,9 +59,9 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_order_detail)
 
-    var repository = StubOrderRepository()
-    val getOrder = GetOrder(repository)
-    val orderId = intent.getStringExtra(ID)
+        var repository = FirebaseOrderRepository()
+        val getOrder = GetOrder(repository)
+        val orderId = intent.getStringExtra(ID)
 
     val printer = PrinterBluetooth.getPrinter()
     val printerJob = PrinterJobImpl(printer)
