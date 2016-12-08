@@ -22,7 +22,7 @@ import java.util.ArrayList
 
 class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.ListViewHolder>() {
 
-  private var printer: Printer = PrinterBluetooth.getPrinter()
+  private var printer: PrinterBluetooth = PrinterBluetooth.getPrinter()
   val printerList: MutableList<BluetoothDevice> = ArrayList()
 
   override fun getItemCount(): Int {

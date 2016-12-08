@@ -2,7 +2,6 @@ package com.come.restaurants.printer.service.bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.Context;
 import android.os.Handler;
 import com.come.restaurants.printer.service.Printer;
 import com.come.restaurants.printer.service.PrinterException;
@@ -10,11 +9,11 @@ import com.come.restaurants.printer.service.util.PrinterCommands;
 
 public class PrinterBluetooth implements Printer {
   //TODO REMOVE SINGLETON PATTERN
-  private static Printer printer = new PrinterBluetooth();
+  private static PrinterBluetooth printer = new PrinterBluetooth();
   private static boolean isConnected = false;
   private BluetoothService bluetoothService;
 
-  public static Printer getPrinter() {
+  public static PrinterBluetooth getPrinter() {
     return printer;
   }
 
@@ -23,36 +22,37 @@ public class PrinterBluetooth implements Printer {
   }
 
   @Override
-
-  public void connect(Context context, Handler messageHandler) throws PrinterException {
-    bluetoothService = new BluetoothService(context, messageHandler);
+  public void connect(Handler messageHandler) throws PrinterException {
+    bluetoothService = new BluetoothService(messageHandler);
     BluetoothAdapter bAdapter = BluetoothAdapter.getDefaultAdapter();
     //We assume the printer was the most recent connection
     BluetoothDevice printer = bAdapter.getBondedDevices().iterator().next();
-    if (printer != null) {
-      bluetoothService.connect(printer);
-      isConnected = true;
-      //initialize();
-    } else {
-      throw new PrinterException("NO PAIRED DEVICES FOUND");
-    }
+
+    checkDevice(printer);
+
+    bluetoothService.connect(printer);
+    isConnected = true;
   }
 
+  public void connect(BluetoothDevice printer, Handler messageHandler) throws PrinterException {
+    bluetoothService = new BluetoothService(messageHandler);
 
-  public void connect(BluetoothDevice printer, Context context, Handler messageHandler) throws PrinterException {
-    bluetoothService = new BluetoothService(context, messageHandler);
-    if (printer != null) {
-      bluetoothService.connect(printer);
-      isConnected = true;
-      //initialize();
-    } else {
-      throw new PrinterException("NO PAIRED DEVICES FOUND");
+    checkDevice(printer);
+
+    bluetoothService.connect(printer);
+    isConnected = true;
+  }
+
+  private void checkDevice(BluetoothDevice printer) throws PrinterException {
+    if (printer == null) {
+      throw new PrinterException("Bluetooth Connect: No paired devices found");
     }
   }
 
   @Override
   public void disconnect() {
-
+    bluetoothService.stop();
+    isConnected = false;
   }
 
   @Override
@@ -61,29 +61,34 @@ public class PrinterBluetooth implements Printer {
   }
 
   @Override
-  public void write(byte[] data) throws PrinterException {
-    if (bluetoothService.getState() != BluetoothService.STATE_CONNECTED)
-      throw new PrinterException("NO DEVICE CONNECTED");
-    bluetoothService.write(data);
-  }
-
-  @Override
-  public void setAlignment(PrinterCommands.Align alignment) throws PrinterException {
+  public void alignment(PrinterCommands.Align alignment) throws PrinterException {
     write(alignment.getValue());
   }
 
   @Override
-  public void setFont(PrinterCommands.Font font) throws PrinterException {
+  public void font(PrinterCommands.Font font) throws PrinterException {
     write(font.getValue());
   }
 
   @Override
-  public void feedPaper(PrinterCommands.FeedPaper feed) throws PrinterException {
+  public void feed(PrinterCommands.FeedPaper feed) throws PrinterException {
     write(feed.getValue());
   }
 
   @Override
   public void initialize() throws PrinterException {
     write(PrinterCommands.INITIALIZE);
+  }
+
+  /**
+   * Private because the main purpose to Printer is that we don't want handle bytes.
+   *
+   * @param data
+   * @throws PrinterException
+   */
+  private void write(byte[] data) throws PrinterException {
+    if (bluetoothService.getState() != BluetoothService.STATE_CONNECTED)
+      throw new PrinterException("NO DEVICE CONNECTED");
+    bluetoothService.write(data);
   }
 }
