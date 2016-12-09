@@ -12,6 +12,8 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.come.restaurants.R
@@ -33,6 +35,18 @@ class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
     this.presenter = PairingPresenter()
     this.presenter.setView(this)
     this.presenter.init()
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.list_menu, menu)
+    return true
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    if (item?.itemId == R.id.action_retry) {
+      this.presenter.doDiscovery()
+    }
+    return true
   }
 
   override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -107,6 +121,10 @@ class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
     this.adapter.addAll(printers)
   }
 
+  override fun resetList() {
+    this.adapter.resetList()
+  }
+
   override fun emptyCase() {
     emptyCase.visibility = View.VISIBLE
     progressBar.visibility = View.GONE
@@ -118,4 +136,5 @@ class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
     recyclerView.adapter = this.adapter
     recyclerView.layoutManager = LinearLayoutManager(this)
   }
+
 }

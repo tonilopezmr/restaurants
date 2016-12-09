@@ -4,12 +4,18 @@ import com.come.restaurants.order.domain.OrderRepository
 import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.domain.model.OrderLine
 import com.come.restaurants.order.domain.model.Plate
+import com.come.restaurants.order.domain.usecases.GetNewOrder
 import com.come.restaurants.order.domain.usecases.GetOrder
 import com.come.restaurants.order.domain.usecases.GetOrders
 import com.come.restaurants.order.domain.usecases.OrderPrinted
-import java.util.*
+import java.util.Date
 
 class StubOrderRepository : OrderRepository {
+
+  override fun getNewOrder(callback: GetNewOrder.Callback) {
+    callback.orderReceived(orderList[orderList.size-1])
+  }
+
   var orderList = emptyList<Order>()
 
   init {
@@ -31,7 +37,7 @@ class StubOrderRepository : OrderRepository {
   }
 
   override fun getOrder(id: String, callback: GetOrder.Callback) {
-    callback.orderReceived(orderList[0])
+    callback.orderReceived(orderList.filter { it.id == id }.first())
   }
 
   override fun orderPrinted(order: Order, callback: OrderPrinted.Callback) {

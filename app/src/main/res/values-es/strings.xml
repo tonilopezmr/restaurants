@@ -25,4 +25,5 @@
     <string name="error_printing_order_details">Error al imprimir los detalles del pedido</string>
     <string name="order_printed">Pedido impreso</string>
     <string name="invalid_name_and_code">Nombre y codigos invalidos</string>
+    <string name="retry">Reintentar</string>
 </resources>

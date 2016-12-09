@@ -1,92 +1,76 @@
-package com.come.restaurants.order.detail.ui
+package com.come.restaurants.order.detail
 
-import android.content.BroadcastReceiver
-import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.come.restaurants.R
-import com.come.restaurants.order.detail.OrderDetailPresenter
 import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.domain.usecases.GetOrder
 import com.come.restaurants.order.domain.usecases.PrintOrder
-import com.come.restaurants.order.persistence.stubs.StubOrderRepository
+import com.come.restaurants.order.persistence.network.FirebaseOrderRepository
 import com.come.restaurants.printer.domain.PrinterRepository
-import com.come.restaurants.printer.pairing.ui.PairingPrinterActivity
-import com.come.restaurants.printer.service.PrinterJobImpl
-import com.come.restaurants.printer.service.bluetooth.PrinterBluetooth
+import com.come.restaurants.printer.service.PrinterService
+import com.come.restaurants.printer.service.bluetooth.BluetoothPrinter
 import kotlinx.android.synthetic.main.activity_order_detail.*
-import org.jetbrains.anko.setContentView
 
 class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
-    companion object {
-        val NUMBER: String = "ORDER_NUMBER"
-        val ID: String = "ORDER_ID"
-    }
+  companion object {
+    val NUMBER: String = "ORDER_NUMBER"
+    val ID: String = "ORDER_ID"
+  }
 
-    private lateinit var presenter : OrderDetailPresenter
+  private lateinit var presenter: OrderDetailPresenter
 
-    override fun showDetails(details: Order) {
-        orderNumberTextView.text = getString(R.string.number) + " " + intent.getStringExtra(NUMBER)
-        orderTextView.text = details.orderLines.fold("",
-                {total, current -> total.plus(
-                        "${current.quantity}x ${current.plate.name} \t${current.getPrice()}€\n"
-                )})
-        totalPriceTextView.text = "${details.getPrice()}€"
-    }
+  override fun showDetails(details: Order) {
+    orderNumberTextView.text = getString(R.string.number) + " " + intent.getStringExtra(NUMBER)
+    orderTextView.text = details.orderLines.fold("",
+        { total, current ->
+          total.plus(
+              "${current.quantity}x ${current.plate.name} \t${current.getPrice()}€\n"
+          )
+        })
+    totalPriceTextView.text = "${details.getPrice()}€"
+  }
 
-    override fun showFetchingError() {
-        Toast.makeText(applicationContext,
-                getString(R.string.error_fetching_order_details), Toast.LENGTH_SHORT).show()
-    }
+  override fun showFetchingError() {
+    Toast.makeText(applicationContext,
+        getString(R.string.error_fetching_order_details), Toast.LENGTH_SHORT).show()
+  }
 
-    override fun showPrintError() {
-        Toast.makeText(applicationContext,
-                getString(R.string.error_printing_order_details), Toast.LENGTH_SHORT).show()
-    }
+  override fun showPrintError() {
+    Toast.makeText(applicationContext,
+        getString(R.string.error_printing_order_details), Toast.LENGTH_SHORT).show()
+  }
 
-    override fun showOrderPrinted() {
-        Toast.makeText(applicationContext,
-                getString(R.string.order_printed), Toast.LENGTH_SHORT).show()
-    }
+  override fun showOrderPrinted() {
+    Toast.makeText(applicationContext,
+        getString(R.string.order_printed), Toast.LENGTH_SHORT).show()
+  }
 
-    override fun initUi() {
-        orderNumberTextView.text = getString(R.string.fetching_order)
-        orderTextView.text = ""
-        totalPriceTextView.text = ""
+  override fun initUi() {
+    orderNumberTextView.text = getString(R.string.fetching_order)
+    orderTextView.text = ""
+    totalPriceTextView.text = ""
 
-        printButton.setOnClickListener { presenter.print() }
-    }
+    printButton.setOnClickListener { presenter.print() }
+  }
 
-    override fun setReceiver(btReceiver: BroadcastReceiver, filter: IntentFilter) {
-        this.registerReceiver(btReceiver, filter)
-    }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_order_detail)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        OrderDetailUI().setContentView(this)
+    var repository = FirebaseOrderRepository()
+    val getOrder = GetOrder(repository)
+    val orderId = intent.getStringExtra(ID)
 
-        var repository = StubOrderRepository()
-        val getOrder = GetOrder(repository)
-        val orderId = intent.getStringExtra(ID)
+    val printer = BluetoothPrinter.getPrinter()
+    val printerJob = PrinterService(printer)
+    var printerRepository = PrinterRepository(printerJob)
+    val printOrder = PrintOrder(printerRepository)
 
-        val printer = PrinterBluetooth()
-        val printerJob = PrinterJobImpl(printer)
-        var printerRepository = PrinterRepository(printerJob)
-        val printOrder = PrintOrder(printerRepository)
+    this.presenter = OrderDetailPresenter(getOrder, printOrder)
+    this.presenter.setView(this)
+    this.presenter.init(orderId)
+  }
 
-        this.presenter = OrderDetailPresenter(getOrder, printOrder)
-        this.presenter.setView(this)
-        this.presenter.init(orderId)
-    }
-
-    override fun finishActivity() {
-        this.finish()
-    }
-
-    override fun moveToPairingActivity() {
-        val intent = Intent(this, PairingPrinterActivity::class.java)
-        startActivity(intent)
-    }
 }

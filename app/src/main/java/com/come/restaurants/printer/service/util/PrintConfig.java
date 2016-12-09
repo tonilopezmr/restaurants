@@ -1,13 +1,11 @@
 package com.come.restaurants.printer.service.util;
 
 public class PrintConfig {
+
   private PrinterCommands.Align alignment = PrinterCommands.Align.ALIGNMENT_LEFT;
   private PrinterCommands.Font font = PrinterCommands.Font.FONT_DEFAULT;
   private String separator = "--------------------------";
-  private String separator_spacing = "" + PrinterCommands.NEW_LINE + PrinterCommands.NEW_LINE;
-
-  public PrintConfig() {
-  }
+  private String whiteLines = "" + PrinterCommands.NEW_LINE + PrinterCommands.NEW_LINE;
 
   public PrinterCommands.Align getAlignment() {
     return alignment;
@@ -25,14 +23,14 @@ public class PrintConfig {
     this.font = font;
   }
 
-  public String getSeparatorSpacing() {
-    return separator_spacing;
+  public String getWhiteLines() {
+    return whiteLines;
   }
 
-  public void setSeparatorSpacing(int spacing) {
-    separator_spacing = "";
+  public void setWhiteLines(int spacing) {
+    whiteLines = "";
     for (int i = 0; i < spacing; i++) {
-      separator_spacing += PrinterCommands.NEW_LINE;
+      whiteLines += PrinterCommands.NEW_LINE;
     }
   }
 

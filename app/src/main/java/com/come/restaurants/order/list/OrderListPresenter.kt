@@ -2,10 +2,16 @@ package com.come.restaurants.order.list
 
 import com.come.restaurants.base.MVP
 import com.come.restaurants.order.domain.model.Order
+import com.come.restaurants.order.domain.usecases.GetNewOrder
 import com.come.restaurants.order.domain.usecases.GetOrders
+import com.come.restaurants.order.domain.usecases.PrintOrder
+import com.come.restaurants.printer.domain.usecases.PrintWelcome
 
 
-class OrderListPresenter(val getOrders: GetOrders) : MVP.Presenter<OrderListPresenter.View> {
+class OrderListPresenter(val getOrders: GetOrders,
+                         val printOrder: PrintOrder,
+                         val printWelcome: PrintWelcome,
+                         val getNewOrder: GetNewOrder) : MVP.Presenter<OrderListPresenter.View> {
 
   interface View : MVP.View {
     fun showLoader()
@@ -15,11 +21,38 @@ class OrderListPresenter(val getOrders: GetOrders) : MVP.Presenter<OrderListPres
   }
 
   lateinit private var view: View
-
   override fun init() {
     view.initUi()
     view.showLoader()
     requestOrders()
+    requestNewOrder()
+    printWelcome()
+  }
+
+  private fun printWelcome() {
+    printWelcome.print()
+  }
+
+  private fun requestNewOrder() {
+    getNewOrder.get(object : GetNewOrder.Callback{
+      override fun error(exception: Exception) {
+        //TODO: View error?? tonilopezmr: YES PLIS
+      }
+
+      override fun orderReceived(order: Order) {
+        show(listOf(order))
+        printOrder.print(order, object : PrintOrder.Callback{
+          override fun error(exception: Exception) {
+            //TODO error do nothing at the moment
+          }
+
+          override fun orderPrinted(order: Order) {
+            //TODO order printed do nothing at the moment
+          }
+        })
+      }
+
+    })
   }
 
   override fun setView(view: MVP.View) {
@@ -33,7 +66,7 @@ class OrderListPresenter(val getOrders: GetOrders) : MVP.Presenter<OrderListPres
       }
 
       override fun error(exception: Exception) {
-        //TODO: View error??
+        //TODO: View error?? tonilopezmr: YES PLIS
       }
 
     })
