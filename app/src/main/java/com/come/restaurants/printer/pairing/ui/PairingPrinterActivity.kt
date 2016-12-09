@@ -12,6 +12,8 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.come.restaurants.R
@@ -35,6 +37,18 @@ class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
     this.presenter = PairingPresenter()
     this.presenter.setView(this)
     this.presenter.init()
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.list_menu, menu)
+    return true
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    if (item?.itemId == R.id.action_retry) {
+      this.presenter.doDiscovery()
+    }
+    return true
   }
 
   override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -94,7 +108,6 @@ class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
   override fun showProgressDialog() {
     progressBar.visibility = View.VISIBLE
     emptyCase.visibility = View.GONE
-    retryButton.visibility = View.GONE
   }
 
   override fun setReceiver(receiver: BroadcastReceiver, filter: IntentFilter) {
@@ -107,7 +120,6 @@ class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
 
   override fun showList(printers: List<BluetoothDevice>) {
     progressBar.visibility = View.GONE
-    retryButton.visibility = View.VISIBLE
     this.adapter.addAll(printers)
   }
 
@@ -118,7 +130,6 @@ class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
   override fun emptyCase() {
     emptyCase.visibility = View.VISIBLE
     progressBar.visibility = View.GONE
-    retryButton.visibility = View.VISIBLE
   }
 
   override fun initUi() {
@@ -126,7 +137,6 @@ class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
     this.adapter = BluetoothDeviceAdapter()
     recyclerView.adapter = this.adapter
     recyclerView.layoutManager = LinearLayoutManager(this)
-    retryButton.setOnClickListener { this.presenter.doDiscovery() }
   }
 
   fun setPrinter(printer: Printer) {
