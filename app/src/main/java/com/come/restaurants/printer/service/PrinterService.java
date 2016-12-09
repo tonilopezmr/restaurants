@@ -73,6 +73,31 @@ public class PrinterService {
   }
 
   /**
+   * Method that prints a separator with space after the separator.
+   * Default: ---------------- (with /n for each space)
+   *
+   * @param withSpace space after the separator
+   * @throws PrinterException
+   */
+  public PrinterService printSeparator(int withSpace) throws PrinterException {
+    config.setWhiteLines(withSpace);
+    printer.write(config.getSeparator() + config.getWhiteLines());
+    return this;
+  }
+
+  /**
+   * Method that prints white lines.
+   *
+   * @param whiteLines number of white lines
+   * @throws PrinterException
+   */
+  public PrinterService printWhiteLines(int whiteLines) throws PrinterException {
+    config.setWhiteLines(whiteLines);
+    printer.write(config.getWhiteLines());
+    return this;
+  }
+
+  /**
    * Allows to specify the separator to be used in the print
    *
    * @param separator
@@ -90,7 +115,8 @@ public class PrinterService {
    * @param lines
    */
   public PrinterService whiteLines(int lines) {
-    config.setWhiteLines(lines);
+    config.setWhiteLines(lines); //TODO that's have not sense with new printSeparator method,
+                                // but I would like use for another purpose
     return this;
   }
 
