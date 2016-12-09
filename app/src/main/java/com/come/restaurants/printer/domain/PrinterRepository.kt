@@ -2,13 +2,13 @@ package com.come.restaurants.printer.domain
 
 import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.domain.usecases.PrintOrder
-import com.come.restaurants.printer.service.PrinterJob
+import com.come.restaurants.printer.service.PrinterService
 import com.come.restaurants.printer.service.util.PrinterCommands
 import java.text.DateFormat
 import java.util.ArrayList
 import java.util.Date
 
-class PrinterRepository(val printerJob: PrinterJob) {
+class PrinterRepository(val printerService: PrinterService) {
 
   fun print(order: Order, callback: PrintOrder.Callback) {
 
@@ -17,15 +17,17 @@ class PrinterRepository(val printerJob: PrinterJob) {
       orderLines.add("${orderLine.quantity}x ${orderLine.plate.name}")
     }
 
-    printerJob.setAlignment(PrinterCommands.Align.ALIGNMENT_CENTER)
-        .setFont(PrinterCommands.Font.FONT_STYLE_C)
+    printerService.alignment(PrinterCommands.Align.ALIGNMENT_CENTER)
+        .font(PrinterCommands.Font.FONT_STYLE_C)
         .printLine("# " + order.code)
-    printerJob.feed(PrinterCommands.FeedPaper.FEED_LINE)
-    printerJob.setFont(PrinterCommands.Font.FONT_STYLE_B)
+
+    printerService.feed(PrinterCommands.FeedPaper.FEED_LINE)
+    printerService.font(PrinterCommands.Font.FONT_STYLE_B)
         .printLines(orderLines)
 
-    printerJob.setSeparatorSpacing(2)
+    printerService.whiteLines(2)
         .printSeparator()
+
     callback.orderPrinted(order)
   }
 

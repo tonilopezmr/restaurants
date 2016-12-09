@@ -13,16 +13,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.come.restaurants.R
 import com.come.restaurants.order.list.ui.OrderListActivity
-import com.come.restaurants.printer.service.Printer
 import com.come.restaurants.printer.service.bluetooth.BluetoothService
-import com.come.restaurants.printer.service.bluetooth.PrinterBluetooth
+import com.come.restaurants.printer.service.bluetooth.BluetoothPrinter
 import kotlinx.android.synthetic.main.printer_list_item.view.*
 import java.util.ArrayList
 
 
 class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.ListViewHolder>() {
 
-  private var printer: Printer = PrinterBluetooth.getPrinter()
+  private var printer: BluetoothPrinter = BluetoothPrinter.getPrinter()
   val printerList: MutableList<BluetoothDevice> = ArrayList()
 
   override fun getItemCount(): Int {
@@ -54,9 +53,8 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
     notifyDataSetChanged()
   }
 
-  private fun pairDevice(context: Context, device: BluetoothDevice): Boolean {
-    printer.connect(device, context, getHandler(context, device))
-    return true //TODO WE ASSUME THAT IT GOES WELL
+  private fun pairDevice(context: Context, device: BluetoothDevice) {
+    printer.connect(device, getHandler(context, device))
   }
 
   class ListViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
@@ -104,15 +102,13 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
           MESSAGE_READ -> {
           }
           MESSAGE_DEVICE_NAME -> {
-            // save the connected device's name
-
           }
           MESSAGE_TOAST -> {
           }
-          MESSAGE_CONNECTION_LOST    //蓝牙已断开连接
+          MESSAGE_CONNECTION_LOST
           -> {
           }
-          MESSAGE_UNABLE_CONNECT     //无法连接设备
+          MESSAGE_UNABLE_CONNECT
           -> {
           }
         }

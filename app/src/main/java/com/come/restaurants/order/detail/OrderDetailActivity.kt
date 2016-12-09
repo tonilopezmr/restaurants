@@ -9,8 +9,8 @@ import com.come.restaurants.order.domain.usecases.GetOrder
 import com.come.restaurants.order.domain.usecases.PrintOrder
 import com.come.restaurants.order.persistence.network.FirebaseOrderRepository
 import com.come.restaurants.printer.domain.PrinterRepository
-import com.come.restaurants.printer.service.PrinterJobImpl
-import com.come.restaurants.printer.service.bluetooth.PrinterBluetooth
+import com.come.restaurants.printer.service.PrinterService
+import com.come.restaurants.printer.service.bluetooth.BluetoothPrinter
 import kotlinx.android.synthetic.main.activity_order_detail.*
 
 class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
@@ -63,8 +63,8 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
     val getOrder = GetOrder(repository)
     val orderId = intent.getStringExtra(ID)
 
-    val printer = PrinterBluetooth.getPrinter()
-    val printerJob = PrinterJobImpl(printer)
+    val printer = BluetoothPrinter.getPrinter()
+    val printerJob = PrinterService(printer)
     var printerRepository = PrinterRepository(printerJob)
     val printOrder = PrintOrder(printerRepository)
 

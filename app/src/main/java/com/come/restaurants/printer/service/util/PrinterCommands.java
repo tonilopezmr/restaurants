@@ -1,6 +1,7 @@
 package com.come.restaurants.printer.service.util;
 
 public class PrinterCommands {
+
   public static final byte ESC = 0x1B;
   public static final byte GS = 0x1D;
   public static final char NEW_LINE = '\n';

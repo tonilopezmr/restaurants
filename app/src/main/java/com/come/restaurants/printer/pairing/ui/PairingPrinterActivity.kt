@@ -19,7 +19,6 @@ import android.widget.Toast
 import com.come.restaurants.R
 import com.come.restaurants.printer.pairing.PairingPresenter
 import com.come.restaurants.printer.pairing.ui.adapter.BluetoothDeviceAdapter
-import com.come.restaurants.printer.service.Printer
 import kotlinx.android.synthetic.main.activity_list.*
 
 class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
@@ -28,7 +27,6 @@ class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
 
   private lateinit var presenter: PairingPresenter
   private lateinit var adapter: BluetoothDeviceAdapter
-  private lateinit var printer: Printer
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -139,7 +137,4 @@ class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
     recyclerView.layoutManager = LinearLayoutManager(this)
   }
 
-  fun setPrinter(printer: Printer) {
-    this.printer = printer
-  }
 }
