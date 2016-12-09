@@ -40,6 +40,7 @@ class OrderListPresenter(val getOrders: GetOrders,
       }
 
       override fun orderReceived(order: Order) {
+        show(listOf(order))
         printOrder.print(order, object : PrintOrder.Callback{
           override fun error(exception: Exception) {
             //TODO error do nothing at the moment
