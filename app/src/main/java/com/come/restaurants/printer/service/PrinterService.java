@@ -16,11 +16,6 @@ public class PrinterService {
     this.config = new PrintConfig();
   }
 
-  private void print() throws PrinterException {
-    //After a print we reset the settings
-    initializePrinter();
-  }
-
   /**
      * Method that initializes the printer to start a Job Session
      */
@@ -44,7 +39,8 @@ public class PrinterService {
     } catch (PrinterException e) {
       throw e;
     }
-    print();
+
+    initializePrinter();
   }
 
   /**
@@ -63,7 +59,8 @@ public class PrinterService {
     } catch (PrinterException e) {
       throw e;
     }
-    print();
+
+    initializePrinter();
   }
 
   /**
