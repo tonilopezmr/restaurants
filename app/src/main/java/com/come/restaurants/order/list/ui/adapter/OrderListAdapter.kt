@@ -8,11 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.come.restaurants.R
-import com.come.restaurants.order.detail.ui.OrderDetailActivity
+import com.come.restaurants.order.detail.OrderDetailActivity
 import com.come.restaurants.order.domain.model.Order
 import kotlinx.android.synthetic.main.order_item.view.*
 import java.text.SimpleDateFormat
-import java.util.Date
+import java.util.*
 
 class OrderListAdapter() : RecyclerView.Adapter<OrderListAdapter.ListViewHolder>() {
   private var orderList: SortedList<Order>
@@ -67,7 +67,7 @@ class OrderListAdapter() : RecyclerView.Adapter<OrderListAdapter.ListViewHolder>
         itemView.orderHourText.text = "${dateFromat.format(Date(order.timestamp))}"
         itemView.totalPriceText.text = "${itemView.context.getString(R.string.total_price)} ${order.getPrice()}€"
         itemView.orderPlatesText.text = orderLines.foldIndexed("", { idx, total, current ->
-          val sep = if (idx == orderLines.size-1) "" else "\n"
+          val sep = if (idx == orderLines.size - 1) "" else "\n"
           total.plus("${current.quantity}x ${current.plate.name} ${current.getPrice()}" + sep)
         })
       }

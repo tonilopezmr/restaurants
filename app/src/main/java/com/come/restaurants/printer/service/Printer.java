@@ -1,6 +1,7 @@
 package com.come.restaurants.printer.service;
 
 import android.os.Handler;
+
 import com.come.restaurants.printer.service.util.PrinterCommands;
 
 public interface Printer {
