@@ -1,20 +1,33 @@
 package com.come.restaurants.printer.service;
 
-import android.os.Handler;
 import com.come.restaurants.printer.service.util.PrinterCommands;
 
-public interface Printer {
-  void connect(Handler messageHandler) throws PrinterException;
+public abstract class Printer {
 
-  void disconnect();
+  public abstract void disconnect();
+  protected abstract void write(byte[] data) throws PrinterException;
 
-  void write(String line) throws PrinterException;
+  public void write(String line) throws PrinterException {
+    write(line.getBytes());
+  }
 
-  void alignment(PrinterCommands.Align alignment) throws PrinterException;
+  
+  public void alignment(PrinterCommands.Align alignment) throws PrinterException {
+    write(alignment.getValue());
+  }
 
-  void font(PrinterCommands.Font font) throws PrinterException;
+  
+  public void font(PrinterCommands.Font font) throws PrinterException {
+    write(font.getValue());
+  }
 
-  void feed(PrinterCommands.FeedPaper feed) throws PrinterException;
+  
+  public void feed(PrinterCommands.FeedPaper feed) throws PrinterException {
+    write(feed.getValue());
+  }
 
-  void initialize() throws PrinterException;
+  
+  public void initialize() throws PrinterException {
+    write(PrinterCommands.INITIALIZE);
+  }
 }
