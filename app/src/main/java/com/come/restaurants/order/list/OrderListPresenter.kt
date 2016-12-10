@@ -34,14 +34,14 @@ class OrderListPresenter(val getOrders: GetOrders,
   }
 
   private fun requestNewOrder() {
-    getNewOrder.get(object : GetNewOrder.Callback {
+    getNewOrder.get(object : GetNewOrder.Callback{
       override fun error(exception: Exception) {
         //TODO: View error?? tonilopezmr: YES PLIS
       }
 
       override fun orderReceived(order: Order) {
         show(listOf(order))
-        printOrder.print(order, object : PrintOrder.Callback {
+        printOrder.print(order, object : PrintOrder.Callback{
           override fun error(exception: Exception) {
             //TODO error do nothing at the moment
           }

@@ -67,7 +67,7 @@ class OrderListAdapter() : RecyclerView.Adapter<OrderListAdapter.ListViewHolder>
         itemView.orderHourText.text = "${dateFromat.format(Date(order.timestamp))}"
         itemView.totalPriceText.text = "${itemView.context.getString(R.string.total_price)} ${order.getPrice()}€"
         itemView.orderPlatesText.text = orderLines.foldIndexed("", { idx, total, current ->
-          val sep = if (idx == orderLines.size - 1) "" else "\n"
+          val sep = if (idx == orderLines.size-1) "" else "\n"
           total.plus("${current.quantity}x ${current.plate.name} ${current.getPrice()}" + sep)
         })
       }

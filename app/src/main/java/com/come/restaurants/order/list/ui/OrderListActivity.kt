@@ -14,6 +14,8 @@ import com.come.restaurants.order.list.ui.adapter.OrderListAdapter
 import com.come.restaurants.order.persistence.network.FirebaseOrderRepository
 import com.come.restaurants.printer.domain.PrinterRepository
 import com.come.restaurants.printer.domain.usecases.PrintWelcome
+import com.come.restaurants.printer.service.PrinterJobImpl
+import com.come.restaurants.printer.service.bluetooth.PrinterBluetooth
 import kotlinx.android.synthetic.main.activity_list.*
 
 class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
