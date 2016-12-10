@@ -37,8 +37,9 @@ public class PrinterService {
       printer.font(config.getFont());
       printer.write(line + PrinterCommands.NEW_LINE);
     } catch (PrinterException e) {
-      initializePrinter();
       throw e;
+    }finally {
+      initializePrinter();
     }
   }
 
@@ -56,8 +57,9 @@ public class PrinterService {
         printer.write(line + PrinterCommands.NEW_LINE);
       }
     } catch (PrinterException e) {
-      initializePrinter();
       throw e;
+    }finally {
+      initializePrinter();
     }
   }
 
