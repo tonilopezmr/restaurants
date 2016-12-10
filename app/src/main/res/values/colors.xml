@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#4c6860</color>
     <color name="colorAccent">#FF9100</color>
     <color name="stroke">#E6E6E6</color>
+    <color name="google_login_button">#F44336</color>
 </resources>
