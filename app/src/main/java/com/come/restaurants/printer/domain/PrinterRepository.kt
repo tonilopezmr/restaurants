@@ -58,8 +58,7 @@ class PrinterRepository(val printerService: PrinterService) {
 
     feedLine()
 
-    printerService.whiteLines(4)
-        .printSeparator()
+    printerService.printSeparator(4)
   }
 
   private fun feedLine() {
