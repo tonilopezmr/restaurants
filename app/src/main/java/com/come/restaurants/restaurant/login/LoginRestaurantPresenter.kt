@@ -68,7 +68,7 @@ class LoginRestaurantPresenter(private val login: Login) : MVP.Presenter<LoginRe
   }
 
   fun signIn(username: String, password: String) {
-    this.login.login(username, password, object : Login.Callback {
+    this.login.login(username,password, object : Login.Callback{
 
       override fun loginCorrect(restaurant: Restaurant) {
         correctSingIn(restaurant)
@@ -93,15 +93,15 @@ class LoginRestaurantPresenter(private val login: Login) : MVP.Presenter<LoginRe
     this.view.moveToPairingActivity()
   }
 
-  fun errorSingingIn(exception: Exception) {
+  fun errorSingingIn(exception: Exception){
     this.view.showConnectionError()
   }
 
-  fun errorWithName() {
+  fun errorWithName(){
     this.view.showNameError()
   }
 
-  fun errorWithPass() {
+  fun errorWithPass(){
     this.view.showCodeError()
   }
 
