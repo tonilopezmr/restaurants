@@ -116,7 +116,7 @@ public class PrinterService {
    */
   public PrinterService whiteLines(int lines) {
     config.setWhiteLines(lines); //TODO that's have not sense with new printSeparator method,
-                                // but I would like use for another purpose
+    // but I would like use for another purpose
     return this;
   }
 

@@ -44,7 +44,7 @@ class PrinterRepository(val printerService: PrinterService) {
 
     printerJob.setAlignment(PrinterCommands.Align.ALIGNMENT_CENTER)
         .printLine(DateFormat.getDateTimeInstance(
-        DateFormat.SHORT, DateFormat.SHORT).format(Date()))
+            DateFormat.SHORT, DateFormat.SHORT).format(Date()))
 
     feedLine()
 
