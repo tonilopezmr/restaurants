@@ -12,11 +12,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.come.restaurants.R
-import com.come.restaurants.order.list.ui.OrderListActivity
+import com.come.restaurants.order.list.OrderListActivity
 import com.come.restaurants.printer.service.bluetooth.BluetoothPrinter
 import com.come.restaurants.printer.service.bluetooth.BluetoothService
 import kotlinx.android.synthetic.main.printer_list_item.view.*
-import java.util.ArrayList
+import java.util.*
 
 
 class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.ListViewHolder>() {

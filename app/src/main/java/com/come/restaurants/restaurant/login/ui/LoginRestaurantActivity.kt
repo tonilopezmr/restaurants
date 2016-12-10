@@ -7,10 +7,13 @@ import android.widget.Toast
 import com.come.restaurants.R
 import com.come.restaurants.open.restaurant.LoginRestaurantPresenter
 import com.come.restaurants.open.restaurant.LoginRestaurantPresenter.View
+import com.come.restaurants.order.list.OrderListActivity
 import com.come.restaurants.printer.pairing.ui.PairingPrinterActivity
 import com.come.restaurants.restaurant.domain.usecases.Login
+import com.come.restaurants.restaurant.login.ui.LoginRestaurantUI
 import com.come.restaurants.restaurant.persistence.stubs.StubRestaurantRepository
 import kotlinx.android.synthetic.main.activity_login_restaurant.*
+import org.jetbrains.anko.setContentView
 
 class LoginRestaurantActivity : AppCompatActivity(), View {
 
@@ -18,7 +21,7 @@ class LoginRestaurantActivity : AppCompatActivity(), View {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_login_restaurant)
+    LoginRestaurantUI().setContentView(this)
 
     val restaurantRepository = StubRestaurantRepository()
     val login = Login(restaurantRepository)

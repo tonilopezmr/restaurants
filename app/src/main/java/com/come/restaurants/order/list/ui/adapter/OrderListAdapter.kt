@@ -12,7 +12,7 @@ import com.come.restaurants.order.detail.OrderDetailActivity
 import com.come.restaurants.order.domain.model.Order
 import kotlinx.android.synthetic.main.order_item.view.*
 import java.text.SimpleDateFormat
-import java.util.Date
+import java.util.*
 
 class OrderListAdapter() : RecyclerView.Adapter<OrderListAdapter.ListViewHolder>() {
   private var orderList: SortedList<Order>

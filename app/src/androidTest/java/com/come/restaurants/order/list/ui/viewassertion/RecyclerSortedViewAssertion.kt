@@ -7,7 +7,7 @@ import android.support.test.espresso.util.HumanReadables
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import org.hamcrest.StringDescription
-import java.util.ArrayList
+import java.util.*
 
 class RecyclerSortedViewAssertion<T : Comparable<T>>(val withAdapter: WithAdapter<T>) : ViewAssertion {
   companion object {
