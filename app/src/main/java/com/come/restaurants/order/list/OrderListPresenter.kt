@@ -26,7 +26,7 @@ class OrderListPresenter(val getOrders: GetOrders,
     view.showLoader()
     requestOrders()
     requestNewOrder()
-    printWelcome()
+    //printWelcome()
   }
 
   private fun printWelcome() {
@@ -41,15 +41,15 @@ class OrderListPresenter(val getOrders: GetOrders,
 
       override fun orderReceived(order: Order) {
         show(listOf(order))
-        printOrder.print(order, object : PrintOrder.Callback {
-          override fun error(exception: Exception) {
-            //TODO error do nothing at the moment
-          }
-
-          override fun orderPrinted(order: Order) {
-            //TODO order printed do nothing at the moment
-          }
-        })
+//        printOrder.print(order, object : PrintOrder.Callback {
+//          override fun error(exception: Exception) {
+//            //TODO error do nothing at the moment
+//          }
+//
+//          override fun orderPrinted(order: Order) {
+//            //TODO order printed do nothing at the moment
+//          }
+//        })
       }
 
     })
