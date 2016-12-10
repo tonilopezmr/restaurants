@@ -24,6 +24,10 @@
         <activity android:name=".order.detail.OrderDetailActivity"/>
         <activity android:name=".printer.pairing.ui.PairingPrinterActivity">
         </activity>
+        <activity android:name=".printer.pairing.usb.USBPairingActivity">
+        </activity>
+        <activity android:name=".printer.pairing.PairingActivity">
+        </activity>
     </application>
 
 </manifest>

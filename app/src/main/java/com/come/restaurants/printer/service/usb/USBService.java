@@ -18,7 +18,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Iterator;
 
-
+//TODO REMOVE HANDLER AND PERMISSION and get devices
 public class USBService {
   private final Context mApplicationContext;
   private final UsbManager mUsbManager;

@@ -5,7 +5,7 @@ import android.hardware.usb.UsbDevice
 import android.os.Handler
 import com.come.restaurants.printer.service.Printer
 
-class USBPrinter() : Printer() {
+object USBPrinter : Printer() {
 
   lateinit private var usbService: USBService
   lateinit private var device: UsbDevice

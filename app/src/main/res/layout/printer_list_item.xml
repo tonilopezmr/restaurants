@@ -8,14 +8,12 @@
     <ImageView
             android:layout_width="96dp"
             app:srcCompat="@drawable/ic_print_black_24dp"
-            android:id="@+id/imageView"
             android:layout_height="50dp"/>
 
     <TextView
-            android:text="TextView"
+            android:id="@+id/printerNameText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/printerNameText"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:textSize="16sp"
             android:gravity="center_vertical"/>

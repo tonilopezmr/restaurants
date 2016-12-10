@@ -14,8 +14,8 @@ import com.come.restaurants.order.list.ui.adapter.OrderListAdapter
 import com.come.restaurants.order.persistence.network.FirebaseOrderRepository
 import com.come.restaurants.printer.domain.PrinterRepository
 import com.come.restaurants.printer.domain.usecases.PrintWelcome
+import com.come.restaurants.printer.service.PrinterFactory
 import com.come.restaurants.printer.service.PrinterService
-import com.come.restaurants.printer.service.bluetooth.BluetoothPrinter
 import kotlinx.android.synthetic.main.activity_list.*
 
 class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
@@ -56,7 +56,7 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
 
     val repository = FirebaseOrderRepository()
     val getOrders = GetOrders(repository)
-    val printer = BluetoothPrinter.getPrinter()
+    val printer = PrinterFactory.getPrinter()
     val printerJob = PrinterService(printer)
     var printerRepository = PrinterRepository(printerJob)
     val printOrder = PrintOrder(printerRepository)
