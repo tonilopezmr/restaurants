@@ -36,9 +36,8 @@ public class PrinterService {
       printer.alignment(config.getAlignment());
       printer.font(config.getFont());
       printer.write(line + PrinterCommands.NEW_LINE);
-    } catch (PrinterException e) {
+    } finally {
       initializePrinter();
-      throw e;
     }
   }
 
@@ -55,9 +54,8 @@ public class PrinterService {
       for (String line : lines) {
         printer.write(line + PrinterCommands.NEW_LINE);
       }
-    } catch (PrinterException e) {
+    } finally {
       initializePrinter();
-      throw e;
     }
   }
 
