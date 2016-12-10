@@ -3,6 +3,7 @@ package com.come.restaurants.order.detail.ui
 import android.view.Gravity
 import android.view.View
 import com.come.restaurants.R
+import com.come.restaurants.order.detail.OrderDetailActivity
 import org.jetbrains.anko.*
 import org.jetbrains.anko.cardview.v7.cardView
 import org.jetbrains.anko.design.coordinatorLayout

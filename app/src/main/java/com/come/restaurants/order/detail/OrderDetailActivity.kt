@@ -1,10 +1,11 @@
-package com.come.restaurants.order.detail.ui
+package com.come.restaurants.order.detail
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.come.restaurants.R
 import com.come.restaurants.order.detail.OrderDetailPresenter
+import com.come.restaurants.order.detail.ui.OrderDetailUI
 import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.domain.usecases.GetOrder
 import com.come.restaurants.order.domain.usecases.PrintOrder

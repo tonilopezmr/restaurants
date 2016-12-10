@@ -1,4 +1,4 @@
-package com.come.restaurants.order.list.ui
+package com.come.restaurants.order.list
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -10,6 +10,7 @@ import com.come.restaurants.order.domain.usecases.GetNewOrder
 import com.come.restaurants.order.domain.usecases.GetOrders
 import com.come.restaurants.order.domain.usecases.PrintOrder
 import com.come.restaurants.order.list.OrderListPresenter
+import com.come.restaurants.order.list.ui.OrderListUI
 import com.come.restaurants.order.list.ui.adapter.OrderListAdapter
 import com.come.restaurants.order.persistence.network.FirebaseOrderRepository
 import com.come.restaurants.printer.domain.PrinterRepository

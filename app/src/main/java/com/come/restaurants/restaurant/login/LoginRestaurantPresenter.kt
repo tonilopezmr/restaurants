@@ -7,7 +7,7 @@ import android.support.v4.content.ContextCompat.startActivity
 import android.util.Log
 import com.come.restaurants.R
 import com.come.restaurants.base.MVP
-import com.come.restaurants.order.list.ui.OrderListActivity
+import com.come.restaurants.order.list.OrderListActivity
 import com.come.restaurants.restaurant.domain.model.Restaurant
 import com.come.restaurants.restaurant.domain.usecases.Login
 import com.google.android.gms.auth.api.Auth

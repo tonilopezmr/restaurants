@@ -2,6 +2,7 @@ package com.come.restaurants.order.list.ui
 
 import android.view.View
 import com.come.restaurants.R
+import com.come.restaurants.order.list.OrderListActivity
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 
