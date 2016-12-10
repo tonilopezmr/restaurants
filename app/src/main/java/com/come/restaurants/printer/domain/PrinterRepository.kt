@@ -35,35 +35,34 @@ class PrinterRepository(val printerService: PrinterService) {
 
     feedLine()
 
-    printerJob.setAlignment(PrinterCommands.Align.ALIGNMENT_CENTER)
-        .setFont(PrinterCommands.Font.FONT_STYLE_C)
+    printerService.alignment(PrinterCommands.Align.ALIGNMENT_CENTER)
+        .font(PrinterCommands.Font.FONT_STYLE_C)
         .printLine("COME")
 
-    printerJob.setAlignment(PrinterCommands.Align.ALIGNMENT_CENTER)
+    printerService.alignment(PrinterCommands.Align.ALIGNMENT_CENTER)
         .printLine("Reinventing your meals")
 
-    printerJob.setAlignment(PrinterCommands.Align.ALIGNMENT_CENTER)
+    printerService.alignment(PrinterCommands.Align.ALIGNMENT_CENTER)
         .printLine(DateFormat.getDateTimeInstance(
             DateFormat.SHORT, DateFormat.SHORT).format(Date()))
 
     feedLine()
 
-    printerJob.printLine("No hay amor mas sincero que el  amor a la comida")
+    printerService.printLine("No hay amor mas sincero que el  amor a la comida")
 
     feedLine()
 
-    printerJob.setAlignment(PrinterCommands.Align.ALIGNMENT_RIGHT)
-        .setFont(PrinterCommands.Font.FONT_DEFAULT)
+    printerService.alignment(PrinterCommands.Align.ALIGNMENT_RIGHT)
+        .font(PrinterCommands.Font.FONT_DEFAULT)
         .printLine("- George Bernard Shaw")
 
     feedLine()
 
-    printerJob.setSeparatorSpacing(4)
-        .printSeparator()
+    printerService.printSeparator(4)
   }
 
   private fun feedLine() {
-    printerJob.feed(PrinterCommands.FeedPaper.FEED_LINE)
+    printerService.feed(PrinterCommands.FeedPaper.FEED_LINE)
         .printLine("")
   }
 
