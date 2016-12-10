@@ -38,6 +38,8 @@ public class PrinterService {
       printer.write(line + PrinterCommands.NEW_LINE);
     } catch (PrinterException e) {
       throw e;
+    }finally {
+      initializePrinter();
     }
 
     initializePrinter();
@@ -58,6 +60,8 @@ public class PrinterService {
       }
     } catch (PrinterException e) {
       throw e;
+    }finally {
+      initializePrinter();
     }
 
     initializePrinter();
