@@ -3,9 +3,11 @@ package com.come.restaurants.open.restaurant
 import android.content.Context
 import android.content.Intent
 import android.support.v4.app.FragmentActivity
+import android.support.v4.content.ContextCompat.startActivity
 import android.util.Log
 import com.come.restaurants.R
 import com.come.restaurants.base.MVP
+import com.come.restaurants.order.list.OrderListActivity
 import com.come.restaurants.restaurant.domain.model.Restaurant
 import com.come.restaurants.restaurant.domain.usecases.Login
 import com.google.android.gms.auth.api.Auth

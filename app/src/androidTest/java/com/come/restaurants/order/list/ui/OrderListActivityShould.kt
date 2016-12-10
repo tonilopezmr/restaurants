@@ -18,6 +18,7 @@ import android.support.v7.widget.RecyclerView
 import com.come.restaurants.R
 import com.come.restaurants.order.detail.OrderDetailActivity
 import com.come.restaurants.order.domain.model.Order
+import com.come.restaurants.order.list.OrderListActivity
 import com.come.restaurants.order.list.ui.adapter.OrderListAdapter
 import com.come.restaurants.order.list.ui.matchers.RecyclerViewItemsCountMatcher
 import com.come.restaurants.order.list.ui.viewassertion.RecyclerSortedViewAssertion

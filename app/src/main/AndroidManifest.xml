@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".order.list.ui.OrderListActivity"/>
+        <activity android:name=".order.list.OrderListActivity"/>
         <activity android:name=".order.detail.OrderDetailActivity"/>
         <activity android:name=".printer.pairing.ui.PairingPrinterActivity">
         </activity>
