@@ -28,4 +28,5 @@
     <string name="bluetooth">Bluetooth</string>
     <string name="usb">USB</string>
     <string name="connect_a_printer_with">Connect a printer with...</string>
+    <string name="close">Close</string>
 </resources>

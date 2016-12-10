@@ -2,10 +2,14 @@ package com.come.restaurants.printer.service.bluetooth;
 
 import android.bluetooth.BluetoothDevice;
 import android.os.Handler;
+import android.util.Log;
 import com.come.restaurants.printer.service.Printer;
 import com.come.restaurants.printer.service.PrinterException;
 
 public class BluetoothPrinter extends Printer {
+
+  private final String TAG = getClass().getCanonicalName();
+
   //TODO REMOVE SINGLETON PATTERN
   private static BluetoothPrinter printer = new BluetoothPrinter();
   private static boolean isConnected = false;
@@ -36,7 +40,10 @@ public class BluetoothPrinter extends Printer {
 
   @Override
   public void disconnect() {
-    bluetoothService.stop();
+    if (bluetoothService != null) {
+      bluetoothService.stop();
+      Log.i(TAG, "Disconnect");
+    }
     isConnected = false;
   }
 

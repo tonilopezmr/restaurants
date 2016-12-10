@@ -15,11 +15,14 @@ class PairingActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_pairing)
 
+    PrinterFactory.getPrinter().disconnect()
+
     bluetoothButton.setOnClickListener {
       PrinterFactory.isBluetoothPrinter = true
       this@PairingActivity.startActivity(Intent(this@PairingActivity, PairingPrinterActivity::class.java))
     }
     usbButton.setOnClickListener {
+      PrinterFactory.isBluetoothPrinter = false
       this@PairingActivity.startActivity(Intent(this@PairingActivity, USBPairingActivity::class.java))
     }
   }

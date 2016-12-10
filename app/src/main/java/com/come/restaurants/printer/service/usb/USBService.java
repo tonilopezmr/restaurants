@@ -156,14 +156,12 @@ public class USBService {
   }
 
   public synchronized void close() {
-
     if (this.conn != null) {
-
       this.conn.close();
-      this.ep = null;
-      this.usbIf = null;
-      this.conn = null;
     }
+    this.ep = null;
+    this.usbIf = null;
+    this.conn = null;
   }
 
 

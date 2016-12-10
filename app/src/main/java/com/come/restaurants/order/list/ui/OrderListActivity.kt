@@ -3,6 +3,8 @@ package com.come.restaurants.order.list.ui
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import com.come.restaurants.R
 import com.come.restaurants.order.domain.model.Order
@@ -19,13 +21,17 @@ import com.come.restaurants.printer.service.PrinterService
 import kotlinx.android.synthetic.main.activity_list.*
 
 class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
-
   private lateinit var adapter: OrderListAdapter
+
   private lateinit var presenter: OrderListPresenter
 
   override fun showLoader() {
     progressBar.visibility = View.VISIBLE
     emptyCase.visibility = View.GONE
+  }
+
+  override fun close() {
+    finish() //at the moment
   }
 
   override fun hideLoader() {
@@ -48,6 +54,18 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
     this.adapter = OrderListAdapter()
     recyclerView.adapter = this.adapter
     recyclerView.layoutManager = LinearLayoutManager(this)
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.order_list_menu, menu)
+    return true
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    if (item?.itemId == R.id.action_close) {
+      presenter.close()
+    }
+    return true
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {

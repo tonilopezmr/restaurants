@@ -395,7 +395,7 @@ public class BluetoothService {
    * It handles all incoming and outgoing transmissions.
    */
   private class ConnectedThread extends Thread {
-    private final BluetoothSocket mmSocket;
+    private BluetoothSocket mmSocket;
     private final InputStream mmInStream;
     private final OutputStream mmOutStream;
 
@@ -523,7 +523,10 @@ public class BluetoothService {
     */
     public void cancel() {
       try {
+        mmInStream.close();
+        mmOutStream.close();
         mmSocket.close();
+        mmSocket = null;
       } catch (IOException e) {
         Log.e(TAG, "close() of connect socket failed", e);
       }
