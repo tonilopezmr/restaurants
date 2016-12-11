@@ -120,7 +120,7 @@ public class BluetoothService {
    *
    * @param device The BluetoothDevice to connect
    */
-  public synchronized void connect(BluetoothDevice device) {
+  public synchronized void connect(BluetoothDevice device) throws IOException {
     if (DEBUG) Log.d(TAG, "connect to: " + device);
 
     // Cancel any thread attempting to make a connection
@@ -239,7 +239,7 @@ public class BluetoothService {
    * Indicate that the connection was lost and notify the UI Activity.
    */
   private void connectionLost() {
-    //setState(STATE_LISTEN);
+    setState(STATE_LISTEN);
 
     // Send a failure message back to the Activity
     Message msg = mHandler.obtainMessage(MESSAGE_TOAST);
@@ -256,7 +256,7 @@ public class BluetoothService {
    */
   private class AcceptThread extends Thread {
     // The local server socket
-    private final BluetoothServerSocket mmServerSocket;
+    private BluetoothServerSocket mmServerSocket;
 
     public AcceptThread() {
       BluetoothServerSocket tmp = null;
@@ -283,6 +283,9 @@ public class BluetoothService {
           // successful connection or an exception
           socket = mmServerSocket.accept();
         } catch (IOException e) {
+          Log.e(TAG, "accept() failed", e);
+          break;
+        } catch (NullPointerException e) {
           Log.e(TAG, "accept() failed", e);
           break;
         }
@@ -316,6 +319,7 @@ public class BluetoothService {
       if (DEBUG) Log.d(TAG, "cancel " + this);
       try {
         mmServerSocket.close();
+        mmServerSocket = null;
       } catch (IOException e) {
         Log.e(TAG, "close() of server failed", e);
       }
@@ -329,10 +333,10 @@ public class BluetoothService {
    * succeeds or fails.
    */
   private class ConnectThread extends Thread {
-    private final BluetoothSocket mmSocket;
+    private BluetoothSocket mmSocket;
     private final BluetoothDevice mmDevice;
 
-    public ConnectThread(BluetoothDevice device) {
+    public ConnectThread(BluetoothDevice device) throws IOException {
       mmDevice = device;
       BluetoothSocket tmp = null;
 
@@ -342,6 +346,7 @@ public class BluetoothService {
         tmp = device.createRfcommSocketToServiceRecord(MY_UUID);
       } catch (IOException e) {
         Log.e(TAG, "create() failed", e);
+        throw e;
       }
       mmSocket = tmp;
     }
@@ -450,7 +455,7 @@ public class BluetoothService {
           connectionLost();
 
           //add by chongqing jinou
-          if (mState != STATE_NONE) {
+          if (mState != STATE_NONE && mAdapter.isEnabled()) {
             // Start the service over to restart listening mode
             BluetoothService.this.start();
           }

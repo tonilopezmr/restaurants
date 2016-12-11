@@ -35,6 +35,7 @@ class BluetoothDeviceAdapter(private val onclick: (BluetoothDevice) -> Unit)
   }
 
   fun addAll(printers: List<BluetoothDevice>) {
+    this.printerList.clear()
     this.printerList.addAll(printers)
     notifyDataSetChanged()
   }

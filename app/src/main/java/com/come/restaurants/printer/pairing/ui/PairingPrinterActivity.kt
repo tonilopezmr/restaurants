@@ -23,6 +23,7 @@ import com.come.restaurants.R
 import com.come.restaurants.order.list.OrderListActivity
 import com.come.restaurants.printer.pairing.PairingPresenter
 import com.come.restaurants.printer.pairing.ui.adapter.BluetoothDeviceAdapter
+import com.come.restaurants.printer.service.PrinterException
 import com.come.restaurants.printer.service.bluetooth.BluetoothPrinter
 import com.come.restaurants.printer.service.bluetooth.BluetoothService
 import kotlinx.android.synthetic.main.activity_list.*
@@ -139,11 +140,20 @@ class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
   override fun initUi() {
     emptyCase.text = String.format(getString(R.string.there_are_not), getString(R.string.printers))
     this.adapter = BluetoothDeviceAdapter({
-      BluetoothPrinter.getPrinter().connect(it, getHandler(it))
+      connect(it)
     })
     recyclerView.adapter = this.adapter
     recyclerView.layoutManager = LinearLayoutManager(this)
   }
+
+  private fun connect(device: BluetoothDevice) {
+    try {
+      BluetoothPrinter.getPrinter().connect(device, getHandler(device))
+    } catch (ex: PrinterException) { //TODO provisional
+      Toast.makeText(this, getString(R.string.connection_error), Toast.LENGTH_SHORT).show()
+    }
+  }
+
 
   private fun getHandler(device: BluetoothDevice): Handler {
     val MESSAGE_STATE_CHANGE = 1

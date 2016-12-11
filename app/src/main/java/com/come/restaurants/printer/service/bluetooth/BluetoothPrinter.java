@@ -6,6 +6,8 @@ import android.util.Log;
 import com.come.restaurants.printer.service.Printer;
 import com.come.restaurants.printer.service.PrinterException;
 
+import java.io.IOException;
+
 public class BluetoothPrinter extends Printer {
 
   //TODO REMOVE SINGLETON PATTERN
@@ -27,12 +29,16 @@ public class BluetoothPrinter extends Printer {
   }
 
   public void connect(BluetoothDevice printer, Handler messageHandler) throws PrinterException {
-    bluetoothService = new BluetoothService(messageHandler);
+    try {
+      bluetoothService = new BluetoothService(messageHandler);
 
-    checkDevice(printer);
+      checkDevice(printer);
 
-    bluetoothService.connect(printer);
-    isConnected = true;
+      bluetoothService.connect(printer);
+      isConnected = true;
+    } catch (IOException ioe) {
+      throw new PrinterException(ioe);
+    }
   }
 
   private void checkDevice(BluetoothDevice printer) throws PrinterException {
@@ -48,7 +54,6 @@ public class BluetoothPrinter extends Printer {
       Log.i(TAG, "Disconnect");
     }
     isConnected = false;
-    printer = null;
   }
 
   /**
