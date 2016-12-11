@@ -22,11 +22,11 @@
         </activity>
         <activity android:name=".order.list.OrderListActivity"/>
         <activity android:name=".order.detail.OrderDetailActivity"/>
-        <activity android:name=".printer.pairing.ui.PairingPrinterActivity">
+        <activity android:name=".printer.pairing.bluetooth.BluetoothPairingActivity">
         </activity>
         <activity android:name=".printer.pairing.usb.USBPairingActivity">
         </activity>
-        <activity android:name=".printer.pairing.PairingActivity">
+        <activity android:name=".printer.pairing.ChoosePairingActivity">
         </activity>
     </application>
 

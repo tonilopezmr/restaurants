@@ -7,7 +7,7 @@ import android.widget.Toast
 import com.come.restaurants.R
 import com.come.restaurants.open.restaurant.LoginRestaurantPresenter
 import com.come.restaurants.open.restaurant.LoginRestaurantPresenter.View
-import com.come.restaurants.printer.pairing.PairingActivity
+import com.come.restaurants.printer.pairing.ChoosePairingActivity
 import com.come.restaurants.restaurant.domain.usecases.Login
 import com.come.restaurants.restaurant.login.ui.LoginRestaurantUI
 import com.come.restaurants.restaurant.persistence.stubs.StubRestaurantRepository
@@ -39,7 +39,7 @@ class LoginRestaurantActivity : AppCompatActivity(), View {
   }
 
   override fun moveToPairingActivity() {
-    startActivity(Intent(this, PairingActivity::class.java))
+    startActivity(Intent(this, ChoosePairingActivity::class.java))
   }
 
   override fun showConnectionError() {

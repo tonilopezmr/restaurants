@@ -1,4 +1,4 @@
-package com.come.restaurants.printer.pairing.ui
+package com.come.restaurants.printer.pairing.bluetooth
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -21,27 +21,26 @@ import android.view.View
 import android.widget.Toast
 import com.come.restaurants.R
 import com.come.restaurants.order.list.OrderListActivity
-import com.come.restaurants.printer.pairing.PairingPresenter
-import com.come.restaurants.printer.pairing.ui.adapter.BluetoothDeviceAdapter
+import com.come.restaurants.printer.pairing.bluetooth.adapter.BluetoothDeviceAdapter
 import com.come.restaurants.printer.service.PrinterException
 import com.come.restaurants.printer.service.bluetooth.BluetoothPrinter
 import com.come.restaurants.printer.service.bluetooth.BluetoothService
 import kotlinx.android.synthetic.main.activity_list.*
 
-class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
+class BluetoothPairingActivity : AppCompatActivity(), BluetoothPairingPresenter.View {
   private val REQUEST_COARSE_LOCATION_PERMISSIONS = 2000
   private val REQUEST_OPEN_BLUETOOTH = 1000
 
-  private lateinit var presenter: PairingPresenter
+  private lateinit var presenterBluetooth: BluetoothPairingPresenter
   private lateinit var adapter: BluetoothDeviceAdapter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_list)
 
-    this.presenter = PairingPresenter()
-    this.presenter.setView(this)
-    this.presenter.init()
+    this.presenterBluetooth = BluetoothPairingPresenter()
+    this.presenterBluetooth.setView(this)
+    this.presenterBluetooth.init()
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -51,7 +50,7 @@ class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
 
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
     if (item?.itemId == R.id.action_retry) {
-      this.presenter.doDiscovery()
+      this.presenterBluetooth.doDiscovery()
     }
     return true
   }
@@ -60,7 +59,7 @@ class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
     when (requestCode) {
       REQUEST_COARSE_LOCATION_PERMISSIONS -> {
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-          this.presenter.doDiscovery()
+          this.presenterBluetooth.doDiscovery()
         } else {
           this.showPermissionError()
         }
@@ -73,7 +72,7 @@ class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
     when (requestCode) {
       REQUEST_OPEN_BLUETOOTH -> {
         if (resultCode == Activity.RESULT_OK) {
-          this.presenter.doDiscovery()
+          this.presenterBluetooth.doDiscovery()
         } else {
           emptyCase() //TODO SHOW A BUTTON TO START BLUETOOTH
         }
@@ -83,7 +82,7 @@ class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
   }
 
   override fun onDestroy() {
-    this.presenter.finish()
+    this.presenterBluetooth.finish()
     super.onDestroy()
   }
 
@@ -171,10 +170,10 @@ class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
           MESSAGE_STATE_CHANGE -> {
             when (msg.arg1) {
               BluetoothService.STATE_CONNECTED -> {
-                Toast.makeText(this@PairingPrinterActivity,
+                Toast.makeText(this@BluetoothPairingActivity,
                     "Device ${device.name} was paired correctly", Toast.LENGTH_SHORT)
                     .show()
-                this@PairingPrinterActivity.startActivity(Intent(this@PairingPrinterActivity, OrderListActivity::class.java))
+                this@BluetoothPairingActivity.startActivity(Intent(this@BluetoothPairingActivity, OrderListActivity::class.java))
               }
               BluetoothService.STATE_CONNECTING -> {
 

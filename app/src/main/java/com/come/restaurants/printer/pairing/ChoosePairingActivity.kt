@@ -4,12 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.come.restaurants.R
-import com.come.restaurants.printer.pairing.ui.PairingPrinterActivity
+import com.come.restaurants.printer.pairing.bluetooth.BluetoothPairingActivity
 import com.come.restaurants.printer.pairing.usb.USBPairingActivity
 import com.come.restaurants.printer.service.PrinterFactory
 import kotlinx.android.synthetic.main.activity_pairing.*
 
-class PairingActivity : AppCompatActivity() {
+class ChoosePairingActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -19,11 +19,11 @@ class PairingActivity : AppCompatActivity() {
 
     bluetoothButton.setOnClickListener {
       PrinterFactory.isBluetoothPrinter = true
-      this@PairingActivity.startActivity(Intent(this@PairingActivity, PairingPrinterActivity::class.java))
+      this@ChoosePairingActivity.startActivity(Intent(this@ChoosePairingActivity, BluetoothPairingActivity::class.java))
     }
     usbButton.setOnClickListener {
       PrinterFactory.isBluetoothPrinter = false
-      this@PairingActivity.startActivity(Intent(this@PairingActivity, USBPairingActivity::class.java))
+      this@ChoosePairingActivity.startActivity(Intent(this@ChoosePairingActivity, USBPairingActivity::class.java))
     }
   }
 }

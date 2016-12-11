@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.come.restaurants.R
-import com.come.restaurants.printer.pairing.ui.adapter.BluetoothDeviceAdapter
+import com.come.restaurants.printer.pairing.bluetooth.adapter.BluetoothDeviceAdapter
 import kotlinx.android.synthetic.main.printer_list_item.view.*
 
 class USBDeviceAdapter(private val onclick: (UsbDevice) -> Unit)

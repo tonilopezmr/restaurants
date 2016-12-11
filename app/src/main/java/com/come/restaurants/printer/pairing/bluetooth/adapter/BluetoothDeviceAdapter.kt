@@ -1,4 +1,4 @@
-package com.come.restaurants.printer.pairing.ui.adapter
+package com.come.restaurants.printer.pairing.bluetooth.adapter
 
 import android.bluetooth.BluetoothDevice
 import android.support.v7.widget.RecyclerView

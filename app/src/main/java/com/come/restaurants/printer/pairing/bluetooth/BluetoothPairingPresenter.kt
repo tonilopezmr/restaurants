@@ -1,4 +1,4 @@
-package com.come.restaurants.printer.pairing
+package com.come.restaurants.printer.pairing.bluetooth
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -10,7 +10,7 @@ import android.util.Log
 import com.come.restaurants.base.MVP
 
 
-class PairingPresenter : MVP.Presenter<PairingPresenter.View> {
+class BluetoothPairingPresenter : MVP.Presenter<BluetoothPairingPresenter.View> {
 
   private val TAG = javaClass.canonicalName
 
