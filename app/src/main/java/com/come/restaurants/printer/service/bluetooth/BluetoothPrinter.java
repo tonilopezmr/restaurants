@@ -10,6 +10,9 @@ public class BluetoothPrinter extends Printer {
 
   private final String TAG = getClass().getCanonicalName();
 
+  private BluetoothPrinter() {
+  }
+
   //TODO REMOVE SINGLETON PATTERN
   private static BluetoothPrinter printer;
   private static boolean isConnected = false;
@@ -52,7 +55,7 @@ public class BluetoothPrinter extends Printer {
   /**
    * Private because the main purpose to Printer is that we don't want handle bytes.
    *
-   * @param data
+   * @param data data in bytes
    * @throws PrinterException
    */
   @Override
