@@ -395,9 +395,9 @@ public class BluetoothService {
    * It handles all incoming and outgoing transmissions.
    */
   private class ConnectedThread extends Thread {
-    private BluetoothSocket mmSocket;
     private final InputStream mmInStream;
     private final OutputStream mmOutStream;
+    private BluetoothSocket mmSocket;
     private boolean isCancel = false;
 
     public ConnectedThread(BluetoothSocket socket) {

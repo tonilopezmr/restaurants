@@ -26,6 +26,6 @@
     <string name="order_printed">Pedido impreso</string>
     <string name="invalid_name_and_code">Nombre y codigos invalidos</string>
     <string name="retry">Reintentar</string>
-    <string name="connect_a_printer_with">Connecar la impresora con... </string>
+    <string name="connect_a_printer_with">Connecar la impresora con...</string>
     <string name="close">Cerrar</string>
 </resources>

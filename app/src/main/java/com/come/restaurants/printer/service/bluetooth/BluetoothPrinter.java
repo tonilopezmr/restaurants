@@ -8,15 +8,14 @@ import com.come.restaurants.printer.service.PrinterException;
 
 public class BluetoothPrinter extends Printer {
 
-  private final String TAG = getClass().getCanonicalName();
-
-  private BluetoothPrinter() {
-  }
-
   //TODO REMOVE SINGLETON PATTERN
   private static BluetoothPrinter printer;
   private static boolean isConnected = false;
+  private final String TAG = getClass().getCanonicalName();
   private BluetoothService bluetoothService;
+
+  private BluetoothPrinter() {
+  }
 
   public static BluetoothPrinter getPrinter() {
     if (printer == null) printer = new BluetoothPrinter();
