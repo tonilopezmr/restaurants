@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.come.restaurants.R
-import com.come.restaurants.order.detail.OrderDetailPresenter
 import com.come.restaurants.order.detail.ui.OrderDetailUI
 import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.domain.usecases.GetOrder
@@ -25,7 +24,7 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
   private lateinit var presenter: OrderDetailPresenter
 
   override fun showDetails(details: Order) {
-    orderNumberTextView.text = getString(R.string.number) + " " + intent.getStringExtra(NUMBER)
+    orderNumberTextView.text = details.code
     orderTextView.text = details.orderLines.fold("",
         { total, current ->
           total.plus(

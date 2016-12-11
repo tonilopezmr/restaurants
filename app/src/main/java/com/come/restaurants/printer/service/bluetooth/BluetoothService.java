@@ -398,6 +398,7 @@ public class BluetoothService {
     private BluetoothSocket mmSocket;
     private final InputStream mmInStream;
     private final OutputStream mmOutStream;
+    private boolean isCancel = false;
 
     public ConnectedThread(BluetoothSocket socket) {
       Log.d(TAG, "create ConnectedThread");
@@ -423,7 +424,7 @@ public class BluetoothService {
       int bytes;
 
       // Keep listening to the InputStream while connected
-      while (true) {
+      while (!isCancel) {
         try {
           byte[] buffer = new byte[256];
           // Read from the InputStream
@@ -481,48 +482,9 @@ public class BluetoothService {
       }
     }
 
-    /*
-    //
-    private boolean SPPReadTimeout(byte[] Data, int DataLen, int Timeout){
-      for (int i = 0; i < Timeout / 5; i++)
-      {
-        try
-        {
-          if (mmInStream.available() >= DataLen)
-          {
-            try
-            {
-              mmInStream.read(Data, 0, DataLen);
-              return true;
-            }
-            catch (IOException e)
-            {
-              ErrorMessage = "读取蓝牙数据失败";
-              return false;
-            }
-          }
-        }
-        catch (IOException e)
-        {
-          ErrorMessage = "读取蓝牙数据失败";
-          return false;
-        }
-        try
-        {
-          Thread.sleep(5L);
-        }
-        catch (InterruptedException e)
-        {
-          ErrorMessage = "读取蓝牙数据失败";
-          return false;
-        }
-      }
-      ErrorMessage = "蓝牙读数据超时";
-      return false;
-    }
-    */
     public void cancel() {
       try {
+        isCancel = true;
         mmInStream.close();
         mmOutStream.close();
         mmSocket.close();

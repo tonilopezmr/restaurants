@@ -6,7 +6,7 @@ import com.come.restaurants.printer.service.usb.USBPrinter
 
 object PrinterFactory {
 
-  val TAG: String = javaClass.canonicalName
+  private val TAG: String = javaClass.canonicalName
 
   var isBluetoothPrinter = false
 

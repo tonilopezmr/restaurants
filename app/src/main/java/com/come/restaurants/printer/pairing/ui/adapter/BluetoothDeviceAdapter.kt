@@ -1,27 +1,18 @@
 package com.come.restaurants.printer.pairing.ui.adapter
 
-import android.annotation.SuppressLint
 import android.bluetooth.BluetoothDevice
-import android.content.Context
-import android.content.Intent
-import android.os.Handler
-import android.os.Message
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.come.restaurants.R
-import com.come.restaurants.order.list.OrderListActivity
-import com.come.restaurants.printer.service.bluetooth.BluetoothPrinter
-import com.come.restaurants.printer.service.bluetooth.BluetoothService
 import kotlinx.android.synthetic.main.printer_list_item.view.*
-import java.util.*
+import java.util.ArrayList
 
 
-class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.ListViewHolder>() {
+class BluetoothDeviceAdapter(private val onclick: (BluetoothDevice) -> Unit)
+  : RecyclerView.Adapter<BluetoothDeviceAdapter.ListViewHolder>() {
 
-  private var printer: BluetoothPrinter = BluetoothPrinter.getPrinter()
   val printerList: MutableList<BluetoothDevice> = ArrayList()
 
   override fun getItemCount(): Int {
@@ -36,10 +27,10 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
   }
 
   override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-    holder.bindPrinter(printerList[position])
+    val device = printerList[position]
+    holder.bindPrinter(device)
     holder.itemView.setOnClickListener { it ->
-      val device = printerList[position]
-      pairDevice(it.context, device)
+      onclick(device)
     }
   }
 
@@ -51,10 +42,6 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
   fun resetList() {
     this.printerList.clear()
     notifyDataSetChanged()
-  }
-
-  private fun pairDevice(context: Context, device: BluetoothDevice) {
-    printer.connect(device, getHandler(context, device))
   }
 
   class ListViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
@@ -69,51 +56,4 @@ class BluetoothDeviceAdapter() : RecyclerView.Adapter<BluetoothDeviceAdapter.Lis
     }
   }
 
-  private fun getHandler(context: Context, device: BluetoothDevice): Handler {
-    val MESSAGE_STATE_CHANGE = 1
-    val MESSAGE_READ = 2
-    val MESSAGE_WRITE = 3
-    val MESSAGE_DEVICE_NAME = 4
-    val MESSAGE_TOAST = 5
-    val MESSAGE_CONNECTION_LOST = 6
-    val MESSAGE_UNABLE_CONNECT = 7
-
-    @SuppressLint("HandlerLeak")
-    val mHandler = object : Handler() {
-      override fun handleMessage(msg: Message) {
-        when (msg.what) {
-          MESSAGE_STATE_CHANGE -> {
-            when (msg.arg1) {
-              BluetoothService.STATE_CONNECTED -> {
-                Toast.makeText(context,
-                    "Device ${device.name} was paired correctly", Toast.LENGTH_SHORT)
-                    .show()
-                context.startActivity(Intent(context, OrderListActivity::class.java))
-              }
-              BluetoothService.STATE_CONNECTING -> {
-
-              }
-              BluetoothService.STATE_LISTEN, BluetoothService.STATE_NONE -> {
-              }
-            }
-          }
-          MESSAGE_WRITE -> {
-          }
-          MESSAGE_READ -> {
-          }
-          MESSAGE_DEVICE_NAME -> {
-          }
-          MESSAGE_TOAST -> {
-          }
-          MESSAGE_CONNECTION_LOST
-          -> {
-          }
-          MESSAGE_UNABLE_CONNECT
-          -> {
-          }
-        }
-      }
-    }
-    return mHandler
-  }
 }

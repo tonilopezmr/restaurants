@@ -11,7 +11,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.come.restaurants.R
-import com.come.restaurants.order.list.ui.OrderListActivity
+import com.come.restaurants.order.list.OrderListActivity
 import com.come.restaurants.printer.service.usb.USBPrinter
 import com.come.restaurants.printer.service.usb.USBService
 import kotlinx.android.synthetic.main.activity_list.*

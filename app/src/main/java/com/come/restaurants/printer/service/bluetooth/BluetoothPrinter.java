@@ -11,11 +11,12 @@ public class BluetoothPrinter extends Printer {
   private final String TAG = getClass().getCanonicalName();
 
   //TODO REMOVE SINGLETON PATTERN
-  private static BluetoothPrinter printer = new BluetoothPrinter();
+  private static BluetoothPrinter printer;
   private static boolean isConnected = false;
   private BluetoothService bluetoothService;
 
   public static BluetoothPrinter getPrinter() {
+    if (printer == null) printer = new BluetoothPrinter();
     return printer;
   }
 
@@ -45,6 +46,7 @@ public class BluetoothPrinter extends Printer {
       Log.i(TAG, "Disconnect");
     }
     isConnected = false;
+    printer = null;
   }
 
   /**

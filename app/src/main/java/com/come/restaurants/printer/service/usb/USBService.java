@@ -20,15 +20,19 @@ import java.util.Iterator;
 
 //TODO REMOVE HANDLER AND PERMISSION and get devices
 public class USBService {
+  private final String TAG = getClass().getCanonicalName();
+
   private final Context mApplicationContext;
   private final UsbManager mUsbManager;
   protected final String ACTION_USB_PERMISSION;
   private final Handler mHandler;
+  public static final int USB_ENDPOINT_XFER_BULK = 2;
+  public static final int USB_DIR_IN = 128;
   public static final int USB_CONNECTED = 0;
   public static final int USB_DISCONNECTED = 1;
-  private UsbEndpoint ep = null;
-  private UsbInterface usbIf = null;
-  private UsbDeviceConnection conn = null;
+  private UsbEndpoint ep;
+  private UsbInterface usbIf;
+  private UsbDeviceConnection conn;
 
 
   public USBService(String name, Context parentActivity, Handler handler) {
@@ -37,6 +41,9 @@ public class USBService {
     this.mUsbManager =
         ((UsbManager) this.mApplicationContext.getSystemService(Context.USB_SERVICE));
     this.mHandler = handler;
+    this.ep = null;
+    this.usbIf = null;
+    this.conn = null;
   }
 
   public synchronized UsbDevice getDev(int vid, int pid) {
@@ -127,8 +134,8 @@ public class USBService {
       }
 
       for (int i = 0; i < this.usbIf.getEndpointCount(); i++) {
-        if ((this.usbIf.getEndpoint(i).getType() == 2) &&
-            (this.usbIf.getEndpoint(i).getDirection() != 128)) {
+        if ((this.usbIf.getEndpoint(i).getType() == USB_ENDPOINT_XFER_BULK) &&
+            (this.usbIf.getEndpoint(i).getDirection() != USB_DIR_IN)) {
 
           this.ep = this.usbIf.getEndpoint(i);
         }
@@ -136,7 +143,6 @@ public class USBService {
 
 
       if (this.conn.claimInterface(this.usbIf, true)) {
-
         this.conn.bulkTransfer(this.ep, bits, bits.length, 0);
       }
     }
@@ -157,6 +163,7 @@ public class USBService {
 
   public synchronized void close() {
     if (this.conn != null) {
+      Log.i(TAG, "close: USBConnection");
       this.conn.close();
     }
     this.ep = null;
@@ -257,12 +264,14 @@ public class USBService {
   private final BroadcastReceiver mPermissionReceiver = new BroadcastReceiver() {
     public void onReceive(Context context, Intent intent) {
 
+      final String TAG = getClass().getCanonicalName();
       USBService.this.mApplicationContext.unregisterReceiver(this);
 
       if ((intent.getAction().equals(ACTION_USB_PERMISSION)) &&
           (intent.getBooleanExtra("permission", false))) {
 
         UsbDevice dev = (UsbDevice) intent.getParcelableExtra("device");
+        Log.i(TAG, "onReceive: UsbDevice is null: "+ (dev == null));
         if (dev != null) {
           Message msg = USBService.this.mHandler.obtainMessage(USB_CONNECTED);
           USBService.this.mHandler.sendMessage(msg);

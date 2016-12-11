@@ -1,6 +1,7 @@
 package com.come.restaurants.printer.pairing.ui
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -9,6 +10,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -17,8 +20,11 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.come.restaurants.R
+import com.come.restaurants.order.list.OrderListActivity
 import com.come.restaurants.printer.pairing.PairingPresenter
 import com.come.restaurants.printer.pairing.ui.adapter.BluetoothDeviceAdapter
+import com.come.restaurants.printer.service.bluetooth.BluetoothPrinter
+import com.come.restaurants.printer.service.bluetooth.BluetoothService
 import kotlinx.android.synthetic.main.activity_list.*
 
 class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
@@ -132,9 +138,59 @@ class PairingPrinterActivity : AppCompatActivity(), PairingPresenter.View {
 
   override fun initUi() {
     emptyCase.text = String.format(getString(R.string.there_are_not), getString(R.string.printers))
-    this.adapter = BluetoothDeviceAdapter()
+    this.adapter = BluetoothDeviceAdapter({
+      BluetoothPrinter.getPrinter().connect(it, getHandler(it))
+    })
     recyclerView.adapter = this.adapter
     recyclerView.layoutManager = LinearLayoutManager(this)
+  }
+
+  private fun getHandler(device: BluetoothDevice): Handler {
+    val MESSAGE_STATE_CHANGE = 1
+    val MESSAGE_READ = 2
+    val MESSAGE_WRITE = 3
+    val MESSAGE_DEVICE_NAME = 4
+    val MESSAGE_TOAST = 5
+    val MESSAGE_CONNECTION_LOST = 6
+    val MESSAGE_UNABLE_CONNECT = 7
+
+    @SuppressLint("HandlerLeak")
+    val mHandler = object : Handler() {
+      override fun handleMessage(msg: Message) {
+        when (msg.what) {
+          MESSAGE_STATE_CHANGE -> {
+            when (msg.arg1) {
+              BluetoothService.STATE_CONNECTED -> {
+                Toast.makeText(this@PairingPrinterActivity,
+                    "Device ${device.name} was paired correctly", Toast.LENGTH_SHORT)
+                    .show()
+                this@PairingPrinterActivity.startActivity(Intent(this@PairingPrinterActivity, OrderListActivity::class.java))
+              }
+              BluetoothService.STATE_CONNECTING -> {
+
+              }
+              BluetoothService.STATE_LISTEN, BluetoothService.STATE_NONE -> {
+              }
+            }
+          }
+          MESSAGE_WRITE -> {
+          }
+          MESSAGE_READ -> {
+          }
+          MESSAGE_DEVICE_NAME -> {
+          }
+          MESSAGE_TOAST -> {
+          }
+          MESSAGE_CONNECTION_LOST
+          -> {
+          }
+          MESSAGE_UNABLE_CONNECT
+          -> {
+          }
+        }
+      }
+    }
+    return mHandler
   }
 
 }

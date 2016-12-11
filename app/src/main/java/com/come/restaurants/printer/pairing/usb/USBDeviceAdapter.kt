@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.printer_list_item.view.*
 class USBDeviceAdapter(private val onclick: (UsbDevice) -> Unit)
   : RecyclerView.Adapter<BluetoothDeviceAdapter.ListViewHolder>() {
 
-  val list = mutableListOf<UsbDevice>()
+  private val list = mutableListOf<UsbDevice>()
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BluetoothDeviceAdapter.ListViewHolder {
     val view = LayoutInflater
