@@ -39,8 +39,7 @@ class FirebaseOrderRepository : OrderRepository {
   }
 
   override fun orderPrinted(order: Order, callback: OrderPrinted.Callback) {
-    reference.child(today).child(order.id).removeValue()
-    reference.child("history").child(order.id).setValue(order)
+    //TODO implement
   }
 
   override fun getOrders(callback: GetOrders.Callback) {
