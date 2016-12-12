@@ -1,4 +1,4 @@
-package com.come.restaurants.printer.pairing
+package com.come.restaurants.printer.pairing.bluetooth
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -10,13 +10,13 @@ import android.util.Log
 import com.come.restaurants.base.MVP
 
 
-class PairingPresenter : MVP.Presenter<PairingPresenter.View> {
+class BluetoothPairingPresenter : MVP.Presenter<BluetoothPairingPresenter.View> {
 
   private val TAG = javaClass.canonicalName
 
   private lateinit var view: View
   private lateinit var btAdapter: BluetoothAdapter
-  private val devicesList: MutableList<BluetoothDevice> = mutableListOf()
+  private val devicesList: MutableSet<BluetoothDevice> = mutableSetOf()
 
   private val btReceiver: BroadcastReceiver = object : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent) {
@@ -25,10 +25,11 @@ class PairingPresenter : MVP.Presenter<PairingPresenter.View> {
         BluetoothAdapter.ACTION_DISCOVERY_STARTED -> view.showProgressDialog()
         BluetoothAdapter.ACTION_DISCOVERY_FINISHED -> {
           Log.d(TAG, "Showing list with ${devicesList.size} items")
+          devicesList.addAll(btAdapter.bondedDevices)
           if (devicesList.isEmpty()) {
             view.emptyCase()
           } else {
-            view.showList(devicesList)
+            view.showList(devicesList.toList())
           }
         }
         BluetoothDevice.ACTION_FOUND -> {

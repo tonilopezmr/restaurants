@@ -4,15 +4,14 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.come.restaurants.R
-import com.come.restaurants.order.detail.OrderDetailPresenter
 import com.come.restaurants.order.detail.ui.OrderDetailUI
 import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.domain.usecases.GetOrder
 import com.come.restaurants.order.domain.usecases.PrintOrder
 import com.come.restaurants.order.persistence.network.FirebaseOrderRepository
 import com.come.restaurants.printer.domain.PrinterRepository
+import com.come.restaurants.printer.service.PrinterFactory
 import com.come.restaurants.printer.service.PrinterService
-import com.come.restaurants.printer.service.bluetooth.BluetoothPrinter
 import kotlinx.android.synthetic.main.activity_order_detail.*
 import org.jetbrains.anko.setContentView
 
@@ -25,7 +24,7 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
   private lateinit var presenter: OrderDetailPresenter
 
   override fun showDetails(details: Order) {
-    orderNumberTextView.text = getString(R.string.number) + " " + intent.getStringExtra(NUMBER)
+    orderNumberTextView.text = details.code
     orderTextView.text = details.orderLines.fold("",
         { total, current ->
           total.plus(
@@ -66,7 +65,7 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
     val getOrder = GetOrder(repository)
     val orderId = intent.getStringExtra(ID)
 
-    val printer = BluetoothPrinter.getPrinter()
+    val printer = PrinterFactory.getPrinter()
     val printerJob = PrinterService(printer)
     var printerRepository = PrinterRepository(printerJob)
     val printOrder = PrintOrder(printerRepository)

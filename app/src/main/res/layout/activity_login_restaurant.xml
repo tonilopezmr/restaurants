@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".open.restaurant.ui.LoginRestaurantActivity"
-    android:id="@+id/activity_start_screen"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_marginLeft="35dp"
-    android:layout_marginRight="35dp"
-    android:layout_marginTop="50dp">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".open.restaurant.ui.LoginRestaurantActivity"
+        android:id="@+id/activity_start_screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="50dp">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -50,17 +50,17 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/openButton"
-        android:text="sign in"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_horizontal_margin"/>
+            android:id="@+id/openButton"
+            android:text="sign in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
 
     <Button
-        android:id="@+id/openGoogleButton"
-        android:text="Sign in with google"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_horizontal_margin"/>
+            android:id="@+id/openGoogleButton"
+            android:text="Sign in with google"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
 
 </LinearLayout>

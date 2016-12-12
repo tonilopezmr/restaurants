@@ -6,6 +6,7 @@ import com.come.restaurants.order.domain.usecases.GetNewOrder
 import com.come.restaurants.order.domain.usecases.GetOrders
 import com.come.restaurants.order.domain.usecases.PrintOrder
 import com.come.restaurants.printer.domain.usecases.PrintWelcome
+import com.come.restaurants.printer.service.PrinterFactory
 
 
 class OrderListPresenter(val getOrders: GetOrders,
@@ -18,6 +19,7 @@ class OrderListPresenter(val getOrders: GetOrders,
     fun hideLoader()
     fun showEmptyCase()
     fun showList(orders: List<Order>)
+    fun close()
   }
 
   lateinit private var view: View
@@ -81,5 +83,9 @@ class OrderListPresenter(val getOrders: GetOrders,
     }
   }
 
+  fun close() {
+    PrinterFactory.getPrinter().disconnect()
+    view.close()
+  }
 
 }

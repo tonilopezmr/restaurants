@@ -8,7 +8,7 @@ import com.come.restaurants.order.domain.usecases.GetNewOrder
 import com.come.restaurants.order.domain.usecases.GetOrder
 import com.come.restaurants.order.domain.usecases.GetOrders
 import com.come.restaurants.order.domain.usecases.OrderPrinted
-import java.util.*
+import java.util.Date
 
 class StubOrderRepository : OrderRepository {
 

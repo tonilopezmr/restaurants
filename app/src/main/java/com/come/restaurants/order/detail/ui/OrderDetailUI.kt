@@ -6,7 +6,6 @@ import com.come.restaurants.R
 import com.come.restaurants.order.detail.OrderDetailActivity
 import org.jetbrains.anko.*
 import org.jetbrains.anko.cardview.v7.cardView
-import org.jetbrains.anko.design.coordinatorLayout
 
 class OrderDetailUI : AnkoComponent<OrderDetailActivity> {
   override fun createView(ui: AnkoContext<OrderDetailActivity>): View {
@@ -18,7 +17,7 @@ class OrderDetailUI : AnkoComponent<OrderDetailActivity> {
           lparams {
             width = matchParent
             height = matchParent
-            setMargins(24,24,24,24)
+            setMargins(24, 24, 24, 24)
           }
 
           verticalLayout {
