@@ -16,7 +16,7 @@ class BluetoothPairingPresenter : MVP.Presenter<BluetoothPairingPresenter.View> 
 
   private lateinit var view: View
   private lateinit var btAdapter: BluetoothAdapter
-  private val devicesList: MutableList<BluetoothDevice> = mutableListOf()
+  private val devicesList: MutableSet<BluetoothDevice> = mutableSetOf()
 
   private val btReceiver: BroadcastReceiver = object : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent) {
@@ -25,10 +25,11 @@ class BluetoothPairingPresenter : MVP.Presenter<BluetoothPairingPresenter.View> 
         BluetoothAdapter.ACTION_DISCOVERY_STARTED -> view.showProgressDialog()
         BluetoothAdapter.ACTION_DISCOVERY_FINISHED -> {
           Log.d(TAG, "Showing list with ${devicesList.size} items")
+          devicesList.addAll(btAdapter.bondedDevices)
           if (devicesList.isEmpty()) {
             view.emptyCase()
           } else {
-            view.showList(devicesList)
+            view.showList(devicesList.toList())
           }
         }
         BluetoothDevice.ACTION_FOUND -> {
