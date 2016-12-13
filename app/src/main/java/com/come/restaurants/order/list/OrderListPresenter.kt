@@ -20,6 +20,8 @@ class OrderListPresenter(val getOrders: GetOrders,
     fun showEmptyCase()
     fun showList(orders: List<Order>)
     fun close()
+    fun showGetNewOrderError()
+    fun showGetOrdersError()
   }
 
   lateinit private var view: View
@@ -38,7 +40,7 @@ class OrderListPresenter(val getOrders: GetOrders,
   private fun requestNewOrder() {
     getNewOrder.get(object : GetNewOrder.Callback {
       override fun error(exception: Exception) {
-        //TODO: View error?? tonilopezmr: YES PLIS
+        view.showGetNewOrderError()
       }
 
       override fun orderReceived(order: Order) {
