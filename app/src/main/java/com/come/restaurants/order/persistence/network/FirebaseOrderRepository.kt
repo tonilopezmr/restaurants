@@ -16,17 +16,25 @@ import java.text.SimpleDateFormat
 
 class FirebaseOrderRepository : OrderRepository {
 
-  private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-  private val reference: DatabaseReference
+  companion object {
+    val NEWS = "/news"
+    val SERVED = "/served"
+  }
+
+  private var database: FirebaseDatabase
+  private var reference: DatabaseReference
   private val today: String
 
   init {
     today = SimpleDateFormat("dd-MM-yyyy").format(System.currentTimeMillis())
+    database = FirebaseDatabase.getInstance()
     reference = database.getReference("restaurant/vella/orders/")
   }
 
+  private fun getServedOrdersRef() = reference.child(today + SERVED)
+
   override fun getOrder(id: String, callback: GetOrder.Callback) {
-    reference.child(today).child(id).addListenerForSingleValueEvent(object : ValueEventListener {
+    getServedOrdersRef().child(id).addListenerForSingleValueEvent(object : ValueEventListener {
       override fun onCancelled(databaseError: DatabaseError) {
         callback.error(Exception(databaseError.message))
       }
@@ -43,7 +51,7 @@ class FirebaseOrderRepository : OrderRepository {
   }
 
   override fun getOrders(callback: GetOrders.Callback) {
-    reference.child(today).addListenerForSingleValueEvent(object : ValueEventListener {
+    getServedOrdersRef().addListenerForSingleValueEvent(object : ValueEventListener {
       override fun onCancelled(databaseError: DatabaseError) {
         callback.error(Exception(databaseError.message))
       }
@@ -56,7 +64,7 @@ class FirebaseOrderRepository : OrderRepository {
   }
 
   override fun getNewOrder(callback: GetNewOrder.Callback) {
-    reference.child(today).addChildEventListener(object : ChildEventListener {
+    reference.child(today + NEWS).addChildEventListener(object : ChildEventListener {
       override fun onChildChanged(p0: DataSnapshot?, p1: String?) {
 
       }
@@ -74,7 +82,10 @@ class FirebaseOrderRepository : OrderRepository {
       }
 
       override fun onChildAdded(dataSnapshot: DataSnapshot, child: String?) {
-        callback.orderReceived(dataSnapshot.getValue(Order :: class.java))
+        val order = dataSnapshot.getValue(Order :: class.java)
+        callback.orderReceived(order)
+        getServedOrdersRef().child(order.id).setValue(order)
+        dataSnapshot.ref.removeValue()
       }
 
     })
