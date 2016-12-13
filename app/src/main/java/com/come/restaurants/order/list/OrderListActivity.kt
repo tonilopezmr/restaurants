@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import com.come.restaurants.R
 import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.domain.usecases.GetNewOrder
@@ -67,6 +68,16 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
       presenter.close()
     }
     return true
+  }
+
+  override fun showGetNewOrderError() {
+    Toast.makeText(applicationContext,
+        getString(R.string.error_getting_new_order), Toast.LENGTH_SHORT).show()
+  }
+
+  override fun showGetOrdersError() {
+    Toast.makeText(applicationContext,
+        getString(R.string.error_getting_orders), Toast.LENGTH_SHORT).show()
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
