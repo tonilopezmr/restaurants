@@ -70,7 +70,7 @@ class OrderListPresenter(val getOrders: GetOrders,
       }
 
       override fun error(exception: Exception) {
-        //TODO: View error?? tonilopezmr: YES PLIS
+        view.showGetNewOrderError()
       }
 
     })
