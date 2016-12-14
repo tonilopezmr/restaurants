@@ -23,6 +23,7 @@ import com.come.restaurants.printer.domain.usecases.PrintWelcome
 import com.come.restaurants.printer.service.PrinterFactory
 import com.come.restaurants.printer.service.PrinterService
 import kotlinx.android.synthetic.main.activity_list.*
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.setContentView
 
 class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
@@ -78,7 +79,7 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
 
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
     if (item?.itemId == R.id.action_close) {
-      presenter.close()
+      onBackPressed()
     }
 
     return super.onOptionsItemSelected(item)
@@ -92,6 +93,17 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
   override fun showGetOrdersError() {
     Toast.makeText(applicationContext,
         getString(R.string.error_getting_orders), Toast.LENGTH_SHORT).show()
+  }
+
+  override fun onBackPressed() {
+    alert(getString(R.string.do_you_want_close)) {
+      title(getString(R.string.close_restaurant))
+      yesButton {
+        presenter.close()
+        super.onBackPressed()
+      }
+      noButton { }
+    }.show()
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {

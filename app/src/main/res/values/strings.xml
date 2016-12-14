@@ -4,7 +4,7 @@
     <string name="total">Total:</string>
     <string name="hour">Hour:</string>
     <string name="total_price">Total Price:</string>
-    <string name="fetching_order">Fetching order...</string>
+    <string name="fetching_order">Fetching order…</string>
     <string name="start">Start</string>
     <string name="name">Name</string>
     <string name="code">Code</string>
@@ -27,8 +27,10 @@
     <string name="retry">Retry</string>
     <string name="bluetooth">Bluetooth</string>
     <string name="usb">USB</string>
-    <string name="connect_a_printer_with">Connect a printer with...</string>
+    <string name="connect_a_printer_with">Connect a printer with…</string>
     <string name="close">Close</string>
     <string name="error_getting_new_order">Error occurred while getting new order</string>
     <string name="error_getting_orders">Error occurred while getting orders</string>
+    <string name="do_you_want_close">Do you want close the restaurant?</string>
+    <string name="close_restaurant">Close Restaurant</string>
 </resources>
