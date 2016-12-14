@@ -1,5 +1,7 @@
 package com.come.restaurants.order.list
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -8,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.come.restaurants.R
+import com.come.restaurants.order.detail.OrderDetailActivity
 import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.domain.usecases.GetNewOrder
 import com.come.restaurants.order.domain.usecases.GetOrders
@@ -23,8 +26,16 @@ import kotlinx.android.synthetic.main.activity_list.*
 import org.jetbrains.anko.setContentView
 
 class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
-  private lateinit var adapter: OrderListAdapter
 
+  companion object {
+    fun launch(activity: Activity) {
+      val intent = Intent(activity, OrderListActivity::class.java)
+      intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+      activity.startActivity(intent)
+    }
+  }
+
+  private lateinit var adapter: OrderListAdapter
   private lateinit var presenter: OrderListPresenter
 
   override fun showLoader() {
@@ -53,7 +64,9 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
 
   override fun initUi() {
     emptyCase.text = String.format(getString(R.string.there_are_not), getString(R.string.orders))
-    this.adapter = OrderListAdapter()
+    this.adapter = OrderListAdapter({
+      OrderDetailActivity.launch(this@OrderListActivity, it.id)
+    })
     recyclerView.adapter = this.adapter
     recyclerView.layoutManager = LinearLayoutManager(this)
   }
@@ -67,7 +80,8 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
     if (item?.itemId == R.id.action_close) {
       presenter.close()
     }
-    return true
+
+    return super.onOptionsItemSelected(item)
   }
 
   override fun showGetNewOrderError() {

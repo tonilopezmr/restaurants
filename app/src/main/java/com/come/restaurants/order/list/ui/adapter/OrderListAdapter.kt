@@ -1,6 +1,5 @@
 package com.come.restaurants.order.list.ui.adapter
 
-import android.content.Intent
 import android.support.v7.util.SortedList
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.util.SortedListAdapterCallback
@@ -8,13 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.come.restaurants.R
-import com.come.restaurants.order.detail.OrderDetailActivity
 import com.come.restaurants.order.domain.model.Order
 import kotlinx.android.synthetic.main.order_item.view.*
 import java.text.SimpleDateFormat
 import java.util.Date
 
-class OrderListAdapter() : RecyclerView.Adapter<OrderListAdapter.ListViewHolder>() {
+class OrderListAdapter(private val onItemClick: (Order) -> Unit) : RecyclerView.Adapter<OrderListAdapter.ListViewHolder>() {
   private var orderList: SortedList<Order>
 
   init {
@@ -36,12 +34,10 @@ class OrderListAdapter() : RecyclerView.Adapter<OrderListAdapter.ListViewHolder>
   override fun getItemCount(): Int = orderList.size()
 
   override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-    holder.bindOrder(orderList[position], position)
+    val order = orderList[position]
+    holder.bindOrder(order, position)
     holder.itemView.setOnClickListener { it ->
-      val intent: Intent = Intent(it.context, OrderDetailActivity::class.java)
-      intent.putExtra(OrderDetailActivity.NUMBER, position.toString())
-      intent.putExtra(OrderDetailActivity.ID, orderList[position].id)
-      it.context.startActivity(intent)
+      onItemClick(order)
     }
   }
 

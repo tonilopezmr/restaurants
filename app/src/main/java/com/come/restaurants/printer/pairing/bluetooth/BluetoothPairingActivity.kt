@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.support.v4.app.ActivityCompat
+import android.support.v4.app.NavUtils
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
@@ -27,12 +28,19 @@ import com.come.restaurants.printer.service.bluetooth.BluetoothPrinter
 import com.come.restaurants.printer.service.bluetooth.BluetoothService
 import kotlinx.android.synthetic.main.activity_list.*
 
+
 class BluetoothPairingActivity : AppCompatActivity(), BluetoothPairingPresenter.View {
   private val REQUEST_COARSE_LOCATION_PERMISSIONS = 2000
   private val REQUEST_OPEN_BLUETOOTH = 1000
 
   private lateinit var presenterBluetooth: BluetoothPairingPresenter
   private lateinit var adapter: BluetoothDeviceAdapter
+
+  companion object {
+    fun launch(activity: Activity) {
+      activity.startActivity(Intent(activity, BluetoothPairingActivity::class.java))
+    }
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -49,9 +57,11 @@ class BluetoothPairingActivity : AppCompatActivity(), BluetoothPairingPresenter.
   }
 
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-    if (item?.itemId == R.id.action_retry) {
-      this.presenterBluetooth.doDiscovery()
+    when (item?.itemId) {
+      R.id.action_retry -> this.presenterBluetooth.doDiscovery()
+      android.R.id.home -> NavUtils.navigateUpFromSameTask(this)
     }
+
     return true
   }
 
@@ -137,6 +147,8 @@ class BluetoothPairingActivity : AppCompatActivity(), BluetoothPairingPresenter.
   }
 
   override fun initUi() {
+    actionBar?.setDisplayHomeAsUpEnabled(true)
+
     emptyCase.text = String.format(getString(R.string.there_are_not), getString(R.string.printers))
     this.adapter = BluetoothDeviceAdapter({
       connect(it)
@@ -173,7 +185,7 @@ class BluetoothPairingActivity : AppCompatActivity(), BluetoothPairingPresenter.
                 Toast.makeText(this@BluetoothPairingActivity,
                     "Device ${device.name} was paired correctly", Toast.LENGTH_SHORT)
                     .show()
-                this@BluetoothPairingActivity.startActivity(Intent(this@BluetoothPairingActivity, OrderListActivity::class.java))
+                OrderListActivity.launch(this@BluetoothPairingActivity)
               }
               BluetoothService.STATE_CONNECTING -> {
 

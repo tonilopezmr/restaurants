@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">COME para restaurantes</string>
+    <string name="app_name">COME restaurantes</string>
     <string name="number">Numero:</string>
     <string name="total">Total:</string>
     <string name="hour">Hora:</string>
