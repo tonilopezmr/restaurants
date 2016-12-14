@@ -22,6 +22,7 @@ import android.view.View
 import android.widget.Toast
 import com.come.restaurants.R
 import com.come.restaurants.order.list.OrderListActivity
+import com.come.restaurants.printer.pairing.PrinterDisconnectedReceiver
 import com.come.restaurants.printer.pairing.bluetooth.adapter.BluetoothDeviceAdapter
 import com.come.restaurants.printer.service.PrinterException
 import com.come.restaurants.printer.service.bluetooth.BluetoothPrinter
@@ -147,8 +148,6 @@ class BluetoothPairingActivity : AppCompatActivity(), BluetoothPairingPresenter.
   }
 
   override fun initUi() {
-    actionBar?.setDisplayHomeAsUpEnabled(true)
-
     emptyCase.text = String.format(getString(R.string.there_are_not), getString(R.string.printers))
     this.adapter = BluetoothDeviceAdapter({
       connect(it)
@@ -185,6 +184,9 @@ class BluetoothPairingActivity : AppCompatActivity(), BluetoothPairingPresenter.
                 Toast.makeText(this@BluetoothPairingActivity,
                     "Device ${device.name} was paired correctly", Toast.LENGTH_SHORT)
                     .show()
+                ASDADA
+                PrinterDisconnectedReceiver.initReceiver()
+                this@BluetoothPairingActivity.startActivity(Intent(this@BluetoothPairingActivity, OrderListActivity::class.java))
                 OrderListActivity.launch(this@BluetoothPairingActivity)
               }
               BluetoothService.STATE_CONNECTING -> {

@@ -31,7 +31,7 @@
         </activity>
 
         <receiver
-            android:name=".printer.pairing.bluetooth.PrinterDisconnectedReceiver"
+            android:name=".printer.pairing.PrinterDisconnectedReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

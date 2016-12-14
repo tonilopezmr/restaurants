@@ -1,4 +1,4 @@
-package com.come.restaurants.printer.pairing.bluetooth;
+package com.come.restaurants.printer.pairing;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -8,7 +8,6 @@ import android.hardware.usb.UsbManager;
 import android.widget.Toast;
 
 import com.come.restaurants.R;
-import com.come.restaurants.printer.pairing.ChoosePairingActivity;
 
 public class PrinterDisconnectedReceiver extends BroadcastReceiver {
 
