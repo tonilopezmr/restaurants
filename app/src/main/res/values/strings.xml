@@ -31,5 +31,5 @@
     <string name="close">Close</string>
     <string name="error_getting_new_order">Error occurred while getting new order</string>
     <string name="error_getting_orders">Error occurred while getting orders</string>
-    <string name="error_bluetooth_disconnected">The printer has disconnected!</string>
+    <string name="error_printer_disconnected">The printer has disconnected!</string>
 </resources>

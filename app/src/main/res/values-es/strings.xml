@@ -30,6 +30,6 @@
     <string name="close">Cerrar</string>
     <string name="error_getting_new_order">Error al descargar un nuevo pedido</string>
     <string name="error_getting_orders">Error al descargar los pedidos</string>
-    <string name="error_bluetooth_disconnected">Se ha desconectado la impresora!</string>
+    <string name="error_printer_disconnected">Se ha desconectado la impresora!</string>
 
 </resources>
