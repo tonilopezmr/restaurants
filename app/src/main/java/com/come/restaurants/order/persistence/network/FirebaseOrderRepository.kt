@@ -24,6 +24,7 @@ class FirebaseOrderRepository : OrderRepository {
   private var database: FirebaseDatabase
   private var reference: DatabaseReference
   private val today: String
+  lateinit private var newOrderListener: ChildEventListener
 
   init {
     today = SimpleDateFormat("dd-MM-yyyy").format(System.currentTimeMillis())
@@ -32,6 +33,8 @@ class FirebaseOrderRepository : OrderRepository {
   }
 
   private fun getServedOrdersRef() = reference.child(today + SERVED)
+
+  private fun getNewsOrderRef() = reference.child(today + NEWS)
 
   override fun getOrder(id: String, callback: GetOrder.Callback) {
     getServedOrdersRef().child(id).addListenerForSingleValueEvent(object : ValueEventListener {
@@ -64,7 +67,7 @@ class FirebaseOrderRepository : OrderRepository {
   }
 
   override fun getNewOrder(callback: GetNewOrder.Callback) {
-    reference.child(today + NEWS).addChildEventListener(object : ChildEventListener {
+    this.newOrderListener = getNewsOrderRef().addChildEventListener(object : ChildEventListener {
       override fun onChildChanged(p0: DataSnapshot?, p1: String?) {
 
       }
@@ -89,6 +92,10 @@ class FirebaseOrderRepository : OrderRepository {
       }
 
     })
+  }
+
+  fun removeListeners(){
+    getNewsOrderRef().removeEventListener(newOrderListener)
   }
 
 }

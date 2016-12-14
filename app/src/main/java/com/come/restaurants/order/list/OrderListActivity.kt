@@ -25,6 +25,7 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
   private lateinit var adapter: OrderListAdapter
 
   private lateinit var presenter: OrderListPresenter
+  private lateinit var repository: FirebaseOrderRepository
 
   override fun showLoader() {
     progressBar.visibility = View.VISIBLE
@@ -69,11 +70,16 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
     return true
   }
 
+  override fun finish() {
+    repository.removeListeners()
+    super.finish()
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     OrderListUI().setContentView(this)
 
-    val repository = FirebaseOrderRepository()
+    repository = FirebaseOrderRepository()
     val getOrders = GetOrders(repository)
     val printer = PrinterFactory.getPrinter()
     val printerJob = PrinterService(printer)
