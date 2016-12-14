@@ -34,4 +34,5 @@
     <string name="error_bluetooth_disconnected">The printer has disconnected!</string>
     <string name="do_you_want_close">Do you want close the restaurant?</string>
     <string name="close_restaurant">Close Restaurant</string>
+    <string name="error_printer_disconnected">The printer has disconnected!</string>
 </resources>
