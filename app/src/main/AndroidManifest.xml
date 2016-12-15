@@ -21,11 +21,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".order.list.OrderListActivity"/>
-        <activity android:name=".order.detail.OrderDetailActivity"/>
-        <activity android:name=".printer.pairing.bluetooth.BluetoothPairingActivity">
-        </activity>
-        <activity android:name=".printer.pairing.usb.USBPairingActivity">
-        </activity>
+        <activity android:name=".order.detail.OrderDetailActivity"
+                  android:parentActivityName=".order.list.OrderListActivity"/>
+        <activity android:name=".printer.pairing.bluetooth.BluetoothPairingActivity"
+                  android:parentActivityName=".printer.pairing.ChoosePairingActivity"/>
+        <activity android:name=".printer.pairing.usb.USBPairingActivity"
+                  android:parentActivityName=".printer.pairing.ChoosePairingActivity"/>
         <activity android:name=".printer.pairing.ChoosePairingActivity">
         </activity>
     </application>

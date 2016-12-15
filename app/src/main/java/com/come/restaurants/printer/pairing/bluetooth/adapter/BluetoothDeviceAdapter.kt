@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.printer_list_item.view.*
 import java.util.ArrayList
 
 
-class BluetoothDeviceAdapter(private val onclick: (BluetoothDevice) -> Unit)
+class BluetoothDeviceAdapter(private val onItemClick: (BluetoothDevice) -> Unit)
   : RecyclerView.Adapter<BluetoothDeviceAdapter.ListViewHolder>() {
 
   val printerList: MutableList<BluetoothDevice> = ArrayList()
@@ -30,7 +30,7 @@ class BluetoothDeviceAdapter(private val onclick: (BluetoothDevice) -> Unit)
     val device = printerList[position]
     holder.bindPrinter(device)
     holder.itemView.setOnClickListener { it ->
-      onclick(device)
+      onItemClick(device)
     }
   }
 

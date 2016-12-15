@@ -8,7 +8,7 @@ import com.come.restaurants.R
 import com.come.restaurants.printer.pairing.bluetooth.adapter.BluetoothDeviceAdapter
 import kotlinx.android.synthetic.main.printer_list_item.view.*
 
-class USBDeviceAdapter(private val onclick: (UsbDevice) -> Unit)
+class USBDeviceAdapter(private val onItemClick: (UsbDevice) -> Unit)
   : RecyclerView.Adapter<BluetoothDeviceAdapter.ListViewHolder>() {
 
   private val list = mutableListOf<UsbDevice>()
@@ -23,7 +23,7 @@ class USBDeviceAdapter(private val onclick: (UsbDevice) -> Unit)
   override fun onBindViewHolder(holder: BluetoothDeviceAdapter.ListViewHolder, position: Int) {
     val device = list[position]
     holder.itemView.printerNameText.text = String.format("%d %s", device.deviceId, device.deviceName)
-    holder.itemView.setOnClickListener { onclick(device) }
+    holder.itemView.setOnClickListener { onItemClick(device) }
   }
 
   override fun getItemCount(): Int {

@@ -38,8 +38,8 @@ class LoginRestaurantActivity : AppCompatActivity(), View {
     this.presenter.checkSignIn(requestCode, resultCode, data)
   }
 
-  override fun moveToPairingActivity() {
-    startActivity(Intent(this, ChoosePairingActivity::class.java))
+  override fun moveToChoosePairing() {
+    ChoosePairingActivity.launch(this)
   }
 
   override fun showConnectionError() {
@@ -68,7 +68,7 @@ class LoginRestaurantActivity : AppCompatActivity(), View {
     //this.presenter.signIn(
 //    nameEditText.text.toString(),
 //    textPassword.text.toString())
-    openButton.setOnClickListener { moveToPairingActivity() }
+    openButton.setOnClickListener { moveToChoosePairing() }
 
     openGoogleButton.setOnClickListener { this.presenter.signInGoogle() }
   }

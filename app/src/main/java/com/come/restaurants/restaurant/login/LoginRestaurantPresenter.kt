@@ -30,7 +30,7 @@ class LoginRestaurantPresenter(private val login: Login) : MVP.Presenter<LoginRe
     fun showNameError()
     fun showCodeError()
     fun showNameAndCodeError()
-    fun moveToPairingActivity()
+    fun moveToChoosePairing()
     fun launchSignIn(intent: Intent)
   }
 
@@ -90,7 +90,7 @@ class LoginRestaurantPresenter(private val login: Login) : MVP.Presenter<LoginRe
   }
 
   fun correctSingIn(restaurant: Restaurant) {
-    this.view.moveToPairingActivity()
+    this.view.moveToChoosePairing()
   }
 
   fun errorSingingIn(exception: Exception) {
@@ -127,7 +127,7 @@ class LoginRestaurantPresenter(private val login: Login) : MVP.Presenter<LoginRe
         .addOnCompleteListener { task ->
           if (task.isSuccessful) {
             Log.d(TAG, "signInWithCredential:onComplete:${task.isSuccessful}")
-            view.moveToPairingActivity()
+            view.moveToChoosePairing()
           } else {
             Log.d(TAG, "signInWithCredential", task.exception)
             view.showLoginError()
