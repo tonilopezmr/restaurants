@@ -27,7 +27,6 @@ class OrderDetailActivityShould {
   @Test
   fun show_correct_order_number() {
     val intent: Intent = Intent(InstrumentationRegistry.getContext(), OrderDetailActivity::class.java)
-    intent.putExtra(OrderDetailActivity.NUMBER, "1")
     intent.putExtra(OrderDetailActivity.ID, "1")
     activity().launchActivity(intent)
 
@@ -40,7 +39,6 @@ class OrderDetailActivityShould {
   @Test
   fun show_correct_order_detail() {
     val intent: Intent = Intent(InstrumentationRegistry.getContext(), OrderDetailActivity::class.java)
-    intent.putExtra(OrderDetailActivity.NUMBER, "1")
     intent.putExtra(OrderDetailActivity.ID, "1")
     activity().launchActivity(intent)
 
@@ -52,7 +50,6 @@ class OrderDetailActivityShould {
   @Test
   fun show_correct_total_price() {
     val intent: Intent = Intent(InstrumentationRegistry.getContext(), OrderDetailActivity::class.java)
-    intent.putExtra(OrderDetailActivity.NUMBER, "1")
     intent.putExtra(OrderDetailActivity.ID, "1")
     activity().launchActivity(intent)
 
