@@ -12,19 +12,32 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.text.SimpleDateFormat
 
 class FirebaseOrderRepository : OrderRepository {
-  private var database: FirebaseDatabase
 
-  private var reference: DatabaseReference
-
-  init {
-    database = FirebaseDatabase.getInstance()
-    reference = database.getReference("restaurant/vella")
+  private companion object {
+    val NEWS = "/news"
+    val SERVED = "/served"
   }
 
+  private var database: FirebaseDatabase
+  private var reference: DatabaseReference
+  private val today: String
+  lateinit private var newOrderListener: ChildEventListener
+
+  init {
+    today = SimpleDateFormat("dd-MM-yyyy").format(System.currentTimeMillis())
+    database = FirebaseDatabase.getInstance()
+    reference = database.getReference("restaurant/vella/orders/")
+  }
+
+  private fun getServedOrdersRef() = reference.child(today + SERVED)
+
+  private fun getNewsOrderRef() = reference.child(today + NEWS)
+
   override fun getOrder(id: String, callback: GetOrder.Callback) {
-    reference.child("orders").child(id).addListenerForSingleValueEvent(object : ValueEventListener {
+    getServedOrdersRef().child(id).addListenerForSingleValueEvent(object : ValueEventListener {
       override fun onCancelled(databaseError: DatabaseError) {
         callback.error(Exception(databaseError.message))
       }
@@ -37,12 +50,11 @@ class FirebaseOrderRepository : OrderRepository {
   }
 
   override fun orderPrinted(order: Order, callback: OrderPrinted.Callback) {
-    reference.child("orders").child(order.id).removeValue()
-    reference.child("history").child(order.id).setValue(order)
+    //TODO implement
   }
 
   override fun getOrders(callback: GetOrders.Callback) {
-    reference.child("orders").addListenerForSingleValueEvent(object : ValueEventListener {
+    getServedOrdersRef().addListenerForSingleValueEvent(object : ValueEventListener {
       override fun onCancelled(databaseError: DatabaseError) {
         callback.error(Exception(databaseError.message))
       }
@@ -55,7 +67,7 @@ class FirebaseOrderRepository : OrderRepository {
   }
 
   override fun getNewOrder(callback: GetNewOrder.Callback) {
-    reference.child("orders").addChildEventListener(object : ChildEventListener {
+    this.newOrderListener = getNewsOrderRef().addChildEventListener(object : ChildEventListener {
       override fun onChildChanged(p0: DataSnapshot?, p1: String?) {
 
       }
@@ -73,10 +85,17 @@ class FirebaseOrderRepository : OrderRepository {
       }
 
       override fun onChildAdded(dataSnapshot: DataSnapshot, child: String?) {
-        callback.orderReceived(dataSnapshot.getValue(Order :: class.java))
+        val order = dataSnapshot.getValue(Order :: class.java)
+        callback.orderReceived(order)
+        getServedOrdersRef().child(order.id).setValue(order)
+        dataSnapshot.ref.removeValue()
       }
 
     })
+  }
+
+  fun removeListeners(){
+    getNewsOrderRef().removeEventListener(newOrderListener)
   }
 
 }

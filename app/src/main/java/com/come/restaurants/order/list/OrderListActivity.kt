@@ -38,6 +38,7 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
 
   private lateinit var adapter: OrderListAdapter
   private lateinit var presenter: OrderListPresenter
+  private lateinit var repository: FirebaseOrderRepository
 
   override fun showLoader() {
     progressBar.visibility = View.VISIBLE
@@ -63,6 +64,16 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
     progressBar.visibility = View.GONE
   }
 
+  override fun showGetNewOrderError() {
+    Toast.makeText(applicationContext,
+        getString(R.string.error_getting_new_order), Toast.LENGTH_SHORT).show()
+  }
+
+  override fun showGetOrdersError() {
+    Toast.makeText(applicationContext,
+        getString(R.string.error_getting_orders), Toast.LENGTH_SHORT).show()
+  }
+
   override fun initUi() {
     emptyCase.text = String.format(getString(R.string.there_are_not), getString(R.string.orders))
     this.adapter = OrderListAdapter({
@@ -85,14 +96,9 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
     return super.onOptionsItemSelected(item)
   }
 
-  override fun showGetNewOrderError() {
-    Toast.makeText(applicationContext,
-        getString(R.string.error_getting_new_order), Toast.LENGTH_SHORT).show()
-  }
-
-  override fun showGetOrdersError() {
-    Toast.makeText(applicationContext,
-        getString(R.string.error_getting_orders), Toast.LENGTH_SHORT).show()
+  override fun finish() {
+    repository.removeListeners()
+    super.finish()
   }
 
   override fun onBackPressed() {
@@ -110,7 +116,7 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
     super.onCreate(savedInstanceState)
     OrderListUI().setContentView(this)
 
-    val repository = FirebaseOrderRepository()
+    repository = FirebaseOrderRepository()
     val getOrders = GetOrders(repository)
     val printer = PrinterFactory.getPrinter()
     val printerJob = PrinterService(printer)

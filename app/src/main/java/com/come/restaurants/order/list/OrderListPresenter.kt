@@ -1,5 +1,6 @@
 package com.come.restaurants.order.list
 
+import com.come.restaurants.BuildConfig
 import com.come.restaurants.base.MVP
 import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.domain.usecases.GetNewOrder
@@ -34,7 +35,9 @@ class OrderListPresenter(val getOrders: GetOrders,
   }
 
   private fun printWelcome() {
-    printWelcome.print()
+    if(!BuildConfig.DEBUG) {
+      printWelcome.print()
+    }
   }
 
   private fun requestNewOrder() {
