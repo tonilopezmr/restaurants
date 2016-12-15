@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat
 
 class FirebaseOrderRepository : OrderRepository {
 
-  companion object {
+  private companion object {
     val NEWS = "/news"
     val SERVED = "/served"
   }
