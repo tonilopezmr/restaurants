@@ -25,8 +25,8 @@
     <string name="order_printed">Order printed</string>
     <string name="invalid_name_and_code">Invalid Name and Code</string>
     <string name="retry">Retry</string>
-    <string name="bluetooth">Bluetooth</string>
-    <string name="usb">USB</string>
+    <string translatable="false" name="bluetooth">Bluetooth</string>
+    <string translatable="false" name="usb">USB</string>
     <string name="connect_a_printer_with">Connect a printer with…</string>
     <string name="close">Close</string>
     <string name="error_getting_new_order">Error occurred while getting new order</string>
