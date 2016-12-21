@@ -4,7 +4,6 @@ buildscript {
         maven { url "https://jitpack.io" }
     }
     dependencies {
-        classpath 'com.stanfy.spoon:spoon-gradle-plugin:1.2.2'
     }
 }
 
@@ -12,17 +11,16 @@ buildscript {
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'spoon'
 
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion compile_version
     buildToolsVersion build_version
 
     defaultConfig {
         applicationId "com.come.restaurants"
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdkVersion min_sdk_version
+        targetSdkVersion compile_version
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -39,10 +37,6 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
-}
-
-spoon {
-    debug = true
 }
 
 configurations.all {
@@ -77,7 +71,6 @@ dependencies {
         exclude module: 'support-v4'
         exclude group: 'com.android.support'
     }
-    androidTestCompile 'com.squareup.spoon:spoon-client:1.6.4'
 
     //test
     testCompile 'junit:junit:4.12'
@@ -88,7 +81,6 @@ dependencies {
     compile "com.android.support:design:$build_version"
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.google.guava:guava:20.0'
-    compile 'com.squareup.picasso:picasso:2.5.2'
     compile "com.android.support:recyclerview-v7:$build_version "
     compile "com.android.support:cardview-v7:$build_version"
 
