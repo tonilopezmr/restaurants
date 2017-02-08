@@ -8,8 +8,8 @@ import com.come.restaurants.R
 import com.come.restaurants.open.restaurant.LoginRestaurantPresenter
 import com.come.restaurants.open.restaurant.LoginRestaurantPresenter.View
 import com.come.restaurants.printer.pairing.ChoosePairingActivity
-import com.come.restaurants.restaurant.domain.usecases.Login
 import com.come.restaurants.restaurant.login.ui.LoginRestaurantUI
+import com.come.restaurants.restaurant.login.usecases.Login
 import com.come.restaurants.restaurant.persistence.stubs.StubRestaurantRepository
 import kotlinx.android.synthetic.main.activity_login_restaurant.*
 import org.jetbrains.anko.setContentView

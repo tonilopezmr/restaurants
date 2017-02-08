@@ -1,6 +1,6 @@
 package com.come.restaurants.restaurant.domain
 
-import com.come.restaurants.restaurant.domain.usecases.Login
+import com.come.restaurants.restaurant.login.usecases.Login
 
 
 interface RestaurantRepository {

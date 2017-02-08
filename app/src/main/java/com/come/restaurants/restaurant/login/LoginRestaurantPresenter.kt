@@ -7,7 +7,7 @@ import android.util.Log
 import com.come.restaurants.R
 import com.come.restaurants.base.MVP
 import com.come.restaurants.restaurant.domain.model.Restaurant
-import com.come.restaurants.restaurant.domain.usecases.Login
+import com.come.restaurants.restaurant.login.usecases.Login
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions

@@ -3,7 +3,7 @@ package com.come.restaurants.restaurant.persistence.network
 import com.come.restaurants.menu.Menu
 import com.come.restaurants.restaurant.domain.RestaurantRepository
 import com.come.restaurants.restaurant.domain.model.Restaurant
-import com.come.restaurants.restaurant.domain.usecases.Login
+import com.come.restaurants.restaurant.login.usecases.Login
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference

@@ -1,4 +1,4 @@
-package com.come.restaurants.restaurant.domain.usecases
+package com.come.restaurants.restaurant.login.usecases
 
 import com.come.restaurants.base.BaseCallback
 import com.come.restaurants.restaurant.domain.RestaurantRepository
