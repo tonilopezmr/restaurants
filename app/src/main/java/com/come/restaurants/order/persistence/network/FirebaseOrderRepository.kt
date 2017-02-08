@@ -94,7 +94,7 @@ class FirebaseOrderRepository : OrderRepository {
     })
   }
 
-  fun removeListeners(){
+  override fun removeListeners(){
     getNewsOrderRef().removeEventListener(newOrderListener)
   }
 
