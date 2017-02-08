@@ -3,10 +3,10 @@ apply plugin: "kotlin"
 
 buildscript {
 
-    ext.kotlin_version = '1.0.5-2'
+    ext.kotlin_version = '1.0.6'
     ext.build_version = '25.0.1'
     ext.compile_version = 25
-    ext.min_sdk_version = 15
+    ext.min_sdk_version = 16
 
     repositories {
         mavenCentral()

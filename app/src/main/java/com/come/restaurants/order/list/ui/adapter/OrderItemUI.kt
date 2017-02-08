@@ -43,11 +43,11 @@ class OrderItemUI : AnkoComponent<ViewGroup> {
 
               textView {
                 id = R.id.orderNumberText
-                setTextAppearance(R.style.TextAppearance_AppCompat_Headline)
+                setTextAppearance(this.context, R.style.TextAppearance_AppCompat_Headline)
               }.lparams(width = wrapContent, height = matchParent)
               textView {
                 id = R.id.orderHourText
-                setTextAppearance(R.style.TextAppearance_AppCompat_Headline)
+                setTextAppearance(this.context, R.style.TextAppearance_AppCompat_Headline)
                 gravity = Gravity.END
               }.lparams(width = matchParent, height = matchParent)
 
