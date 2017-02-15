@@ -184,9 +184,7 @@ class BluetoothPairingActivity : AppCompatActivity(), BluetoothPairingPresenter.
                 Toast.makeText(this@BluetoothPairingActivity,
                     "Device ${device.name} was paired correctly", Toast.LENGTH_SHORT)
                     .show()
-                ASDADA
                 PrinterDisconnectedReceiver.initReceiver()
-                this@BluetoothPairingActivity.startActivity(Intent(this@BluetoothPairingActivity, OrderListActivity::class.java))
                 OrderListActivity.launch(this@BluetoothPairingActivity)
               }
               BluetoothService.STATE_CONNECTING -> {
