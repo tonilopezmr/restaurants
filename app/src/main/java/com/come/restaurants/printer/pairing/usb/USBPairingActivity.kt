@@ -39,11 +39,7 @@ class USBPairingActivity : AppCompatActivity() {
         when (msg.what) {
           USBService.USB_CONNECTED -> {
             PrinterDisconnectedReceiver.initReceiver()
-<<<<<<< HEAD
             OrderListActivity.launch(this@USBPairingActivity)
-=======
-            this@USBPairingActivity.startActivity(Intent(this@USBPairingActivity, OrderListActivity::class.java))
->>>>>>> aeb1184dac3bb13fd094108ea96dc52d2dc79e9b
           }
         }
       }
