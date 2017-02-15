@@ -185,7 +185,11 @@ class BluetoothPairingActivity : AppCompatActivity(), BluetoothPairingPresenter.
                     "Device ${device.name} was paired correctly", Toast.LENGTH_SHORT)
                     .show()
                 PrinterDisconnectedReceiver.initReceiver()
+<<<<<<< HEAD
                 OrderListActivity.launch(this@BluetoothPairingActivity)
+=======
+                this@BluetoothPairingActivity.startActivity(Intent(this@BluetoothPairingActivity, OrderListActivity::class.java))
+>>>>>>> aeb1184dac3bb13fd094108ea96dc52d2dc79e9b
               }
               BluetoothService.STATE_CONNECTING -> {
 
