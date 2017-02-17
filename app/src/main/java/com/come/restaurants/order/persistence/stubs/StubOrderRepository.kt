@@ -12,6 +12,10 @@ import java.util.Date
 
 class StubOrderRepository : OrderRepository {
 
+  override fun removeListeners() {
+
+  }
+
   override fun getNewOrder(callback: GetNewOrder.Callback) {
     callback.orderReceived(orderList[orderList.size - 1])
   }

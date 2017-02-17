@@ -11,4 +11,5 @@ interface OrderRepository {
   fun getOrders(callback: GetOrders.Callback)
   fun getOrder(id: String, callback: GetOrder.Callback)
   fun orderPrinted(order: Order, callback: OrderPrinted.Callback)
+  fun removeListeners()
 }
