@@ -4,7 +4,7 @@ import com.come.restaurants.base.BaseCallback
 import com.come.restaurants.order.domain.OrderRepository
 import com.come.restaurants.order.domain.model.Order
 
-class GetNewOrder(val repository: OrderRepository) {
+class GetNewOrder(private val repository: OrderRepository) {
   interface Callback : BaseCallback {
     fun orderReceived(order: Order)
   }
