@@ -29,7 +29,7 @@ public class PrinterDisconnectedReceiver extends BroadcastReceiver {
     new AlertDialog.Builder(context)
         .setTitle(R.string.error_printer_disconnected)
         .setMessage(R.string.prompt_reconnect_printer)
-        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
             Intent startPrinterPairing = new Intent(context, ChoosePairingActivity.class);
