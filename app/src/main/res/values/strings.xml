@@ -35,4 +35,6 @@
     <string name="do_you_want_close">Do you want close the restaurant?</string>
     <string name="close_restaurant">Close Restaurant</string>
     <string name="error_printer_disconnected">The printer has disconnected!</string>
+    <string name="error_printer_disconnected">Printer</string>
+    <string name="prompt_reconnect_printer">Do you want to reconnect the printer?</string>
 </resources>
