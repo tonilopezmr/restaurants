@@ -25,15 +25,14 @@
     <string name="order_printed">Order printed</string>
     <string name="invalid_name_and_code">Invalid Name and Code</string>
     <string name="retry">Retry</string>
-    <string name="bluetooth">Bluetooth</string>
-    <string name="usb">USB</string>
+    <string name="bluetooth" translatable="false">Bluetooth</string>
+    <string name="usb" translatable="false">USB</string>
     <string name="connect_a_printer_with">Connect a printer with...</string>
     <string name="close">Close</string>
     <string name="error_getting_new_order">Error occurred while getting new order</string>
     <string name="error_getting_orders">Error occurred while getting orders</string>
-    <string name="error_bluetooth_disconnected">The printer has disconnected!</string>
+    <string name="error_printer_disconnected">The printer has disconnected!</string>
     <string name="do_you_want_close">Do you want close the restaurant?</string>
     <string name="close_restaurant">Close Restaurant</string>
-    <string name="error_printer_disconnected">The printer has disconnected!</string>
     <string name="prompt_reconnect_printer">Do you want to reconnect the printer?</string>
 </resources>
