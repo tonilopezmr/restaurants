@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">COME restaurantes</string>
+    <string name="number">Numero:</string>
+    <string name="total">Total:</string>
+    <string name="hour">Hora:</string>
+    <string name="total_price">Precio Total:</string>
+    <string name="fetching_order">Cargando pedido…</string>
+    <string name="start">Start</string>
+    <string name="name">Nombre</string>
+    <string name="code">Código</string>
+    <string name="connection_error">Error de conexión</string>
+    <string name="invalid_name">Nombre inválido</string>
+    <string name="invalid_code">Código inválido</string>
+    <string name="print">Imprimir</string>
+    <string name="login_error">Fallo al autenticar</string>
+    <string name="scanning_bt">Buscando dispositivos…</string>
+    <string name="cancel">Cancelar</string>
+    <string name="permission_failure">Permiso no concedido</string>
+    <string name="unknown_device">Dispositivo desconocido</string>
+    <string name="there_are_not">No hay %s</string>
+    <string name="orders">pedidos</string>
+    <string name="printers">impresoras</string>
+    <string name="error_fetching_order_details">Error al descargar los detalles del pedido</string>
+    <string name="error_printing_order_details">Error al imprimir los detalles del pedido</string>
+    <string name="order_printed">Pedido impreso</string>
+    <string name="invalid_name_and_code">Nombre y codigos invalidos</string>
+    <string name="retry">Reintentar</string>
+    <string name="connect_a_printer_with">Conectar la impresora con…</string>
+    <string name="close">Cerrar</string>
+    <string name="error_getting_new_order">Error al descargar un nuevo pedido</string>
+    <string name="error_getting_orders">Error al descargar los pedidos</string>
+    <string name="do_you_want_close">¿Quieres cerrar el restaurante?</string>
+    <string name="close_restaurant">Cerrar Restaurante</string>
+</resources>

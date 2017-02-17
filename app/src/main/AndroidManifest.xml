@@ -2,18 +2,32 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.come.restaurants">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
     <application
-            android:allowBackup="true"
+            android:allowBackup="false"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".open.restaurant.ui.LoginRestaurantActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".order.list.OrderListActivity"/>
+        <activity android:name=".order.detail.OrderDetailActivity"
+                  android:parentActivityName=".order.list.OrderListActivity"/>
+        <activity android:name=".printer.pairing.bluetooth.BluetoothPairingActivity"
+                  android:parentActivityName=".printer.pairing.ChoosePairingActivity"/>
+        <activity android:name=".printer.pairing.usb.USBPairingActivity"
+                  android:parentActivityName=".printer.pairing.ChoosePairingActivity"/>
+        <activity android:name=".printer.pairing.ChoosePairingActivity">
         </activity>
     </application>
 

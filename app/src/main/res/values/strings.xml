@@ -1,3 +1,36 @@
 <resources>
-    <string name="app_name">restaurants</string>
+    <string name="app_name">COME restaurants</string>
+    <string name="number">Number:</string>
+    <string name="total">Total:</string>
+    <string name="hour">Hour:</string>
+    <string name="total_price">Total Price:</string>
+    <string name="fetching_order">Fetching order…</string>
+    <string name="start">Start</string>
+    <string name="name">Name</string>
+    <string name="code">Code</string>
+    <string name="connection_error">Connection error</string>
+    <string name="invalid_name">Invalid name</string>
+    <string name="invalid_code">Invalid Code</string>
+    <string name="login_error">Authentication failed</string>
+    <string name="print">Print</string>
+    <string name="scanning_bt">Scaning&#8230;</string>
+    <string name="cancel">Cancel</string>
+    <string name="permission_failure">Permission not granted</string>
+    <string name="unknown_device">Unknown device</string>
+    <string name="there_are_not">There aren\'t %s right now</string>
+    <string name="orders">orders</string>
+    <string name="printers">printers</string>
+    <string name="error_fetching_order_details">Error occurred while fetching order details</string>
+    <string name="error_printing_order_details">Error occurred while printing order details</string>
+    <string name="order_printed">Order printed</string>
+    <string name="invalid_name_and_code">Invalid Name and Code</string>
+    <string name="retry">Retry</string>
+    <string translatable="false" name="bluetooth">Bluetooth</string>
+    <string translatable="false" name="usb">USB</string>
+    <string name="connect_a_printer_with">Connect a printer with…</string>
+    <string name="close">Close</string>
+    <string name="error_getting_new_order">Error occurred while getting new order</string>
+    <string name="error_getting_orders">Error occurred while getting orders</string>
+    <string name="do_you_want_close">Do you want close the restaurant?</string>
+    <string name="close_restaurant">Close Restaurant</string>
 </resources>

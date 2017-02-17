@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "604282301293",
+    "firebase_url": "https://come-ac046.firebaseio.com",
+    "project_id": "come-ac046",
+    "storage_bucket": "come-ac046.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:604282301293:android:500d2637bea86e07",
+        "android_client_info": {
+          "package_name": "com.come.restaurants"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "604282301293-u8n3mo9v60nh71sb3v4g7devpskk89md.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBPP9SzvX5gXX4aQ5LRTPwt4_RaikmMI4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
