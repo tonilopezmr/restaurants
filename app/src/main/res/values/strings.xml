@@ -13,7 +13,7 @@
     <string name="invalid_code">Invalid Code</string>
     <string name="login_error">Authentication failed</string>
     <string name="print">Print</string>
-    <string name="scanning_bt">Scaning...</string>
+    <string name="scanning_bt">Scanning...</string>
     <string name="cancel">Cancel</string>
     <string name="permission_failure">Permission not granted</string>
     <string name="unknown_device">Unknown device</string>
@@ -35,6 +35,5 @@
     <string name="do_you_want_close">Do you want close the restaurant?</string>
     <string name="close_restaurant">Close Restaurant</string>
     <string name="error_printer_disconnected">The printer has disconnected!</string>
-    <string name="error_printer_disconnected">Printer</string>
     <string name="prompt_reconnect_printer">Do you want to reconnect the printer?</string>
 </resources>

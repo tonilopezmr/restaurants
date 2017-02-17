@@ -33,6 +33,5 @@
     <string name="error_printer_disconnected">¡Se ha desconectado la impresora!</string>
     <string name="do_you_want_close">¿Quieres cerrar el restaurante?</string>
     <string name="close_restaurant">Cerrar Restaurante</string>
-    <string name="error_bluetooth_disconnected"></string>
     <string name="prompt_reconnect_printer">¿Quieres reconectar la impresora?</string>
 </resources>
