@@ -27,7 +27,7 @@ class OrderDetailUI : AnkoComponent<OrderDetailActivity> {
             textView {
               id = R.id.orderNumberTextView
               gravity = Gravity.CENTER
-              setTextAppearance(R.style.TextAppearance_AppCompat_Headline)
+              setTextAppearance(this.context, R.style.TextAppearance_AppCompat_Headline)
             }
 
             view {
@@ -57,12 +57,12 @@ class OrderDetailUI : AnkoComponent<OrderDetailActivity> {
             linearLayout {
               padding = 16
               textView {
-                setTextAppearance(R.style.TextAppearance_AppCompat_Headline)
+                setTextAppearance(this.context, R.style.TextAppearance_AppCompat_Headline)
                 text = "Total:"
               }
 
               textView {
-                setTextAppearance(R.style.TextAppearance_AppCompat_Headline)
+                setTextAppearance(this.context, R.style.TextAppearance_AppCompat_Headline)
                 id = R.id.totalPriceTextView
                 gravity = Gravity.END
               }.lparams(width = matchParent, height = wrapContent)

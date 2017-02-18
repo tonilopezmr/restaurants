@@ -30,10 +30,7 @@ class OrderDetailActivityShould {
     intent.putExtra(OrderDetailActivity.ID, "1")
     activity().launchActivity(intent)
 
-    val resources = InstrumentationRegistry.getTargetContext().resources
-    val number = resources.getString(R.string.number)
-
-    onView(withId(R.id.orderNumberTextView)).check(matches(withText(number + " 1")))
+    onView(withId(R.id.orderNumberTextView)).check(matches(withText("234d")))
   }
 
   @Test
