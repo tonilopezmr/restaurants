@@ -6,15 +6,10 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.Toast
+import com.come.restaurants.DI.DependencyInjector
 import com.come.restaurants.R
 import com.come.restaurants.order.detail.ui.OrderDetailUI
 import com.come.restaurants.order.domain.model.Order
-import com.come.restaurants.order.domain.usecases.GetOrder
-import com.come.restaurants.order.domain.usecases.PrintOrder
-import com.come.restaurants.order.persistence.stubs.StubOrderRepository
-import com.come.restaurants.printer.domain.PrinterRepository
-import com.come.restaurants.printer.service.PrinterFactory
-import com.come.restaurants.printer.service.PrinterService
 import kotlinx.android.synthetic.main.activity_order_detail.*
 import org.jetbrains.anko.setContentView
 
@@ -81,14 +76,9 @@ class OrderDetailActivity : AppCompatActivity(), OrderDetailPresenter.View {
     super.onCreate(savedInstanceState)
     OrderDetailUI().setContentView(this)
 
-    var repository = StubOrderRepository()
-    val getOrder = GetOrder(repository)
     val orderId = intent.getStringExtra(ID)
-
-    val printer = PrinterFactory.getPrinter()
-    val printerJob = PrinterService(printer)
-    var printerRepository = PrinterRepository(printerJob)
-    val printOrder = PrintOrder(printerRepository)
+    val getOrder = DependencyInjector.getOrder()
+    val printOrder = DependencyInjector.getPrintOrder()
 
     this.presenter = OrderDetailPresenter(getOrder, printOrder)
     this.presenter.setView(this)

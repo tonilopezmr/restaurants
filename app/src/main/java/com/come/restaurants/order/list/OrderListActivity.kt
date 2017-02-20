@@ -9,20 +9,12 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.come.restaurants.DI.DependencyInjector
 import com.come.restaurants.R
 import com.come.restaurants.order.detail.OrderDetailActivity
-import com.come.restaurants.order.domain.OrderRepository
 import com.come.restaurants.order.domain.model.Order
-import com.come.restaurants.order.domain.usecases.GetNewOrder
-import com.come.restaurants.order.domain.usecases.GetOrders
-import com.come.restaurants.order.domain.usecases.PrintOrder
 import com.come.restaurants.order.list.ui.OrderListUI
 import com.come.restaurants.order.list.ui.adapter.OrderListAdapter
-import com.come.restaurants.order.persistence.stubs.StubOrderRepository
-import com.come.restaurants.printer.domain.PrinterRepository
-import com.come.restaurants.printer.domain.usecases.PrintWelcome
-import com.come.restaurants.printer.service.PrinterFactory
-import com.come.restaurants.printer.service.PrinterService
 import kotlinx.android.synthetic.main.activity_list.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.setContentView
@@ -39,7 +31,6 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
 
   private lateinit var adapter: OrderListAdapter
   private lateinit var presenter: OrderListPresenter
-  private lateinit var repository: OrderRepository
 
   override fun showLoader() {
     progressBar.visibility = View.VISIBLE
@@ -98,7 +89,7 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
   }
 
   override fun finish() {
-    repository.removeListeners()
+    DependencyInjector.removeListeners()
     super.finish()
   }
 
@@ -117,17 +108,14 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
     super.onCreate(savedInstanceState)
     OrderListUI().setContentView(this)
 
-    repository = StubOrderRepository()
-    val getOrders = GetOrders(repository)
-    val printer = PrinterFactory.getPrinter()
-    val printerJob = PrinterService(printer)
-    var printerRepository = PrinterRepository(printerJob)
-    val printOrder = PrintOrder(printerRepository)
+    val getOrders = DependencyInjector.getOrders()
+    val printOrder = DependencyInjector.getPrintOrder()
+    val printWelcome = DependencyInjector.getWelcome()
+    val getNewOrder = DependencyInjector.getNewOrder()
 
-    val printWelcome = PrintWelcome(printerRepository)
-
-    this.presenter = OrderListPresenter(getOrders, printOrder, printWelcome, GetNewOrder(repository))
+    this.presenter = OrderListPresenter(getOrders, printOrder, printWelcome, getNewOrder)
     this.presenter.setView(this)
     this.presenter.init()
+    DependencyInjector.startQueue()
   }
 }

@@ -29,7 +29,7 @@ class FirebaseOrderRepository : OrderRepository {
   init {
     today = SimpleDateFormat("dd-MM-yyyy").format(System.currentTimeMillis())
     database = FirebaseDatabase.getInstance()
-    reference = database.getReference("restaurant/vella/orders/")
+    reference = database.getReference("restaurant/trinquet/orders/")
   }
 
   private fun getServedOrdersRef() = reference.child(today + SERVED)

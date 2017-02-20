@@ -18,7 +18,7 @@ object PrinterFactory {
     return USBPrinter
   }
 
-  public fun getPrinter(): Printer {
+  fun getPrinter(): Printer {
     if (isBluetoothPrinter) {
       Log.i(TAG, "Get bluetooth printer")
       return getBluetoothPrinter()
