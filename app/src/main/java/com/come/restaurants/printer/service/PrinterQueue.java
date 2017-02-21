@@ -11,6 +11,8 @@ import java.util.Queue;
 public class PrinterQueue extends Thread {
 
   public static final int BASE_SECOND = 3;
+  public static final int MIN_WAIT_TIME = 1000;
+  public static final double SPEED_MODIFICATOR = 0.040;
 
   private Queue<Order> orderQueue;
   private PrinterRepository repository;
@@ -27,7 +29,7 @@ public class PrinterQueue extends Thread {
   private synchronized long pollQueueElement() {
     Order order = orderQueue.poll();
 
-    Long waitTime = calculateWaitTime(order.getTimestamp(), orderQueue.size());
+    Long waitTime = calculateWaitTime(orderQueue.size());
     repository.print(order, new PrintOrder.Callback() {
 
       @Override
@@ -44,25 +46,13 @@ public class PrinterQueue extends Thread {
     return waitTime;
   }
 
-  private long calculateWaitTime(long queueSizeAtArrive, int actualSize) {
-    double waitTimeSizeAtArrival, waitTimeActualSize;
+  private long calculateWaitTime(int actualSize) {
+    double waitTimeActualSize;
 
-    if (queueSizeAtArrive <= 50) {
-      waitTimeSizeAtArrival = BASE_SECOND - 0.040 * queueSizeAtArrive;
-    } else {
-      waitTimeSizeAtArrival = 1 / (queueSizeAtArrive / 100 * Math.log(2));
-    }
-
-
-    if (actualSize <= 50) {
-      waitTimeActualSize = BASE_SECOND - 0.040 * actualSize;
-    } else {
-      waitTimeActualSize = 1 / (actualSize / 100 * Math.log(2));
-    }
-
+    waitTimeActualSize = BASE_SECOND - SPEED_MODIFICATOR * actualSize;
     waitTimeActualSize = 1000 * waitTimeActualSize;
-    waitTimeSizeAtArrival = 1000 * waitTimeSizeAtArrival;
-    return Math.min((int) waitTimeActualSize, (int) waitTimeSizeAtArrival);
+
+    return Math.min((int) waitTimeActualSize, MIN_WAIT_TIME);
   }
 
   private synchronized boolean isQueueEmpty() {
