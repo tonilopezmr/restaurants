@@ -67,7 +67,7 @@ class OrderListPresenter(val getOrders: GetOrders,
   }
 
   fun requestOrders() {
-    getOrders.repository.getOrders(object : GetOrders.Callback {
+    getOrders.getOrders(object : GetOrders.Callback {
       override fun ordersReceived(orders: List<Order>) {
         show(orders)
       }
