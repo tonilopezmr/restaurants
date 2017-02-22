@@ -27,8 +27,8 @@
                   android:parentActivityName=".printer.pairing.ChoosePairingActivity"/>
         <activity android:name=".printer.pairing.usb.USBPairingActivity"
                   android:parentActivityName=".printer.pairing.ChoosePairingActivity"/>
-        <activity android:name=".printer.pairing.ChoosePairingActivity">
-        </activity>
+        <activity android:name=".printer.pairing.ChoosePairingActivity" />
+        <activity android:name=".printer.pairing.disconnected.PrinterDisconnectedActivity" />
 
         <receiver
             android:name=".printer.pairing.PrinterDisconnectedReceiver"

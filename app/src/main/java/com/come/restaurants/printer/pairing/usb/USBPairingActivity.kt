@@ -15,7 +15,6 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.come.restaurants.R
 import com.come.restaurants.order.list.OrderListActivity
-import com.come.restaurants.printer.pairing.PrinterDisconnectedReceiver
 import com.come.restaurants.printer.service.usb.USBPrinter
 import com.come.restaurants.printer.service.usb.USBService
 import kotlinx.android.synthetic.main.activity_list.*
@@ -38,7 +37,6 @@ class USBPairingActivity : AppCompatActivity() {
       override fun handleMessage(msg: Message) {
         when (msg.what) {
           USBService.USB_CONNECTED -> {
-            PrinterDisconnectedReceiver.initReceiver()
             OrderListActivity.launch(this@USBPairingActivity)
           }
         }
