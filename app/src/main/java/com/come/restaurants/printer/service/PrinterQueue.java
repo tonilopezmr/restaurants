@@ -10,8 +10,8 @@ import java.util.Queue;
 
 public class PrinterQueue extends Thread {
 
-  public static final int BASE_SECOND = 3;
-  public static final int MIN_WAIT_TIME = 1000;
+  public static final int BASE_SECOND = 1;
+  public static final int MAX_WAIT_TIME = 3000;
   public static final double SPEED_MODIFICATOR = 0.040;
 
   private Queue<Order> orderQueue;
@@ -49,10 +49,10 @@ public class PrinterQueue extends Thread {
   private long calculateWaitTime(int actualSize) {
     double waitTimeActualSize;
 
-    waitTimeActualSize = BASE_SECOND - SPEED_MODIFICATOR * actualSize;
+    waitTimeActualSize = BASE_SECOND + SPEED_MODIFICATOR * actualSize;
     waitTimeActualSize = 1000 * waitTimeActualSize;
 
-    return Math.min((int) waitTimeActualSize, MIN_WAIT_TIME);
+    return Math.min((int) waitTimeActualSize, MAX_WAIT_TIME);
   }
 
   private synchronized boolean isQueueEmpty() {
