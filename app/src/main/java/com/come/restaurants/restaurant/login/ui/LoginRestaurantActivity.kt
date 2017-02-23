@@ -65,10 +65,12 @@ class LoginRestaurantActivity : AppCompatActivity(), View {
   }
 
   override fun initUi() {
-    //this.presenter.signIn(
-//    nameEditText.text.toString(),
-//    textPassword.text.toString())
-    openButton.setOnClickListener { moveToChoosePairing() }
+
+    openButton.setOnClickListener {
+      this.presenter.signIn(
+        nameEditText.text.toString(),
+        textPassword.text.toString())
+    }
 
     openGoogleButton.setOnClickListener { this.presenter.signInGoogle() }
   }

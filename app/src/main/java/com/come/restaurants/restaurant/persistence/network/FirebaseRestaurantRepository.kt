@@ -26,7 +26,7 @@ class FirebaseRestaurantRepository : RestaurantRepository {
       override fun onDataChange(dataSnapshot: DataSnapshot) {
         if (dataSnapshot.hasChildren()) {
           if (dataSnapshot.child("password").value == code) {
-            callback.loginCorrect(Restaurant(name, code, "", Menu(ArrayList())))
+            callback.loginCorrect(name, Restaurant(name, code, "", Menu(ArrayList())))
           } else {
             callback.passwordNotCorrect()
           }
