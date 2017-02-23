@@ -8,6 +8,7 @@ import com.come.restaurants.R
 import com.come.restaurants.base.MVP
 import com.come.restaurants.restaurant.domain.model.Restaurant
 import com.come.restaurants.restaurant.domain.usecases.Login
+import com.come.restaurants.restaurant.login.User
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -70,8 +71,8 @@ class LoginRestaurantPresenter(private val login: Login) : MVP.Presenter<LoginRe
   fun signIn(username: String, password: String) {
     this.login.login(username, password, object : Login.Callback {
 
-      override fun loginCorrect(restaurant: Restaurant) {
-        correctSingIn(restaurant)
+      override fun loginCorrect(username: String, restaurant: Restaurant) {
+        correctSingIn(username, restaurant)
       }
 
       override fun nameNotFound() {
@@ -89,7 +90,9 @@ class LoginRestaurantPresenter(private val login: Login) : MVP.Presenter<LoginRe
     })
   }
 
-  fun correctSingIn(restaurant: Restaurant) {
+  fun correctSingIn(username: String, restaurant: Restaurant) {
+    User.username = username
+    User.restaurant = restaurant
     this.view.moveToChoosePairing()
   }
 
