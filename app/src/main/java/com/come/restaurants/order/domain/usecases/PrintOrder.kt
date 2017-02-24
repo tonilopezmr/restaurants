@@ -4,7 +4,7 @@ import com.come.restaurants.base.BaseCallback
 import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.printer.service.PrinterQueue
 
-class PrintOrder(val printerQueue: PrinterQueue) {
+class PrintOrder(private val printerQueue: PrinterQueue) {
 
   interface Callback : BaseCallback {
     fun orderPrinted(order: Order)

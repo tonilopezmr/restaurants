@@ -13,7 +13,7 @@ import java.util.ArrayList
 class BluetoothDeviceAdapter(private val onItemClick: (BluetoothDevice) -> Unit)
   : RecyclerView.Adapter<BluetoothDeviceAdapter.ListViewHolder>() {
 
-  val printerList: MutableList<BluetoothDevice> = ArrayList()
+  private val printerList: MutableList<BluetoothDevice> = ArrayList()
 
   override fun getItemCount(): Int {
     return printerList.size
