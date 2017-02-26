@@ -9,6 +9,7 @@ import com.come.restaurants.base.MVP
 import com.come.restaurants.restaurant.domain.model.Restaurant
 import com.come.restaurants.restaurant.domain.usecases.Login
 import com.come.restaurants.restaurant.login.User
+import com.come.restaurants.restaurant.login.UserProvider
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -91,8 +92,7 @@ class LoginRestaurantPresenter(private val login: Login) : MVP.Presenter<LoginRe
   }
 
   fun correctSingIn(username: String, restaurant: Restaurant) {
-    User.username = username
-    User.restaurant = restaurant
+    UserProvider.user = User(username, restaurant)
     this.view.moveToChoosePairing()
   }
 

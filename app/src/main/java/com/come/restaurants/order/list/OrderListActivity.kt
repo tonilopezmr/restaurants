@@ -18,11 +18,14 @@ import com.come.restaurants.order.domain.usecases.GetOrders
 import com.come.restaurants.order.domain.usecases.PrintOrder
 import com.come.restaurants.order.list.ui.OrderListUI
 import com.come.restaurants.order.list.ui.adapter.OrderListAdapter
+import com.come.restaurants.order.persistence.network.FirebaseOrderRepository
 import com.come.restaurants.order.persistence.stubs.StubOrderRepository
 import com.come.restaurants.printer.domain.PrinterRepository
 import com.come.restaurants.printer.domain.usecases.PrintWelcome
 import com.come.restaurants.printer.service.PrinterFactory
 import com.come.restaurants.printer.service.PrinterService
+import com.come.restaurants.restaurant.login.User
+import com.come.restaurants.restaurant.login.UserProvider
 import kotlinx.android.synthetic.main.activity_list.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.setContentView
@@ -117,7 +120,7 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
     super.onCreate(savedInstanceState)
     OrderListUI().setContentView(this)
 
-    repository = StubOrderRepository()
+    repository = FirebaseOrderRepository(UserProvider.user)
     val getOrders = GetOrders(repository)
     val printer = PrinterFactory.getPrinter()
     val printerJob = PrinterService(printer)

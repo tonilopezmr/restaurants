@@ -15,7 +15,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 
-class FirebaseOrderRepository : OrderRepository {
+class FirebaseOrderRepository(private val currentUser : User) : OrderRepository {
 
   private companion object {
     val NEWS = "/news"
@@ -30,7 +30,7 @@ class FirebaseOrderRepository : OrderRepository {
   init {
     today = SimpleDateFormat("dd-MM-yyyy").format(System.currentTimeMillis())
     database = FirebaseDatabase.getInstance()
-    reference = database.getReference("restaurant/"+ User.username +"/orders/")
+    reference = database.getReference("restaurant/"+ currentUser.username +"/orders/")
   }
 
   private fun getServedOrdersRef() = reference.child(today + SERVED)
