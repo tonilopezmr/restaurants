@@ -25,7 +25,6 @@ class BluetoothPairingPresenter : MVP.Presenter<BluetoothPairingPresenter.View> 
         BluetoothAdapter.ACTION_DISCOVERY_STARTED -> view.showProgressDialog()
         BluetoothAdapter.ACTION_DISCOVERY_FINISHED -> {
           Log.d(TAG, "Showing list with ${devicesList.size} items")
-          devicesList.addAll(btAdapter.bondedDevices)
           if (devicesList.isEmpty()) {
             view.emptyCase()
           } else {

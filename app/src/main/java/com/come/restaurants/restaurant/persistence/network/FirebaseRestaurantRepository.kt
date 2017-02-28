@@ -16,8 +16,7 @@ class FirebaseRestaurantRepository : RestaurantRepository {
   private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
   private val reference: DatabaseReference = database.getReference("restaurant")
 
-
-  override fun getRestaurant(name: String, pass: String, callback: Login.Callback) {
+  override fun getRestaurant(name: String, code: String, callback: Login.Callback) {  
     reference.child(name).addListenerForSingleValueEvent(object : ValueEventListener {
       override fun onCancelled(databaseError: DatabaseError) {
         callback.error(Exception(databaseError.message))

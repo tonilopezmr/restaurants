@@ -148,7 +148,6 @@ class BluetoothPairingActivity : AppCompatActivity(), BluetoothPairingPresenter.
 
   override fun initUi() {
     actionBar?.setDisplayHomeAsUpEnabled(true)
-
     emptyCase.text = String.format(getString(R.string.there_are_not), getString(R.string.printers))
     this.adapter = BluetoothDeviceAdapter({
       connect(it)

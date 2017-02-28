@@ -20,7 +20,7 @@ class StubRestaurantRepository : RestaurantRepository {
     }
   }
 
-  val restaurants = ArrayList<Restaurant>()
+  private val restaurants = ArrayList<Restaurant>()
 
   init {
     val menu = Menu(emptyList())
