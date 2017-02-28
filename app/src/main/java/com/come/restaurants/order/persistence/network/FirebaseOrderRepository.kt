@@ -6,6 +6,7 @@ import com.come.restaurants.order.domain.usecases.GetNewOrder
 import com.come.restaurants.order.domain.usecases.GetOrder
 import com.come.restaurants.order.domain.usecases.GetOrders
 import com.come.restaurants.order.domain.usecases.OrderPrinted
+import com.come.restaurants.restaurant.domain.model.Restaurant
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -14,7 +15,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 
-class FirebaseOrderRepository : OrderRepository {
+class FirebaseOrderRepository(private val currentUser : Restaurant) : OrderRepository {
 
   private companion object {
     val NEWS = "/news"
@@ -29,7 +30,7 @@ class FirebaseOrderRepository : OrderRepository {
   init {
     today = SimpleDateFormat("dd-MM-yyyy").format(System.currentTimeMillis())
     database = FirebaseDatabase.getInstance()
-    reference = database.getReference("restaurant/vella/orders/")
+    reference = database.getReference("restaurant/"+ currentUser.code +"/orders/")
   }
 
   private fun getServedOrdersRef() = reference.child(today + SERVED)

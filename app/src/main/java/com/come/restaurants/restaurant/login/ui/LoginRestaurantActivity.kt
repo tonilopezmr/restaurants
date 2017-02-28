@@ -9,10 +9,8 @@ import com.come.restaurants.open.restaurant.LoginRestaurantPresenter
 import com.come.restaurants.open.restaurant.LoginRestaurantPresenter.View
 import com.come.restaurants.printer.pairing.ChoosePairingActivity
 import com.come.restaurants.restaurant.domain.usecases.Login
-import com.come.restaurants.restaurant.login.ui.LoginRestaurantUI
-import com.come.restaurants.restaurant.persistence.stubs.StubRestaurantRepository
+import com.come.restaurants.restaurant.persistence.network.FirebaseRestaurantRepository
 import kotlinx.android.synthetic.main.activity_login_restaurant.*
-import org.jetbrains.anko.setContentView
 
 class LoginRestaurantActivity : AppCompatActivity(), View {
 
@@ -20,9 +18,9 @@ class LoginRestaurantActivity : AppCompatActivity(), View {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    LoginRestaurantUI().setContentView(this)
+    setContentView(R.layout.activity_login_restaurant)
 
-    val restaurantRepository = StubRestaurantRepository()
+    val restaurantRepository = FirebaseRestaurantRepository()
     val login = Login(restaurantRepository)
     this.presenter = LoginRestaurantPresenter(login)
     this.presenter.setView(this)
@@ -65,11 +63,12 @@ class LoginRestaurantActivity : AppCompatActivity(), View {
   }
 
   override fun initUi() {
-    //this.presenter.signIn(
-//    nameEditText.text.toString(),
-//    textPassword.text.toString())
-    openButton.setOnClickListener { moveToChoosePairing() }
 
-    openGoogleButton.setOnClickListener { this.presenter.signInGoogle() }
+    openButton.setOnClickListener {
+      this.presenter.signIn(
+        nameEditText.text.toString(),
+        textPassword.text.toString())
+    }
+
   }
 }
