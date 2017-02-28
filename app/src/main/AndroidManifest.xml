@@ -27,8 +27,18 @@
                   android:parentActivityName=".printer.pairing.ChoosePairingActivity"/>
         <activity android:name=".printer.pairing.usb.USBPairingActivity"
                   android:parentActivityName=".printer.pairing.ChoosePairingActivity"/>
-        <activity android:name=".printer.pairing.ChoosePairingActivity">
-        </activity>
+        <activity android:name=".printer.pairing.ChoosePairingActivity" />
+        <activity android:name=".printer.pairing.disconnected.PrinterDisconnectedActivity" />
+
+        <receiver
+            android:name=".printer.pairing.PrinterDisconnectedReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.bluetooth.device.action.ACL_DISCONNECTED" />
+                <action android:name="android.hardware.usb.action.USB_DEVICE_DETACHED"  />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
