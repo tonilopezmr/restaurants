@@ -70,6 +70,5 @@ class LoginRestaurantActivity : AppCompatActivity(), View {
         textPassword.text.toString())
     }
 
-    openGoogleButton.setOnClickListener { this.presenter.signInGoogle() }
   }
 }

@@ -1,7 +1,6 @@
 package com.come.restaurants.restaurant.login.ui
 
-import android.graphics.Color
-import android.graphics.PorterDuff
+import android.text.InputType
 import android.view.Gravity
 import android.view.View
 import com.come.restaurants.R
@@ -10,9 +9,9 @@ import org.jetbrains.anko.AnkoComponent
 import org.jetbrains.anko.AnkoContext
 import org.jetbrains.anko.button
 import org.jetbrains.anko.design.textInputLayout
+import org.jetbrains.anko.editText
 import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.padding
-import org.jetbrains.anko.textColor
 import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
 
@@ -28,7 +27,7 @@ class LoginRestaurantUI : AnkoComponent<LoginRestaurantActivity> {
         }
 
         textInputLayout {
-          textInputLayout {
+          editText {
             id = R.id.nameEditText
             hint = "Name"
           }
@@ -40,8 +39,9 @@ class LoginRestaurantUI : AnkoComponent<LoginRestaurantActivity> {
 
 
         textInputLayout {
-          textInputLayout {
+          editText {
             id = R.id.textPassword
+            inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
             hint = "Password"
           }
         }.lparams {
@@ -55,22 +55,6 @@ class LoginRestaurantUI : AnkoComponent<LoginRestaurantActivity> {
         }.lparams {
           height = 150
           width = matchParent
-        }
-
-        button("Google Sign In") {
-          id = R.id.openGoogleButton
-          textColor = Color.WHITE
-          background.setColorFilter(resources.getColor(R.color.google_login_button),
-              PorterDuff.Mode.MULTIPLY)
-          val image = resources.getDrawable(R.drawable.google_logo_white_24dp)
-          setCompoundDrawablesWithIntrinsicBounds(
-              null,
-              null,
-              image,
-              null)
-        }.lparams {
-          width = matchParent
-          height = 150
         }
 
       }
