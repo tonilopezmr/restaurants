@@ -17,7 +17,7 @@ class FirebaseRestaurantRepository : RestaurantRepository {
   private val reference: DatabaseReference = database.getReference("restaurant")
 
 
-  override fun getRestaurant(name: String, code: String, callback: Login.Callback) {
+  override fun getRestaurant(name: String, pass: String, callback: Login.Callback) {
     reference.child(name).addListenerForSingleValueEvent(object : ValueEventListener {
       override fun onCancelled(databaseError: DatabaseError) {
         callback.error(Exception(databaseError.message))
@@ -25,8 +25,8 @@ class FirebaseRestaurantRepository : RestaurantRepository {
 
       override fun onDataChange(dataSnapshot: DataSnapshot) {
         if (dataSnapshot.hasChildren()) {
-          if (dataSnapshot.child("password").value == code) {
-            callback.loginCorrect(name, Restaurant(name, code, "", Menu(ArrayList())))
+          if (dataSnapshot.child("password").value == pass) {
+            callback.loginCorrect(Restaurant(name, pass, name, Menu(ArrayList())))
           } else {
             callback.passwordNotCorrect()
           }

@@ -16,7 +16,7 @@ class StubRestaurantRepository : RestaurantRepository {
     if (list.isEmpty()) {
       callback.nameNotFound()
     } else {
-      callback.loginCorrect(name, list.first())
+      callback.loginCorrect(list.first())
     }
   }
 

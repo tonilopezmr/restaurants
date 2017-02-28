@@ -9,7 +9,7 @@ import java.nio.charset.Charset
 
 class Login(val restaurantRepository: RestaurantRepository) {
   interface Callback : BaseCallback {
-    fun loginCorrect(username : String, restaurant: Restaurant)
+    fun loginCorrect(restaurant: Restaurant)
     fun nameNotFound()
     fun passwordNotCorrect()
   }
@@ -18,7 +18,6 @@ class Login(val restaurantRepository: RestaurantRepository) {
     val hash = Hashing.sha256()
         .hashString(passwd, Charset.forName("UTF-8"))
         .toString()
-    //hash == restaurant.password
     restaurantRepository.getRestaurant(name, hash, callback) //must implement a callback
   }
 

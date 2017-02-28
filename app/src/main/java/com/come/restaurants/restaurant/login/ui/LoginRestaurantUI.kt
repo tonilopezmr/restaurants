@@ -2,13 +2,19 @@ package com.come.restaurants.restaurant.login.ui
 
 import android.graphics.Color
 import android.graphics.PorterDuff
-import android.text.InputType
 import android.view.Gravity
 import android.view.View
 import com.come.restaurants.R
 import com.come.restaurants.open.restaurant.ui.LoginRestaurantActivity
-import org.jetbrains.anko.*
+import org.jetbrains.anko.AnkoComponent
+import org.jetbrains.anko.AnkoContext
+import org.jetbrains.anko.button
 import org.jetbrains.anko.design.textInputLayout
+import org.jetbrains.anko.matchParent
+import org.jetbrains.anko.padding
+import org.jetbrains.anko.textColor
+import org.jetbrains.anko.verticalLayout
+import org.jetbrains.anko.wrapContent
 
 class LoginRestaurantUI : AnkoComponent<LoginRestaurantActivity> {
   override fun createView(ui: AnkoContext<LoginRestaurantActivity>): View {
@@ -22,7 +28,7 @@ class LoginRestaurantUI : AnkoComponent<LoginRestaurantActivity> {
         }
 
         textInputLayout {
-          editText {
+          textInputLayout {
             id = R.id.nameEditText
             hint = "Name"
           }
@@ -34,9 +40,8 @@ class LoginRestaurantUI : AnkoComponent<LoginRestaurantActivity> {
 
 
         textInputLayout {
-          editText {
+          textInputLayout {
             id = R.id.textPassword
-            inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
             hint = "Password"
           }
         }.lparams {
