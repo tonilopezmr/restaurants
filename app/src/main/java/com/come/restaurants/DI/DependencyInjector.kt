@@ -10,10 +10,11 @@ import com.come.restaurants.printer.domain.usecases.PrintWelcome
 import com.come.restaurants.printer.service.PrinterFactory
 import com.come.restaurants.printer.service.PrinterQueue
 import com.come.restaurants.printer.service.PrinterService
+import com.come.restaurants.restaurant.login.UserProvider
 
 object DependencyInjector {
 
-  val repository = FirebaseOrderRepository()
+  val repository = FirebaseOrderRepository(UserProvider.user)
   val printer = PrinterFactory.getPrinter()
   val printerJob = PrinterService(printer)
   var printerRepository = PrinterRepository(printerJob)

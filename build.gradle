@@ -2,6 +2,7 @@
 apply plugin: "kotlin"
 
 buildscript {
+    ext.kotlin_version = '1.1.0'
 
     ext.kotlin_version = '1.0.6'
     ext.build_version = '25.0.1'
@@ -14,7 +15,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:2.3.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
         classpath 'com.google.gms:google-services:3.0.0'
@@ -27,8 +28,4 @@ allprojects {
     repositories {
         jcenter()
     }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }

@@ -4,5 +4,5 @@ import com.come.restaurants.restaurant.domain.usecases.Login
 
 
 interface RestaurantRepository {
-  fun getRestaurant(name: String, code: String, callback: Login.Callback)
+  fun getRestaurant(name: String, pass: String, callback: Login.Callback)
 }
