@@ -31,7 +31,7 @@
         <activity android:name=".printer.pairing.disconnected.PrinterDisconnectedActivity" />
 
         <receiver
-            android:name=".printer.pairing.PrinterDisconnectedReceiver"
+            android:name=".printer.pairing.disconnected.PrinterDisconnectedReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
