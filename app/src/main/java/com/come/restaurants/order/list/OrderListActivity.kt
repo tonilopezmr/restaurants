@@ -20,6 +20,13 @@ import org.jetbrains.anko.alert
 import org.jetbrains.anko.setContentView
 
 class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
+  override fun showErrorCantOpenRestaurant() {
+    Toast.makeText(applicationContext, getString(R.string.cant_open_restaurant), Toast.LENGTH_SHORT).show()
+  }
+
+  override fun showErrorCantCloseRestaurant() {
+    Toast.makeText(applicationContext, getString(R.string.cant_close_restaurant), Toast.LENGTH_SHORT).show()
+  }
 
   companion object {
     fun launch(activity: Activity) {
@@ -112,8 +119,10 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
     val printOrder = DependencyInjector.getPrintOrder()
     val printWelcome = DependencyInjector.getWelcome()
     val getNewOrder = DependencyInjector.getNewOrder()
+    val open = DependencyInjector.getOpen()
+    val close = DependencyInjector.getClose()
 
-    this.presenter = OrderListPresenter(getOrders, printOrder, printWelcome, getNewOrder)
+    this.presenter = OrderListPresenter(getOrders, printOrder, printWelcome, getNewOrder, open, close)
     this.presenter.setView(this)
     this.presenter.init()
     DependencyInjector.startQueue()

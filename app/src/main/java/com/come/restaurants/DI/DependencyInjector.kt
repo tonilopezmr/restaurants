@@ -10,22 +10,26 @@ import com.come.restaurants.printer.domain.usecases.PrintWelcome
 import com.come.restaurants.printer.service.PrinterFactory
 import com.come.restaurants.printer.service.PrinterQueue
 import com.come.restaurants.printer.service.PrinterService
+import com.come.restaurants.restaurant.domain.usecases.Close
+import com.come.restaurants.restaurant.domain.usecases.Open
 import com.come.restaurants.restaurant.login.UserProvider
+import com.come.restaurants.restaurant.persistence.network.FirebaseRestaurantRepository
 
 object DependencyInjector {
 
-  val repository = FirebaseOrderRepository(UserProvider.user)
+  val restaurantRepository = FirebaseRestaurantRepository()
+  val orderRepository = FirebaseOrderRepository(UserProvider.user)
   val printer = PrinterFactory.getPrinter()
   val printerJob = PrinterService(printer)
   var printerRepository = PrinterRepository(printerJob)
   val printerQueue = PrinterQueue(printerRepository)
 
   fun getOrder(): GetOrder {
-    return GetOrder(repository)
+    return GetOrder(orderRepository)
   }
 
   fun getOrders(): GetOrders {
-    return GetOrders(repository)
+    return GetOrders(orderRepository)
   }
 
   fun getPrintOrder(): PrintOrder {
@@ -37,15 +41,27 @@ object DependencyInjector {
   }
 
   fun getNewOrder(): GetNewOrder {
-    return GetNewOrder(repository)
+    return GetNewOrder(orderRepository)
+  }
+
+  fun getOpen(): Open {
+    return Open(restaurantRepository)
+  }
+
+  fun getClose(): Close {
+    return Close(restaurantRepository)
   }
 
   fun removeListeners() {
-    repository.removeListeners()
+    orderRepository.removeListeners()
   }
 
   fun startQueue() {
-    printerQueue.start()
+    if (!printerQueue.isAlive) printerQueue.start()
+  }
+
+  fun stopQueue(){
+    printerQueue.stopQueue()
   }
 
 }

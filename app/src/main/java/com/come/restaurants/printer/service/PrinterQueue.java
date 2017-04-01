@@ -16,6 +16,7 @@ public class PrinterQueue extends Thread {
 
   private Queue<Order> orderQueue;
   private PrinterRepository repository;
+  private boolean alive;
 
   public PrinterQueue(PrinterRepository repository) {
     this.orderQueue = new LinkedList<>();
@@ -24,6 +25,16 @@ public class PrinterQueue extends Thread {
 
   public synchronized void add(Order order) {
     orderQueue.add(order);
+  }
+
+  @Override
+  public synchronized void start() {
+    super.start();
+    alive = true;
+  }
+
+  public synchronized void stopQueue() {
+    alive = false;
   }
 
   private synchronized long pollQueueElement() {
@@ -63,7 +74,7 @@ public class PrinterQueue extends Thread {
   public void run() {
 
     long waitTime;
-    while (true) {
+    while (alive) {
       waitTime = 1000;
       if (!isQueueEmpty()) {
         waitTime = pollQueueElement();

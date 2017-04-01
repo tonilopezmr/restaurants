@@ -18,7 +18,7 @@ class Login(private val restaurantRepository: RestaurantRepository) {
     val hash = Hashing.sha256()
         .hashString(passwd, Charset.forName("UTF-8"))
         .toString()
-    restaurantRepository.getRestaurant(name, hash, callback) //must implement a callback
+    restaurantRepository.login(name, hash, callback) //must implement a callback
   }
 
 }
