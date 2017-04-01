@@ -7,15 +7,10 @@ import com.come.restaurants.order.domain.usecases.GetOrder
 import com.come.restaurants.order.domain.usecases.GetOrders
 import com.come.restaurants.order.domain.usecases.OrderPrinted
 import com.come.restaurants.restaurant.domain.model.Restaurant
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 
-class FirebaseOrderRepository(private val currentUser : Restaurant) : OrderRepository {
+class FirebaseOrderRepository(private val currentUser: Restaurant) : OrderRepository {
 
   private companion object {
     val NEWS = "/news"
@@ -30,7 +25,7 @@ class FirebaseOrderRepository(private val currentUser : Restaurant) : OrderRepos
   init {
     today = SimpleDateFormat("dd-MM-yyyy").format(System.currentTimeMillis())
     database = FirebaseDatabase.getInstance()
-    reference = database.getReference("restaurant/"+ currentUser.code +"/orders/")
+    reference = database.getReference("restaurant/" + currentUser.code + "/orders/")
   }
 
   private fun getServedOrdersRef() = reference.child(today + SERVED)
@@ -44,7 +39,7 @@ class FirebaseOrderRepository(private val currentUser : Restaurant) : OrderRepos
       }
 
       override fun onDataChange(dataSnapshot: DataSnapshot) {
-        callback.orderReceived(dataSnapshot.getValue(Order :: class.java))
+        callback.orderReceived(dataSnapshot.getValue(Order::class.java))
       }
 
     })
@@ -61,7 +56,7 @@ class FirebaseOrderRepository(private val currentUser : Restaurant) : OrderRepos
       }
 
       override fun onDataChange(dataSnapshot: DataSnapshot) {
-        val orders = dataSnapshot.children.map { it.getValue(Order ::class.java) }
+        val orders = dataSnapshot.children.map { it.getValue(Order::class.java) }
         callback.ordersReceived(orders)
       }
     })
@@ -86,7 +81,7 @@ class FirebaseOrderRepository(private val currentUser : Restaurant) : OrderRepos
       }
 
       override fun onChildAdded(dataSnapshot: DataSnapshot, child: String?) {
-        val order = dataSnapshot.getValue(Order :: class.java)
+        val order = dataSnapshot.getValue(Order::class.java)
         callback.orderReceived(order)
         getServedOrdersRef().child(order.id).setValue(order)
         dataSnapshot.ref.removeValue()
@@ -95,7 +90,7 @@ class FirebaseOrderRepository(private val currentUser : Restaurant) : OrderRepos
     })
   }
 
-  override fun removeListeners(){
+  override fun removeListeners() {
     getNewsOrderRef().removeEventListener(newOrderListener)
   }
 

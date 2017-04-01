@@ -120,6 +120,7 @@ class OrderListPresenter(val getOrders: GetOrders,
       override fun success() {
         PrinterFactory.getPrinter().disconnect()
         DependencyInjector.stopQueue()
+        UserProvider.isLogged = false
         view.hideLoader()
         view.close()
       }

@@ -92,6 +92,7 @@ class LoginRestaurantPresenter(private val login: Login) : MVP.Presenter<LoginRe
 
   fun correctSingIn(restaurant: Restaurant) {
     UserProvider.user = restaurant
+    UserProvider.isLogged = true
     this.view.moveToChoosePairing()
   }
 
