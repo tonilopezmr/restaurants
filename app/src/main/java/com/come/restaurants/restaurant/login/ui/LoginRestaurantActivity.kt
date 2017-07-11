@@ -24,7 +24,7 @@ class LoginRestaurantActivity : AppCompatActivity(), View {
     setContentView(R.layout.activity_login_restaurant)
     DependencyInjector.init(this)
 
-    val restaurantRepository = FirebaseRestaurantRepository()
+    val restaurantRepository = FirebaseRestaurantRepository(this.getSharedPreferences("shared", MODE_PRIVATE))
     val login = Login(restaurantRepository)
     this.presenter = LoginRestaurantPresenter(login)
     this.presenter.setView(this)

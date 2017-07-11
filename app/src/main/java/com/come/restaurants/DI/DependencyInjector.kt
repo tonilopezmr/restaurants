@@ -19,7 +19,7 @@ import com.come.restaurants.restaurant.persistence.network.FirebaseRestaurantRep
 object DependencyInjector {
 
   lateinit var context: Context
-  val restaurantRepository = FirebaseRestaurantRepository()
+  val restaurantRepository = FirebaseRestaurantRepository(context.getSharedPreferences("shared", MODE_PRIVATE))
   val orderRepository = FirebaseOrderRepository(context.getSharedPreferences("shared", MODE_PRIVATE))
   val printer = PrinterFactory.getPrinter()
   val printerJob = PrinterService(printer)

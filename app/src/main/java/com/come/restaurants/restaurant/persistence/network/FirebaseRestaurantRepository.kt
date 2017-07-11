@@ -1,5 +1,6 @@
 package com.come.restaurants.restaurant.persistence.network
 
+import android.content.SharedPreferences
 import com.come.restaurants.menu.Menu
 import com.come.restaurants.restaurant.domain.RestaurantRepository
 import com.come.restaurants.restaurant.domain.model.Restaurant
@@ -7,19 +8,19 @@ import com.come.restaurants.restaurant.domain.usecases.Login
 import com.google.firebase.database.*
 import java.util.*
 
-class FirebaseRestaurantRepository : RestaurantRepository {
+class FirebaseRestaurantRepository(private val preferences: SharedPreferences) : RestaurantRepository {
 
   private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
   private val reference: DatabaseReference = database.getReference("restaurant")
 
   override fun close(restaurant: Restaurant, success: () -> Unit, fail: () -> Unit) {
-    reference.child(restaurant.name).child("isOpen").setValue(false)
+    reference.child(preferences.getString("name", "")).child("isOpen").setValue(false)
         .addOnSuccessListener { success() }
         .addOnFailureListener { fail() }
   }
 
   override fun open(restaurant: Restaurant, success: () -> Unit, fail: () -> Unit) {
-    reference.child(restaurant.name).child("isOpen").setValue(true)
+    reference.child(preferences.getString("name", "")).child("isOpen").setValue(true)
         .addOnSuccessListener { success() }
         .addOnFailureListener { fail() }
   }
