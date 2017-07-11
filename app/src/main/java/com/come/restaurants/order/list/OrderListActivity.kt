@@ -1,6 +1,7 @@
 package com.come.restaurants.order.list
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -45,6 +46,10 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
   }
 
   override fun close() {
+    val edit = getSharedPreferences("shared", Context.MODE_PRIVATE).edit()
+    edit.remove("name")
+    edit.remove("code")
+    edit.commit()
     finish() //at the moment
   }
 

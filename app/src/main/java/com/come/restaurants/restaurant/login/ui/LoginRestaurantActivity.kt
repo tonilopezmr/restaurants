@@ -1,13 +1,16 @@
 package com.come.restaurants.open.restaurant.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import com.come.restaurants.DI.DependencyInjector
 import com.come.restaurants.R
 import com.come.restaurants.open.restaurant.LoginRestaurantPresenter
 import com.come.restaurants.open.restaurant.LoginRestaurantPresenter.View
 import com.come.restaurants.printer.pairing.ChoosePairingActivity
+import com.come.restaurants.restaurant.domain.model.Restaurant
 import com.come.restaurants.restaurant.domain.usecases.Login
 import com.come.restaurants.restaurant.persistence.network.FirebaseRestaurantRepository
 import kotlinx.android.synthetic.main.activity_login_restaurant.*
@@ -19,6 +22,7 @@ class LoginRestaurantActivity : AppCompatActivity(), View {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_login_restaurant)
+    DependencyInjector.init(this)
 
     val restaurantRepository = FirebaseRestaurantRepository()
     val login = Login(restaurantRepository)
@@ -36,7 +40,11 @@ class LoginRestaurantActivity : AppCompatActivity(), View {
     this.presenter.checkSignIn(requestCode, resultCode, data)
   }
 
-  override fun moveToChoosePairing() {
+  override fun moveToChoosePairing(restaurant: Restaurant) {
+    val edit = getSharedPreferences("shared", Context.MODE_PRIVATE).edit()
+    edit.putString("name", restaurant.name)
+    edit.putString("code", restaurant.code)
+    edit.commit()
     ChoosePairingActivity.launch(this)
   }
 
@@ -66,8 +74,8 @@ class LoginRestaurantActivity : AppCompatActivity(), View {
 
     openButton.setOnClickListener {
       this.presenter.signIn(
-        nameEditText.text.toString(),
-        textPassword.text.toString())
+          nameEditText.text.toString(),
+          textPassword.text.toString())
     }
 
   }

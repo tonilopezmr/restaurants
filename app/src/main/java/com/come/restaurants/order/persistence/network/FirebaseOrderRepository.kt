@@ -1,16 +1,16 @@
 package com.come.restaurants.order.persistence.network
 
+import android.content.SharedPreferences
 import com.come.restaurants.order.domain.OrderRepository
 import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.domain.usecases.GetNewOrder
 import com.come.restaurants.order.domain.usecases.GetOrder
 import com.come.restaurants.order.domain.usecases.GetOrders
 import com.come.restaurants.order.domain.usecases.OrderPrinted
-import com.come.restaurants.restaurant.domain.model.Restaurant
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 
-class FirebaseOrderRepository(private val currentUser: Restaurant) : OrderRepository {
+class FirebaseOrderRepository(private val preferences: SharedPreferences) : OrderRepository {
 
   private companion object {
     val NEWS = "/news"
@@ -18,19 +18,29 @@ class FirebaseOrderRepository(private val currentUser: Restaurant) : OrderReposi
   }
 
   private var database: FirebaseDatabase
-  private var reference: DatabaseReference
   private val today: String
   lateinit private var newOrderListener: ChildEventListener
 
   init {
     today = SimpleDateFormat("dd-MM-yyyy").format(System.currentTimeMillis())
     database = FirebaseDatabase.getInstance()
-    reference = database.getReference("restaurant/" + currentUser.code + "/orders/")
+
   }
 
-  private fun getServedOrdersRef() = reference.child(today + SERVED)
+  private fun getServedOrdersRef(): DatabaseReference {
+    val reference = getDatabaseReference()
+    return reference.child(today + SERVED)
+  }
 
-  private fun getNewsOrderRef() = reference.child(today + NEWS)
+  private fun getNewsOrderRef(): DatabaseReference {
+    val reference = getDatabaseReference()
+    return reference.child(today + NEWS)
+  }
+
+  private fun getDatabaseReference(): DatabaseReference {
+    val reference = database.getReference("restaurant/" + preferences.getString("code", "") + "/orders/")
+    return reference
+  }
 
   override fun getOrder(id: String, callback: GetOrder.Callback) {
     getServedOrdersRef().child(id).addListenerForSingleValueEvent(object : ValueEventListener {

@@ -1,5 +1,7 @@
 package com.come.restaurants.DI
 
+import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import com.come.restaurants.order.domain.usecases.GetNewOrder
 import com.come.restaurants.order.domain.usecases.GetOrder
 import com.come.restaurants.order.domain.usecases.GetOrders
@@ -12,17 +14,21 @@ import com.come.restaurants.printer.service.PrinterQueue
 import com.come.restaurants.printer.service.PrinterService
 import com.come.restaurants.restaurant.domain.usecases.Close
 import com.come.restaurants.restaurant.domain.usecases.Open
-import com.come.restaurants.restaurant.login.UserProvider
 import com.come.restaurants.restaurant.persistence.network.FirebaseRestaurantRepository
 
 object DependencyInjector {
 
+  lateinit var context: Context
   val restaurantRepository = FirebaseRestaurantRepository()
-  val orderRepository = FirebaseOrderRepository(UserProvider.user)
+  val orderRepository = FirebaseOrderRepository(context.getSharedPreferences("shared", MODE_PRIVATE))
   val printer = PrinterFactory.getPrinter()
   val printerJob = PrinterService(printer)
   var printerRepository = PrinterRepository(printerJob)
   val printerQueue = PrinterQueue(printerRepository)
+
+  fun init(context: Context) {
+    this.context = context
+  }
 
   fun getOrder(): GetOrder {
     return GetOrder(orderRepository)
@@ -60,7 +66,7 @@ object DependencyInjector {
     if (!printerQueue.isAlive) printerQueue.start()
   }
 
-  fun stopQueue(){
+  fun stopQueue() {
     printerQueue.stopQueue()
   }
 

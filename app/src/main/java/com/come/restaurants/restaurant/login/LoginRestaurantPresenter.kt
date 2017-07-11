@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity
 import android.util.Log
 import com.come.restaurants.R
 import com.come.restaurants.base.MVP
+import com.come.restaurants.menu.Menu
 import com.come.restaurants.restaurant.domain.model.Restaurant
 import com.come.restaurants.restaurant.domain.usecases.Login
 import com.come.restaurants.restaurant.login.UserProvider
@@ -31,7 +32,7 @@ class LoginRestaurantPresenter(private val login: Login) : MVP.Presenter<LoginRe
     fun showNameError()
     fun showCodeError()
     fun showNameAndCodeError()
-    fun moveToChoosePairing()
+    fun moveToChoosePairing(restaurant: Restaurant)
     fun launchSignIn(intent: Intent)
   }
 
@@ -93,7 +94,7 @@ class LoginRestaurantPresenter(private val login: Login) : MVP.Presenter<LoginRe
   fun correctSingIn(restaurant: Restaurant) {
     UserProvider.user = restaurant
     UserProvider.isLogged = true
-    this.view.moveToChoosePairing()
+    this.view.moveToChoosePairing(restaurant)
   }
 
   fun errorSingingIn(exception: Exception) {
@@ -130,7 +131,7 @@ class LoginRestaurantPresenter(private val login: Login) : MVP.Presenter<LoginRe
         .addOnCompleteListener { task ->
           if (task.isSuccessful) {
             Log.d(TAG, "signInWithCredential:onComplete:${task.isSuccessful}")
-            view.moveToChoosePairing()
+            view.moveToChoosePairing(Restaurant("", "", "", Menu(emptyList())))
           } else {
             Log.d(TAG, "signInWithCredential", task.exception)
             view.showLoginError()
