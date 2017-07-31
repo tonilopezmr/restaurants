@@ -5,27 +5,36 @@ import com.come.restaurants.order.domain.usecases.PrintOrder
 import com.come.restaurants.printer.service.PrinterException
 import com.come.restaurants.printer.service.PrinterService
 import com.come.restaurants.printer.service.util.PrinterCommands
+import org.apache.commons.lang3.StringUtils
 import java.text.DateFormat
 import java.util.ArrayList
 import java.util.Date
 
 class PrinterRepository(val printerService: PrinterService) {
 
+  private fun stripAccents(string: String) =
+    StringUtils.stripAccents(string)
+
   fun print(order: Order, callback: PrintOrder.Callback) {
 
     try {
       val orderLines = ArrayList<String>()
       order.orderLines.map { orderLine ->
-        orderLines.add("${orderLine.quantity}x ${orderLine.plate.name}")
+        orderLines.add("${orderLine.quantity}x ${stripAccents(orderLine.plate.name)}")
       }
 
       printerService.alignment(PrinterCommands.Align.ALIGNMENT_CENTER)
           .font(PrinterCommands.Font.FONT_STYLE_C)
-          .printLine("# " + order.code)
+          .printLine("Mesa # " + order.code)
 
       printerService.feed(PrinterCommands.FeedPaper.FEED_LINE)
       printerService.font(PrinterCommands.Font.FONT_STYLE_B)
           .printLines(orderLines)
+
+      if (order.comment.isNotEmpty()) {
+        printerService.whiteLines(4)
+                .printLine(stripAccents(order.comment))
+      }
 
       printerService.whiteLines(2)
           .printSeparator()
