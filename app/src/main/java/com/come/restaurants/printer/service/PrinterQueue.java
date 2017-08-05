@@ -16,7 +16,7 @@ public class PrinterQueue extends Thread {
 
   private Queue<Order> orderQueue;
   private PrinterRepository repository;
-  private boolean alive;
+  public boolean alive;
 
   public PrinterQueue(PrinterRepository repository) {
     this.orderQueue = new LinkedList<>();
@@ -34,6 +34,7 @@ public class PrinterQueue extends Thread {
   }
 
   public synchronized void stopQueue() {
+    close();
     alive = false;
   }
 
@@ -45,12 +46,12 @@ public class PrinterQueue extends Thread {
 
       @Override
       public void error(@NotNull Exception exception) {
-          //TODO MADREMIA
+        //TODO MADREMIA
       }
 
       @Override
       public void orderPrinted(@NotNull Order order) {
-          //TODO OTRA MADREMIA
+        //TODO OTRA MADREMIA
       }
     });
 
@@ -68,6 +69,12 @@ public class PrinterQueue extends Thread {
 
   private synchronized boolean isQueueEmpty() {
     return orderQueue.isEmpty();
+  }
+
+  public synchronized void close() {
+    while (orderQueue.size() > 0) {
+      pollQueueElement();
+    }
   }
 
   @Override

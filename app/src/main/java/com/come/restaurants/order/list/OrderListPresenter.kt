@@ -1,14 +1,12 @@
 package com.come.restaurants.order.list
 
 import com.come.restaurants.BuildConfig
-import com.come.restaurants.DI.DependencyInjector
 import com.come.restaurants.base.MVP
 import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.domain.usecases.GetNewOrder
 import com.come.restaurants.order.domain.usecases.GetOrders
 import com.come.restaurants.order.domain.usecases.PrintOrder
 import com.come.restaurants.printer.domain.usecases.PrintWelcome
-import com.come.restaurants.printer.service.PrinterFactory
 import com.come.restaurants.restaurant.domain.usecases.Close
 import com.come.restaurants.restaurant.domain.usecases.Open
 import com.come.restaurants.restaurant.login.UserProvider
@@ -56,7 +54,7 @@ class OrderListPresenter(val getOrders: GetOrders,
 
       override fun orderReceived(order: Order) {
         show(listOf(order))
-        printOrder.print(order, object : PrintOrder.Callback {
+        /*printOrder.print(order, object : PrintOrder.Callback {
           override fun error(exception: Exception) {
             //TODO error do nothing at the moment
           }
@@ -64,7 +62,7 @@ class OrderListPresenter(val getOrders: GetOrders,
           override fun orderPrinted(order: Order) {
             //TODO order printed do nothing at the moment
           }
-        })
+        })*/
       }
 
     })
@@ -118,8 +116,8 @@ class OrderListPresenter(val getOrders: GetOrders,
     view.showLoader()
     closeRestaurant.close(UserProvider.user, object : Close.Callback {
       override fun success() {
-        PrinterFactory.getPrinter().disconnect()
-        DependencyInjector.stopQueue()
+        //PrinterFactory.getPrinter().disconnect()
+        //DependencyInjector.stopQueue()
         UserProvider.isLogged = false
         view.hideLoader()
         view.close()

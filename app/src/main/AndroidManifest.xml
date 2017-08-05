@@ -39,6 +39,8 @@
                 <action android:name="android.hardware.usb.action.USB_DEVICE_DETACHED"  />
             </intent-filter>
         </receiver>
+
+        <service android:name=".printer.service.PrinterQueueService" />
     </application>
 
 </manifest>
