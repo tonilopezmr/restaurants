@@ -7,8 +7,7 @@ import com.come.restaurants.printer.service.PrinterService
 import com.come.restaurants.printer.service.util.PrinterCommands
 import org.apache.commons.lang3.StringUtils
 import java.text.DateFormat
-import java.util.ArrayList
-import java.util.Date
+import java.util.*
 
 class PrinterRepository(val printerService: PrinterService) {
 
@@ -32,6 +31,9 @@ class PrinterRepository(val printerService: PrinterService) {
           .printLines(orderLines)
 
       if (order.comment.isNotEmpty()) {
+        printerService.feed(PrinterCommands.FeedPaper.FEED_LINE)
+        printerService.printLine("Comentario: ")
+        printerService.feed(PrinterCommands.FeedPaper.FEED_LINE)
         printerService.whiteLines(4)
                 .printLine(stripAccents(order.comment))
       }
