@@ -15,6 +15,7 @@ import com.come.restaurants.order.detail.OrderDetailActivity
 import com.come.restaurants.order.domain.model.Order
 import com.come.restaurants.order.list.ui.OrderListUI
 import com.come.restaurants.order.list.ui.adapter.OrderListAdapter
+import com.come.restaurants.printer.service.PrinterQueueService
 import kotlinx.android.synthetic.main.activity_list.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.setContentView
@@ -38,6 +39,9 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
   }
 
   override fun close() {
+    val intent: Intent = Intent(this, PrinterQueueService::class.java)
+    intent.putExtra("action", PrinterQueueService.CLOSE_SERVICE)
+    startService(intent)
     finish() //at the moment
   }
 
@@ -116,6 +120,9 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
     this.presenter = OrderListPresenter(getOrders, printOrder, printWelcome, getNewOrder)
     this.presenter.setView(this)
     this.presenter.init()
-    DependencyInjector.startQueue()
+    val intent: Intent = Intent(this, PrinterQueueService::class.java)
+    intent.putExtra("action", PrinterQueueService.START_SERVICE)
+    startService(intent)
+    //DependencyInjector.startQueue()
   }
 }

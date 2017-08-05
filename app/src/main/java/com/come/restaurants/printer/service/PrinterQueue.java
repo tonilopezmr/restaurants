@@ -14,6 +14,7 @@ public class PrinterQueue extends Thread {
   public static final int MAX_WAIT_TIME = 3000;
   public static final double SPEED_MODIFICATOR = 0.040;
 
+  private boolean isClosed = false;
   private Queue<Order> orderQueue;
   private PrinterRepository repository;
 
@@ -34,12 +35,12 @@ public class PrinterQueue extends Thread {
 
       @Override
       public void error(@NotNull Exception exception) {
-          //TODO MADREMIA
+        //TODO MADREMIA
       }
 
       @Override
       public void orderPrinted(@NotNull Order order) {
-          //TODO OTRA MADREMIA
+        //TODO OTRA MADREMIA
       }
     });
 
@@ -59,13 +60,20 @@ public class PrinterQueue extends Thread {
     return orderQueue.isEmpty();
   }
 
+  public synchronized void close() {
+    this.isClosed = true;
+    while (orderQueue.size() > 0) {
+      pollQueueElement();
+    }
+  }
+
   @Override
   public void run() {
 
     long waitTime;
     while (true) {
       waitTime = 1000;
-      if (!isQueueEmpty()) {
+      if (!isQueueEmpty() && !isClosed) {
         waitTime = pollQueueElement();
       }
 
