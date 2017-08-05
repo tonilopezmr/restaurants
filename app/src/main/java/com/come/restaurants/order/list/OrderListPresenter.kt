@@ -7,7 +7,6 @@ import com.come.restaurants.order.domain.usecases.GetNewOrder
 import com.come.restaurants.order.domain.usecases.GetOrders
 import com.come.restaurants.order.domain.usecases.PrintOrder
 import com.come.restaurants.printer.domain.usecases.PrintWelcome
-import com.come.restaurants.printer.service.PrinterFactory
 
 
 class OrderListPresenter(val getOrders: GetOrders,
@@ -35,7 +34,7 @@ class OrderListPresenter(val getOrders: GetOrders,
   }
 
   private fun printWelcome() {
-    if(!BuildConfig.DEBUG) {
+    if (!BuildConfig.DEBUG) {
       printWelcome.print()
     }
   }
@@ -48,7 +47,7 @@ class OrderListPresenter(val getOrders: GetOrders,
 
       override fun orderReceived(order: Order) {
         show(listOf(order))
-        printOrder.print(order, object : PrintOrder.Callback {
+        /*printOrder.print(order, object : PrintOrder.Callback {
           override fun error(exception: Exception) {
             //TODO error do nothing at the moment
           }
@@ -56,7 +55,7 @@ class OrderListPresenter(val getOrders: GetOrders,
           override fun orderPrinted(order: Order) {
             //TODO order printed do nothing at the moment
           }
-        })
+        })*/
       }
 
     })
@@ -89,7 +88,6 @@ class OrderListPresenter(val getOrders: GetOrders,
   }
 
   fun close() {
-    PrinterFactory.getPrinter().disconnect()
     view.close()
   }
 
