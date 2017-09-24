@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#5e8077</color>
-    <color name="colorPrimaryDark">#4c6860</color>
-    <color name="colorAccent">#FF9100</color>
+    <color name="colorPrimary">#57A499</color>
+    <color name="colorPrimaryDark">#57A499</color>
+    <color name="colorAccent">#ffffff</color>
     <color name="stroke">#E6E6E6</color>
     <color name="google_login_button">#F44336</color>
 </resources>

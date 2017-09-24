@@ -102,6 +102,7 @@ dependencies {
     compile "org.jetbrains.anko:anko-design:${ankoVersion}"
 
 
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
 
 apply plugin: 'com.google.gms.google-services'  //must be the last one
