@@ -66,6 +66,14 @@ class LoginRestaurantActivity : AppCompatActivity(), View {
         Toast.LENGTH_SHORT).show()
   }
 
+  override fun showLoader() {
+    progressBar.visibility = android.view.View.VISIBLE
+  }
+
+  override fun hideLoader() {
+    progressBar.visibility = android.view.View.GONE
+  }
+
   override fun initUi() {
 
     openButton.setOnClickListener {
