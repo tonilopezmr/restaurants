@@ -7,12 +7,17 @@ import com.come.restaurants.order.domain.usecases.GetNewOrder
 import com.come.restaurants.order.domain.usecases.GetOrders
 import com.come.restaurants.order.domain.usecases.PrintOrder
 import com.come.restaurants.printer.domain.usecases.PrintWelcome
+import com.come.restaurants.restaurant.domain.usecases.Close
+import com.come.restaurants.restaurant.domain.usecases.Open
+import com.come.restaurants.restaurant.login.UserProvider
 
 
 class OrderListPresenter(val getOrders: GetOrders,
                          val printOrder: PrintOrder,
                          val printWelcome: PrintWelcome,
-                         val getNewOrder: GetNewOrder) : MVP.Presenter<OrderListPresenter.View> {
+                         val getNewOrder: GetNewOrder,
+                         val openRestaurant: Open,
+                         val closeRestaurant: Close) : MVP.Presenter<OrderListPresenter.View> {
 
   interface View : MVP.View {
     fun showLoader()
@@ -22,6 +27,8 @@ class OrderListPresenter(val getOrders: GetOrders,
     fun close()
     fun showGetNewOrderError()
     fun showGetOrdersError()
+    fun showErrorCantOpenRestaurant()
+    fun showErrorCantCloseRestaurant()
   }
 
   lateinit private var view: View
@@ -69,6 +76,24 @@ class OrderListPresenter(val getOrders: GetOrders,
     getOrders.getOrders(object : GetOrders.Callback {
       override fun ordersReceived(orders: List<Order>) {
         show(orders)
+        openRestaurant.open(UserProvider.user, object : Open.Callback {
+          override fun success() {
+
+          }
+
+          override fun fail() {
+            openRestaurant.open(UserProvider.user, object : Open.Callback {
+              override fun success() {
+              }
+
+              override fun fail() {
+                view.showErrorCantOpenRestaurant()
+              }
+
+            })
+          }
+
+        })
       }
 
       override fun error(exception: Exception) {
@@ -88,7 +113,21 @@ class OrderListPresenter(val getOrders: GetOrders,
   }
 
   fun close() {
-    view.close()
+    view.showLoader()
+    closeRestaurant.close(UserProvider.user, object : Close.Callback {
+      override fun success() {
+        //PrinterFactory.getPrinter().disconnect()
+        //DependencyInjector.stopQueue()
+        UserProvider.isLogged = false
+        view.hideLoader()
+        view.close()
+      }
+
+      override fun fail() {
+        view.hideLoader()
+        view.showErrorCantCloseRestaurant()
+      }
+    })
   }
 
 }

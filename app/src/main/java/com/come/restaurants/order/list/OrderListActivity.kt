@@ -1,6 +1,7 @@
 package com.come.restaurants.order.list
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -21,6 +22,13 @@ import org.jetbrains.anko.alert
 import org.jetbrains.anko.setContentView
 
 class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
+  override fun showErrorCantOpenRestaurant() {
+    Toast.makeText(applicationContext, getString(R.string.cant_open_restaurant), Toast.LENGTH_SHORT).show()
+  }
+
+  override fun showErrorCantCloseRestaurant() {
+    Toast.makeText(applicationContext, getString(R.string.cant_close_restaurant), Toast.LENGTH_SHORT).show()
+  }
 
   companion object {
     fun launch(activity: Activity) {
@@ -42,6 +50,10 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
     val intent: Intent = Intent(this, PrinterQueueService::class.java)
     intent.putExtra("action", PrinterQueueService.CLOSE_SERVICE)
     startService(intent)
+    val edit = getSharedPreferences("shared", Context.MODE_PRIVATE).edit()
+    edit.remove("name")
+    edit.remove("code")
+    edit.commit()
     finish() //at the moment
   }
 
@@ -116,8 +128,10 @@ class OrderListActivity : AppCompatActivity(), OrderListPresenter.View {
     val printOrder = DependencyInjector.getPrintOrder()
     val printWelcome = DependencyInjector.getWelcome()
     val getNewOrder = DependencyInjector.getNewOrder()
+    val open = DependencyInjector.getOpen()
+    val close = DependencyInjector.getClose()
 
-    this.presenter = OrderListPresenter(getOrders, printOrder, printWelcome, getNewOrder)
+    this.presenter = OrderListPresenter(getOrders, printOrder, printWelcome, getNewOrder, open, close)
     this.presenter.setView(this)
     this.presenter.init()
     val intent: Intent = Intent(this, PrinterQueueService::class.java)

@@ -5,12 +5,14 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.hardware.usb.UsbManager
+import com.come.restaurants.restaurant.login.UserProvider
 
 class PrinterDisconnectedReceiver : BroadcastReceiver() {
 
   override fun onReceive(context: Context, intent: Intent) {
     val action = intent.action
-    if (action == BluetoothDevice.ACTION_ACL_DISCONNECTED || action == UsbManager.ACTION_USB_DEVICE_DETACHED) {
+    if ((action == BluetoothDevice.ACTION_ACL_DISCONNECTED
+        || action == UsbManager.ACTION_USB_DEVICE_DETACHED) && UserProvider.isLogged) {
       launchChoosePairingDevice(context, intent)
     }
   }

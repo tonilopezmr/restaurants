@@ -4,12 +4,20 @@ import com.come.restaurants.menu.Menu
 import com.come.restaurants.restaurant.domain.RestaurantRepository
 import com.come.restaurants.restaurant.domain.model.Restaurant
 import com.come.restaurants.restaurant.domain.usecases.Login
-import java.util.ArrayList
+import java.util.*
 
 
 class StubRestaurantRepository : RestaurantRepository {
+  override fun open(restaurant: Restaurant, success: () -> Unit, fail: () -> Unit) {
 
-  override fun getRestaurant(name: String, passwd: String, callback: Login.Callback) {
+  }
+
+  override fun close(restaurant: Restaurant, success: () -> Unit, fail: () -> Unit) {
+
+  }
+
+
+  override fun login(name: String, passwd: String, callback: Login.Callback) {
     val list = restaurants
         .filter { rest -> rest.password == passwd && rest.name == name }
 

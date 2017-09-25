@@ -41,19 +41,21 @@ class PrinterQueueService : Service() {
     Log.e(TAG, "action received: " + action)
     when (action) {
       START_SERVICE -> {
-        printerQueue.start()
-        DependencyInjector.getNewOrder().get(object : GetNewOrder.Callback {
-          override fun error(exception: Exception) {
+        if (!printerQueue.alive) {
+          printerQueue.start()
+          DependencyInjector.getNewOrder().get(object : GetNewOrder.Callback {
+            override fun error(exception: Exception) {
 
-          }
+            }
 
-          override fun orderReceived(order: Order) {
-            Log.e(TAG, "order received: " + order)
-            printerQueue.add(order)
-          }
+            override fun orderReceived(order: Order) {
+              Log.e(TAG, "order received: " + order)
+              printerQueue.add(order)
+            }
 
-        })
-        startNotification()
+          })
+          startNotification()
+        }
       }
       PRINT_ORDER -> {
         val parcelableExtra = intent.getParcelableExtra<Order>("order")

@@ -35,4 +35,6 @@
     <string name="do_you_want_close">Do you want close the restaurant?</string>
     <string name="close_restaurant">Close Restaurant</string>
     <string name="prompt_reconnect_printer">Do you want to reconnect the printer?</string>
+    <string name="cant_open_restaurant">Can\'t open restaurant, restart app</string>
+    <string name="cant_close_restaurant">Can\'t close restaurant, retry close</string>
 </resources>

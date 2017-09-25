@@ -18,7 +18,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Iterator;
 
-//TODO REMOVE HANDLER AND PERMISSION and get devices
+//TODO REMOVE HANDLER AND PERMISSION and login devices
 public class USBService {
   public static final int USB_ENDPOINT_XFER_BULK = 2;
   public static final int USB_DIR_IN = 128;

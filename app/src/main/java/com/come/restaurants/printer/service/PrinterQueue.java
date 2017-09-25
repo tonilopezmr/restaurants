@@ -14,9 +14,9 @@ public class PrinterQueue extends Thread {
   public static final int MAX_WAIT_TIME = 3000;
   public static final double SPEED_MODIFICATOR = 0.040;
 
-  private boolean isClosed = false;
   private Queue<Order> orderQueue;
   private PrinterRepository repository;
+  public boolean alive;
 
   public PrinterQueue(PrinterRepository repository) {
     this.orderQueue = new LinkedList<>();
@@ -25,6 +25,17 @@ public class PrinterQueue extends Thread {
 
   public synchronized void add(Order order) {
     orderQueue.add(order);
+  }
+
+  @Override
+  public synchronized void start() {
+    super.start();
+    alive = true;
+  }
+
+  public synchronized void stopQueue() {
+    close();
+    alive = false;
   }
 
   private synchronized long pollQueueElement() {
@@ -61,7 +72,6 @@ public class PrinterQueue extends Thread {
   }
 
   public synchronized void close() {
-    this.isClosed = true;
     while (orderQueue.size() > 0) {
       pollQueueElement();
     }
@@ -71,9 +81,9 @@ public class PrinterQueue extends Thread {
   public void run() {
 
     long waitTime;
-    while (true) {
+    while (alive) {
       waitTime = 1000;
-      if (!isQueueEmpty() && !isClosed) {
+      if (!isQueueEmpty()) {
         waitTime = pollQueueElement();
       }
 
