@@ -26,6 +26,8 @@ class LoginRestaurantPresenter(private val login: Login) : MVP.Presenter<LoginRe
   private val TAG = javaClass.canonicalName
 
   interface View : MVP.View {
+    fun showLoader()
+    fun hideLoader()
     fun showConnectionError()
     fun showLoginError()
     fun showNameError()
@@ -69,6 +71,7 @@ class LoginRestaurantPresenter(private val login: Login) : MVP.Presenter<LoginRe
   }
 
   fun signIn(username: String, password: String) {
+    this.view.showLoader()
     this.login.login(username, password, object : Login.Callback {
 
       override fun loginCorrect(restaurant: Restaurant) {
@@ -92,18 +95,22 @@ class LoginRestaurantPresenter(private val login: Login) : MVP.Presenter<LoginRe
 
   fun correctSingIn(restaurant: Restaurant) {
     UserProvider.user = restaurant
+    this.view.hideLoader()
     this.view.moveToChoosePairing()
   }
 
   fun errorSingingIn(exception: Exception) {
+    this.view.hideLoader()
     this.view.showConnectionError()
   }
 
   fun errorWithName() {
+    this.view.hideLoader()
     this.view.showNameError()
   }
 
   fun errorWithPass() {
+    this.view.hideLoader()
     this.view.showCodeError()
   }
 
