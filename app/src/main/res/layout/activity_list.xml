@@ -15,7 +15,6 @@
         android:layout_alignParentBottom="false"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:theme="@style/Progressbar.COME"
         android:visibility="visible"/>
 
     <TextView
