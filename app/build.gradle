@@ -2,8 +2,10 @@ buildscript {
     repositories {
         mavenCentral()
         maven { url "https://jitpack.io" }
+        maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
+        classpath 'io.fabric.tools:gradle:1.24.2'
     }
 }
 
@@ -11,7 +13,11 @@ buildscript {
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.fabric'
 
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
 
 android {
     compileSdkVersion compile_version
@@ -101,8 +107,11 @@ dependencies {
     compile "org.jetbrains.anko:anko-cardview-v7:${ankoVersion}"
     compile "org.jetbrains.anko:anko-design:${ankoVersion}"
 
-
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true;
+    }
 }
 
 apply plugin: 'com.google.gms.google-services'  //must be the last one

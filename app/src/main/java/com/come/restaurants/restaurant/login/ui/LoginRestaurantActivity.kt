@@ -13,12 +13,17 @@ import com.come.restaurants.restaurant.domain.usecases.Login
 import com.come.restaurants.restaurant.persistence.network.FirebaseRestaurantRepository
 import kotlinx.android.synthetic.main.activity_login_restaurant.*
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
+
 class LoginRestaurantActivity : AppCompatActivity(), View {
 
   private lateinit var presenter: LoginRestaurantPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    Fabric.with(this, Crashlytics())
+
     supportActionBar?.hide()
     window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
         WindowManager.LayoutParams.FLAG_FULLSCREEN)
@@ -30,6 +35,11 @@ class LoginRestaurantActivity : AppCompatActivity(), View {
     this.presenter.setView(this)
     this.presenter.init(applicationContext, this)
   }
+
+  fun forceCrash() {
+    throw RuntimeException("This is a crash")
+  }
+
 
   override fun launchSignIn(intent: Intent) {
     startActivityForResult(intent, LoginRestaurantPresenter.RC_SIGN_IN)

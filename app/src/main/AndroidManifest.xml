@@ -41,6 +41,11 @@
         </receiver>
 
         <service android:name=".printer.service.PrinterQueueService" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="7e42c9a5d6fa0efa5126537d3981224371d261fa"
+            />
     </application>
 
 </manifest>
