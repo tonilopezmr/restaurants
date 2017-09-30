@@ -36,11 +36,6 @@ class LoginRestaurantActivity : AppCompatActivity(), View {
     this.presenter.init(applicationContext, this)
   }
 
-  fun forceCrash() {
-    throw RuntimeException("This is a crash")
-  }
-
-
   override fun launchSignIn(intent: Intent) {
     startActivityForResult(intent, LoginRestaurantPresenter.RC_SIGN_IN)
   }
