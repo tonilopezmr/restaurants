@@ -12,7 +12,7 @@ class OrderShould {
   @Test fun `get_correct_price_when_add_plate_once`() {
     val plate = Plate("", "", 1.30, emptyList())
     val orderLine = OrderLine("", plate)
-    val order = Order("", "", 234, listOf(orderLine))
+    val order = Order("", "", 234, "", listOf(orderLine))
 
     assertThat(order.getPrice(), `is`(1.30))
   }
@@ -23,7 +23,7 @@ class OrderShould {
 
     val orderLine1 = OrderLine("", tortilla, 2)
     val orderLine2 = OrderLine("", zumo)
-    val order = Order("", "", 234, listOf(orderLine1, orderLine2))
+    val order = Order("", "", 234,"",listOf(orderLine1, orderLine2))
 
     assertThat(order.getPrice(), `is`(3.55))
   }
