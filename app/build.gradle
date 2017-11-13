@@ -2,9 +2,10 @@ buildscript {
     repositories {
         mavenCentral()
         maven { url "https://jitpack.io" }
+        maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'com.stanfy.spoon:spoon-gradle-plugin:1.2.2'
+        classpath 'io.fabric.tools:gradle:1.24.2'
     }
 }
 
@@ -12,18 +13,28 @@ buildscript {
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'spoon'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion compile_version
     buildToolsVersion build_version
+
     defaultConfig {
         applicationId "com.come.restaurants"
-        minSdkVersion 14
-        targetSdkVersion 25
+        minSdkVersion min_sdk_version
+        targetSdkVersion compile_version
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    lintOptions {
+        abortOnError false
     }
 
     buildTypes {
@@ -39,10 +50,6 @@ android {
     }
 }
 
-spoon {
-    debug = true
-}
-
 configurations.all {
     resolutionStrategy.force "com.android.support:support-annotations:$build_version"
 }
@@ -54,6 +61,8 @@ dependencies {
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
 
     def espressoVersion = "2.2.2"
+    def firebaseVersion = "9.6.1"
+    def ankoVersion = "0.9"
 
     //android test
     androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
@@ -73,15 +82,36 @@ dependencies {
         exclude module: 'support-v4'
         exclude group: 'com.android.support'
     }
-    androidTestCompile 'com.squareup.spoon:spoon-client:1.6.4'
 
     //test
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.10.19'
 
     //dependencies
+    compile 'org.apache.commons:commons-lang3:3.5'
     compile "com.android.support:appcompat-v7:$build_version "
     compile "com.android.support:design:$build_version"
     compile 'com.google.code.gson:gson:2.4'
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.google.guava:guava:20.0'
+    compile "com.android.support:recyclerview-v7:$build_version "
+    compile "com.android.support:cardview-v7:$build_version"
+
+    compile "com.google.firebase:firebase-database:${firebaseVersion}"
+    compile "com.google.firebase:firebase-auth:${firebaseVersion}"
+    compile "com.google.android.gms:play-services-auth:${firebaseVersion}"
+
+    compile "org.jetbrains.anko:anko-sdk15:${ankoVersion}" // sdk19, sdk21, sdk23 are also available
+    compile "org.jetbrains.anko:anko-support-v4:${ankoVersion}" // In case you need support-v4 bindings
+    compile "org.jetbrains.anko:anko-appcompat-v7:${ankoVersion}" // For appcompat-v7 bindings
+    compile "org.jetbrains.anko:anko-recyclerview-v7:${ankoVersion}"
+    compile "org.jetbrains.anko:anko-cardview-v7:${ankoVersion}"
+    compile "org.jetbrains.anko:anko-design:${ankoVersion}"
+
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true;
+    }
 }
+
+apply plugin: 'com.google.gms.google-services'  //must be the last one

@@ -2,19 +2,50 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.come.restaurants">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
     <application
-            android:allowBackup="true"
+            android:allowBackup="false"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".open.restaurant.ui.LoginRestaurantActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".order.list.OrderListActivity"/>
+        <activity android:name=".order.detail.OrderDetailActivity"
+                  android:parentActivityName=".order.list.OrderListActivity"/>
+        <activity android:name=".printer.pairing.bluetooth.BluetoothPairingActivity"
+                  android:parentActivityName=".printer.pairing.ChoosePairingActivity"/>
+        <activity android:name=".printer.pairing.usb.USBPairingActivity"
+                  android:parentActivityName=".printer.pairing.ChoosePairingActivity"/>
+        <activity android:name=".printer.pairing.ChoosePairingActivity" />
+        <activity android:name=".printer.pairing.disconnected.PrinterDisconnectedActivity" />
+
+        <receiver
+            android:name=".printer.pairing.disconnected.PrinterDisconnectedReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.bluetooth.device.action.ACL_DISCONNECTED" />
+                <action android:name="android.hardware.usb.action.USB_DEVICE_DETACHED"  />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".printer.service.PrinterQueueService" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="7e42c9a5d6fa0efa5126537d3981224371d261fa"
+            />
     </application>
 
 </manifest>
